@@ -30,9 +30,9 @@ export async function dashboardRoutes(fastify: FastifyInstance) {
           transactions = dbTx.map(t => ({
             id: t.id,
             title: t.title,
-            author: t.author,
-            authorInitial: (t.author || 'U').charAt(0).toUpperCase(),
-            authorRole: t.authorRole,
+            author: (t as any).paidBy || (t as any).author || 'You',
+            authorInitial: (((t as any).paidBy || (t as any).author || 'U') as string).charAt(0).toUpperCase(),
+            authorRole: (t as any).authorRole || 'partner',
             amount: t.amount
           }));
         }

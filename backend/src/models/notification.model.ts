@@ -54,5 +54,8 @@ export const ActivityNotificationSchema = new Schema<IActivityNotification>({
   timestamp: { type: String, default: () => new Date().toISOString() }
 });
 
+// Notifications lookup and unread filter indexes
+ActivityNotificationSchema.index({ userId: 1, isRead: 1, timestamp: -1 });
+
 export const ActivityNotificationModel = mongoose.model<IActivityNotification>('ActivityNotification', ActivityNotificationSchema);
 

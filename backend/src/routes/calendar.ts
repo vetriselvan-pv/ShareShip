@@ -81,12 +81,12 @@ export async function calendarRoutes(fastify: FastifyInstance) {
         const dbEvents = await CalendarEventModel.find(filter).sort({ date: 1 }).lean();
         
         // Resolve real user names from UserModel
-        const allEventUserIds = Array.from(new Set(dbEvents.map(e => e.userId).filter(Boolean)));
+        const allEventUserIds = Array.from(new Set(dbEvents.map(e => e.userId).filter((id): id is string => Boolean(id))));
         const userMap = new Map<string, string>();
         if (allEventUserIds.length > 0) {
           try {
             const userDocs = await UserModel.find({ userId: { $in: allEventUserIds } }).select('userId name').lean();
-            for (const u of userDocs) {
+            for (const u of userDocs as any[]) {
               if (u.name) userMap.set(u.userId.toLowerCase(), u.name);
             }
           } catch {}

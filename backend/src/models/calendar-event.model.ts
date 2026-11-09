@@ -38,4 +38,8 @@ export const CalendarEventSchema = new Schema<ICalendarEvent>({
   createdAt: { type: Date, default: Date.now }
 });
 
+// Query indexes for date ranges and user events
+CalendarEventSchema.index({ userId: 1, date: 1 });
+CalendarEventSchema.index({ date: 1 });
+
 export const CalendarEventModel = mongoose.model<ICalendarEvent>('CalendarEvent', CalendarEventSchema);

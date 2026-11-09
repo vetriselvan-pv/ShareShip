@@ -15,6 +15,57 @@ dotenv.config();
 
 export let isMongoConnected = false;
 
+let reconnectTimer: NodeJS.Timeout | null = null;
+let reconnectAttempts = 0;
+const MAX_RECONNECT_INTERVAL_MS = 30000;
+
+function scheduleReconnect(uri: string) {
+  if (reconnectTimer || uri.includes('<db_password>')) return;
+  const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), MAX_RECONNECT_INTERVAL_MS);
+  reconnectAttempts++;
+  console.log(`[MongoDB] Reconnection attempt #${reconnectAttempts} scheduled in ${delay / 1000}s...`);
+
+  reconnectTimer = setTimeout(async () => {
+    reconnectTimer = null;
+    try {
+      if (mongoose.connection.readyState === 0) {
+        await mongoose.connect(uri, {
+          dbName: 'Shareship',
+          serverSelectionTimeoutMS: 5000,
+          connectTimeoutMS: 10000
+        });
+      }
+    } catch {
+      scheduleReconnect(uri);
+    }
+  }, delay);
+}
+
+// Global connection event listeners for automatic resilience
+mongoose.connection.on('connected', () => {
+  isMongoConnected = true;
+  reconnectAttempts = 0;
+  if (reconnectTimer) {
+    clearTimeout(reconnectTimer);
+    reconnectTimer = null;
+  }
+  console.log('✓ [MongoDB] Connection established to MongoDB Atlas (Shareship database)');
+});
+
+mongoose.connection.on('disconnected', () => {
+  isMongoConnected = false;
+  console.warn('⚠️ [MongoDB] Disconnected from MongoDB Atlas. Operating with in-memory fallback.');
+  const uri = process.env.MONGODB_URI;
+  if (uri && !uri.includes('<db_password>')) {
+    scheduleReconnect(uri);
+  }
+});
+
+mongoose.connection.on('error', (err) => {
+  isMongoConnected = false;
+  console.error('✘ [MongoDB] Connection error:', err.message);
+});
+
 export async function connectMongoDB(): Promise<boolean> {
   const uri = process.env.MONGODB_URI || 'mongodb+srv://learnerkid_dev:<db_password>@learndev.zitnxvh.mongodb.net/Shareship?retryWrites=true&w=majority';
 

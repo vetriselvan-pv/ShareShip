@@ -102,7 +102,7 @@ export async function connectionRoutes(fastify: FastifyInstance) {
       );
       let status: 'none' | 'pending' | 'connected' = 'none';
       let isRequester = false;
-      if (conn) {
+      if (conn && (conn.status === 'pending' || conn.status === 'connected')) {
         status = conn.status;
         isRequester = conn.requesterUserId === currentUserId;
       }

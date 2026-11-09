@@ -41,4 +41,9 @@ export const ExpenseTransactionSchema = new Schema<IExpenseTransaction>({
   eventTitle: { type: String, default: '' }
 });
 
+// Performance query indexes
+ExpenseTransactionSchema.index({ userId: 1, timestamp: -1 });
+ExpenseTransactionSchema.index({ eventId: 1, expenseType: 1 });
+ExpenseTransactionSchema.index({ timestamp: -1 });
+
 export const ExpenseTransactionModel = mongoose.model<IExpenseTransaction>('ExpenseTransaction', ExpenseTransactionSchema);

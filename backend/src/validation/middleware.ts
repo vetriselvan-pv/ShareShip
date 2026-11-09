@@ -55,8 +55,9 @@ export function validateQuery<T extends ZodTypeAny>(schema: T) {
 }
 
 function formatZodError(error: ZodError) {
-  return error.errors.map(err => ({
-    field: err.path.join('.'),
+  const issues = (error as any).issues || (error as any).errors || [];
+  return issues.map((err: any) => ({
+    field: Array.isArray(err.path) ? err.path.join('.') : '',
     code: err.code,
     message: err.message
   }));

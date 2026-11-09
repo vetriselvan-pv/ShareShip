@@ -50,4 +50,7 @@ export const SharedNoteSchema = new Schema<ISharedNote>({
   accentColor: { type: String, enum: ['golden', 'sage'], default: 'sage' }
 });
 
+// Category and feed ordering indexes
+SharedNoteSchema.index({ category: 1, timestamp: -1 });
+
 export const SharedNoteModel = mongoose.model<ISharedNote>('SharedNote', SharedNoteSchema);

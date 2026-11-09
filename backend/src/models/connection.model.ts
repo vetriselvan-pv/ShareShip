@@ -26,4 +26,9 @@ export const ConnectionSchema = new Schema<IConnection>({
   connectedAt: { type: String }
 });
 
+// Compound and lookup indexes
+ConnectionSchema.index({ requesterUserId: 1, recipientUserId: 1 });
+ConnectionSchema.index({ recipientUserId: 1, status: 1 });
+ConnectionSchema.index({ status: 1 });
+
 export const ConnectionModel = mongoose.model<IConnection>('Connection', ConnectionSchema);
