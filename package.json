@@ -1,0 +1,22 @@
+{
+  "name": "shareship-workspace",
+  "version": "1.0.0",
+  "description": "Shareship — Collaborative Application for Partners & Families",
+  "scripts": {
+    "dev:frontend": "cd frontend && npm start",
+    "dev:backend": "cd backend && npm run dev",
+    "debug:backend": "cd backend && npm run debug",
+    "debug:backend:watch": "cd backend && npm run debug:watch",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "build": "npm run build:frontend && npm run build:backend"
+  },
+  "keywords": [
+    "shareship",
+    "angular",
+    "ionic",
+    "capacitor",
+    "fastify",
+    "realtime-sync"
+  ]
+}

@@ -1,0 +1,234 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --color-surface: #f2fcf5;
+  --color-surface-dim: #d3dcd6;
+  --color-surface-bright: #f2fcf5;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #ecf6f0;
+  --color-surface-container: #e6f0ea;
+  --color-surface-container-high: #e1eae4;
+  --color-surface-container-highest: #dbe5df;
+  --color-on-surface: #151d1a;
+  --color-on-surface-variant: #414844;
+  --color-inverse-surface: #29322e;
+  --color-inverse-on-surface: #e9f3ed;
+  --color-outline: #727974;
+  --color-outline-variant: #c1c8c3;
+  --color-surface-tint: #466557;
+  --color-primary: #466557;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #7a9a8b;
+  --color-on-primary-container: #133126;
+  --color-inverse-primary: #adcebe;
+  --color-secondary: #735c00;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #fed65b;
+  --color-on-secondary-container: #745c00;
+  --color-tertiary: #5f5e5b;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #94938f;
+  --color-on-tertiary-container: #2c2c29;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+  --color-primary-fixed: #c8ead9;
+  --color-primary-fixed-dim: #adcebe;
+  --color-on-primary-fixed: #012016;
+  --color-on-primary-fixed-variant: #2f4d40;
+  --color-secondary-fixed: #ffe088;
+  --color-secondary-fixed-dim: #e9c349;
+  --color-on-secondary-fixed: #241a00;
+  --color-on-secondary-fixed-variant: #574500;
+  --color-tertiary-fixed: #e5e2dd;
+  --color-tertiary-fixed-dim: #c8c6c2;
+  --color-on-tertiary-fixed: #1c1c19;
+  --color-on-tertiary-fixed-variant: #474743;
+  --color-background: #f2fcf5;
+  --color-on-background: #151d1a;
+  --color-surface-variant: #dbe5df;
+
+  --radius-sm: 0.25rem;
+  --radius-DEFAULT: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  --spacing-gutter: 1rem;
+  --spacing-margin: 1.5rem;
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.5rem;
+}
+
+:root {
+  --shareship-surface: #f2fcf5;
+  --shareship-primary: #466557;
+  --shareship-primary-container: #7a9a8b;
+  --shareship-on-primary: #ffffff;
+  --shareship-surface-container-low: #ecf6f0;
+  --shareship-surface-container: #e6f0ea;
+  --shareship-surface-container-highest: #dbe5df;
+  --shareship-on-surface: #151d1a;
+  --shareship-outline: #727974;
+
+}
+
+html, body {
+  background-color: #f2fcf5;
+  color: #151d1a;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom micro-animations & smooth transitions */
+.fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Subtle live pulse animation */
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.75;
+  }
+}
+
+.live-pulse {
+  animation: pulseGlow 2.4s ease-in-out infinite;
+}
+
+/* Safe area support for native Capacitor iOS & Android */
+.safe-top {
+  padding-top: max(env(safe-area-inset-top), 0.75rem);
+}
+
+.safe-bottom {
+  padding-bottom: max(env(safe-area-inset-bottom), 0.75rem);
+}
+
+/* Ensure all Angular custom component tags behave as full-width block elements */
+app-root,
+app-dashboard,
+app-login-screen,
+app-calendar-gifts,
+app-gifts-registry,
+app-notifications,
+app-expenses,
+app-workspace-notes,
+app-top-bar,
+app-event-hero-card,
+app-shared-expenses-widget,
+app-gift-tracker-widget,
+app-date-night-jar,
+app-bottom-nav,
+app-partner-card,
+app-auth-switcher,
+app-form-input,
+app-sync-modal,
+app-calendar-stats-card,
+app-calendar-month-widget,
+app-selected-events-card,
+app-registry-section,
+app-sync-banner,
+app-add-event-modal,
+app-add-friend-card,
+app-pending-requests-card,
+app-notifications-feed,
+app-spend-summary-card,
+app-category-cards-grid,
+app-recent-transactions-list,
+app-event-expenses-list,
+app-add-expense-modal,
+app-live-scratchpad-hero,
+app-notes-filter-chips,
+app-notes-cards-feed,
+app-new-note-modal {
+  display: block;
+  width: 100%;
+}
+
+/* ========================================================
+   Smooth Page & Menu Navigation Transitions
+   ======================================================== */
+
+/* View Transitions API (Chrome, Edge, Safari 18+) */
+::view-transition-old(root) {
+  animation: 160ms cubic-bezier(0.4, 0, 1, 1) both pageFadeOut;
+}
+
+::view-transition-new(root) {
+  animation: 240ms cubic-bezier(0, 0, 0.2, 1) both pageFadeIn;
+}
+
+::view-transition-old(persistent-bottom-nav),
+::view-transition-new(persistent-bottom-nav),
+::view-transition-old(persistent-top-bar),
+::view-transition-new(persistent-top-bar) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@keyframes pageFadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.99) translateY(-4px);
+  }
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.99) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Smooth page entrance animation fallback */
+@supports not (view-transition-name: root) {
+  app-dashboard,
+  app-calendar-gifts,
+  app-gifts-registry,
+  app-expenses,
+  app-workspace-notes,
+  app-notifications,
+  app-login-screen {
+    animation: pageFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    will-change: opacity, transform;
+  }
+}

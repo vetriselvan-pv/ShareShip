@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {"colors": {"on-primary-container": "#133126", "surface-container-highest": "#dbe5df", "secondary-container": "#fed65b", "tertiary": "#5f5e5b", "inverse-on-surface": "#e9f3ed", "surface-variant": "#dbe5df", "surface": "#f2fcf5", "on-error-container": "#93000a", "surface-container-high": "#e1eae4", "on-secondary-fixed": "#241a00", "surface-dim": "#d3dcd6", "outline-variant": "#c1c8c3", "on-tertiary-fixed": "#1c1c19", "inverse-surface": "#29322e", "surface-container-lowest": "#ffffff", "primary-fixed": "#c8ead9", "on-secondary-container": "#745c00", "surface-bright": "#f2fcf5", "inverse-primary": "#adcebe", "tertiary-container": "#94938f", "primary-container": "#7a9a8b", "on-primary-fixed": "#012016", "on-tertiary-container": "#2c2c29", "primary": "#466557", "outline": "#727974", "on-tertiary": "#ffffff", "on-error": "#ffffff", "surface-tint": "#466557", "on-primary-fixed-variant": "#2f4d40", "background": "#f2fcf5", "secondary": "#735c00", "on-tertiary-fixed-variant": "#474743", "surface-container": "#e6f0ea", "tertiary-fixed-dim": "#c8c6c2", "on-background": "#151d1a", "on-secondary": "#ffffff", "error": "#ba1a1a", "primary-fixed-dim": "#adcebe", "surface-container-low": "#ecf6f0", "tertiary-fixed": "#e5e2dd", "error-container": "#ffdad6", "secondary-fixed": "#ffe088", "on-primary": "#ffffff", "on-surface": "#151d1a", "on-surface-variant": "#414844", "on-secondary-fixed-variant": "#574500", "secondary-fixed-dim": "#e9c349"}, "borderRadius": {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"}, "spacing": {"space-lg": "1.5rem", "margin": "1.5rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-md": "1rem", "space-xl": "2.5rem", "gutter": "1rem"}}}};</script><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-['Plus_Jakarta_Sans'] flex flex-col text-on-surface"><header class="fixed top-0 inset-x-0 z-50 bg-surface/80 backdrop-blur-xl pt-safe"><div class="h-16 px-space-md flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="Shareship Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XfSOgr6-hPArG-kXbdf1KKeAdD-jeb7TrZxhV4Y_UMl0hxTHU3GfGUHEqmdJAvBlVNr0K6nKHEQM47OMrs8PPlqlCzB3bpw_BSEqsC_zfmKvVi3jBmQlMeiSM1xK7b2Ngw_sqZc4ARzyptrv1HGoOSHG8w8pO2hppwNhT7o9N7yxbSCl8m69Wj6eD1WX7TUM9Difxx4wNE-QBY8G0UVUgO-41m7VqMF3Tq6qvG-HhSwg"/><div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-1 rounded-full"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="text-label-sm text-on-surface-variant">Synced</span></div></div><div class="flex items-center gap-space-sm"><button class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined">notifications</span></button><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFILh_-MbTQxqajs_VZQrPdexwNf-9eBKVFBum-5zwlTamCxjRFMP9lSe4TODrJvSY_Sugd2v1fIIcI02xINfFwmy0I1If2BfgGMZShs75zadqKZbG4vVXGJo_sy9JDFIDmZl_vHzQ2hJ-4Ca-gNOd7ws9GGOfO0a05db3RQCnTE9_XCc0uSJdjKqtXfp2QjBC02BLAJ_4SVMjyqTNPB0D3iiUdp_3c6d4BVn9-3Mg"/></div></div></header><main class="flex flex-col relative w-full px-space-md pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full pb-8">
+<!-- Top Greeting & Quick Stats Banner -->
+<div class="flex flex-col gap-space-sm mb-space-md">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-headline-lg-mobile text-on-surface">Our Shared Purse</h2>
+<p class="font-body-md text-on-surface-variant">Balancing life with Alex, gently &amp; fairly.</p>
+</div>
+<button class="bg-secondary-container text-on-secondary-container px-space-md py-2 rounded-full font-label-md flex items-center gap-space-xs shadow-sm hover:scale-[1.02] transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+        Add Expense
+      </button>
+</div>
+
+    {/* Total Spending &amp; Split Summary Card */}
+    <div class="bg-surface-container-high rounded-xl p-space-md flex flex-col gap-space-md shadow-sm relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex justify-between items-start">
+<div>
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider">Total This Month</span>
+<div class="font-headline-lg text-on-surface">$2,450.00</div>
+</div>
+<div class="bg-primary text-on-primary px-space-sm py-1 rounded-full font-label-sm flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">balance</span>
+<span>Settled Up</span>
+</div>
+</div>
+
+      {/* Progress Bar Who Paid */}
+      <div class="flex flex-col gap-space-xs">
+<div class="flex justify-between font-body-sm text-on-surface-variant">
+<span>You ($1,320)</span>
+<span>Alex ($1,130)</span>
+</div>
+<div class="h-3 w-full bg-surface-container-highest rounded-full overflow-hidden flex">
+<div class="bg-primary h-full transition-all duration-500 rounded-l-full" style="width: 54%;"></div>
+<div class="bg-secondary-fixed-dim h-full transition-all duration-500 rounded-r-full" style="width: 46%;"></div>
+</div>
+<div class="flex justify-between font-label-sm text-on-surface-variant mt-1">
+<span class="text-primary font-semibold">54% paid</span>
+<span class="text-secondary-fixed-variant font-semibold">46% paid</span>
+</div>
+</div>
+</div>
+</div>
+
+  {/* Tabs Switcher */}
+  <div class="flex bg-surface-container rounded-xl p-1 mb-space-md">
+<button class="flex-1 py-2 text-center rounded-lg font-label-md transition-all bg-primary text-on-primary shadow-sm" id="tab-monthly" onclick="switchTab('monthly')">
+      Monthly Expenses
+    </button>
+<button class="flex-1 py-2 text-center rounded-lg font-label-md transition-all text-on-surface-variant hover:text-on-surface" id="tab-events" onclick="switchTab('events')">
+      Event-Specific
+    </button>
+</div>
+
+  {/* Monthly Expenses View */}
+  <div class="flex flex-col gap-space-md" id="view-monthly">
+    {/* Category Cards Grid */}
+    <div class="grid grid-cols-2 gap-space-sm">
+      {/* Dining */}
+      <div class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between gap-space-sm shadow-sm hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined">restaurant</span>
+</div>
+<span class="font-label-sm text-on-surface-variant">Dining</span>
+</div>
+<div>
+<div class="font-headline-sm text-on-surface">$680.50</div>
+<div class="font-body-sm text-on-surface-variant">14 transactions</div>
+</div>
+</div>
+
+      {/* Travel */}
+      <div class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between gap-space-sm shadow-sm hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined">flight</span>
+</div>
+<span class="font-label-sm text-on-surface-variant">Travel</span>
+</div>
+<div>
+<div class="font-headline-sm text-on-surface">$950.00</div>
+<div class="font-body-sm text-on-surface-variant">3 bookings</div>
+</div>
+</div>
+
+      {/* Gifts */}
+      <div class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between gap-space-sm shadow-sm hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined">card_giftcard</span>
+</div>
+<span class="font-label-sm text-on-surface-variant">Gifts</span>
+</div>
+<div>
+<div class="font-headline-sm text-on-surface">$240.00</div>
+<div class="font-body-sm text-on-surface-variant">2 items</div>
+</div>
+</div>
+
+      {/* Utilities */}
+      <div class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between gap-space-sm shadow-sm hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<span class="font-label-sm text-on-surface-variant">Utilities</span>
+</div>
+<div>
+<div class="font-headline-sm text-on-surface">$579.50</div>
+<div class="font-body-sm text-on-surface-variant">5 bills paid</div>
+</div>
+</div>
+</div>
+
+    {/* Recent Transactions List */}
+    <div class="flex flex-col gap-space-sm mt-space-sm">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-on-surface">Recent Activity</h3>
+<button class="font-label-sm text-primary hover:underline">View All</button>
+</div>
+<div class="flex flex-col gap-space-xs">
+        {/* Transaction 1 */}
+        <div class="bg-surface-container-low p-space-sm rounded-xl flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined">coffee</span>
+</div>
+<div>
+<div class="font-label-md text-on-surface">Artisan Cafe Brunch</div>
+<div class="font-body-sm text-on-surface-variant">Paid by You • Dining</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-label-md text-on-surface">$45.00</div>
+<div class="font-body-sm text-primary">Split 50/50</div>
+</div>
+</div>
+
+        {/* Transaction 2 */}
+        <div class="bg-surface-container-low p-space-sm rounded-xl flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div>
+<div class="font-label-md text-on-surface">Electric &amp; Water Bill</div>
+<div class="font-body-sm text-on-surface-variant">Paid by Alex • Utilities</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-label-md text-on-surface">$185.20</div>
+<div class="font-body-sm text-secondary-fixed-variant">Alex owes $92.60</div>
+</div>
+</div>
+
+        {/* Transaction 3 */}
+        <div class="bg-surface-container-low p-space-sm rounded-xl flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined">local_florist</span>
+</div>
+<div>
+<div class="font-label-md text-on-surface">Anniversary Bouquet</div>
+<div class="font-body-sm text-on-surface-variant">Paid by You • Gifts</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-label-md text-on-surface">$95.00</div>
+<div class="font-body-sm text-primary">Covered by You</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+  {/* Event-Specific Expenses View (Hidden by default) */}
+  <div class="hidden flex-col gap-space-md" id="view-events">
+<div class="grid grid-cols-1 gap-space-sm">
+      {/* Event Card 1 */}
+      <div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm flex flex-col">
+<div class="h-32 bg-cover bg-center relative p-space-md flex flex-col justify-end" data-alt="A sun-drenched coastal villa overlooking a turquoise ocean during golden hour, surrounded by lush green palm fronds and warm terracotta architecture, creating a peaceful and inviting vacation ambiance." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAzpmKmcfdJOSE3uNYHaPGlODUDptL4Q2AH-YtIugwyWcSJEpXAuj1cPKwQ3HdNwVNu_qWXwLK98KPX48d4GpmcBIiOX6Ps1xYO6AdaZdY8jD97MAAhe3wOm_2ra-3HlbAwi-3iZIe5nkpf_kaflq0h3opewcwTU1HZOdPMeLY5QhVk404DmkzddqJPeb03pfuQgLGGcZNHONwy0FITUM4T3Y8ToChUdkP7sm3gEvcX')">
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 via-on-surface/20 to-transparent"></div>
+<div class="relative z-10 flex justify-between items-end">
+<div>
+<span class="bg-secondary text-on-secondary px-2 py-0.5 rounded-full font-label-sm">Active Trip</span>
+<h4 class="font-headline-sm text-inverse-on-surface mt-1">Summer Amalfi Getaway</h4>
+</div>
+<div class="text-right">
+<span class="font-body-sm text-inverse-on-surface/80">Spent</span>
+<div class="font-headline-sm text-inverse-on-surface">$1,840</div>
+</div>
+</div>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm">
+<div class="flex justify-between text-body-md text-on-surface-variant">
+<span>Budget: $2,000</span>
+<span class="text-primary font-semibold">$160 left</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 92%;"></div>
+</div>
+<div class="flex justify-between items-center pt-2">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-surface object-cover" data-alt="Warm smiling portrait of a young woman with gentle eyes and soft lighting, wearing casual sage green attire." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIlJWZIIQhJVqGoGkTRyNEuoFrbp8HrZDl_zKfgnlg0eIEyvns1ge32n1EtXgksvcJCTMis581KG2JlMX720vsGinbcvGSozWou95LC6e0gqFSU1tODeqZGcqZRpcHmVIP3NPao36C1PP401Syzla48rEHlV18hHaQ336q2KgyG8_gswpj40OQ1bkqUp5vx0TzxwZrFszdI9kF-OFshXdoJEFJ-RyvWFQBx560m-d6"/>
+<img class="w-8 h-8 rounded-full border-2 border-surface object-cover" data-alt="Portrait of a cheerful man with a friendly smile and warm natural lighting in a cozy home setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdn4R5X1nFfO61X0Zil79kmOQHXAuGtydFwcG0plVCHz7ZaproPgJNf6y35a8N7eUFbvGR5zO97MNfcW5vDaHihehDgvNwP2U-eKM2F5fO2gYy1hiwiNyKioUz5lI6PiDW9bpgJY6On8ddRkDV1WUu0PKuOBthlToWbPVGkPiU9t4XBXZLGJ3__YxCZPe9xn8t74QEaOwexYioRxwJpxY5-3j9yReNSTMaU97Reoix"/>
+</div>
+<button class="bg-surface-container text-on-surface px-space-md py-1.5 rounded-full font-label-md hover:bg-surface-container-highest transition-all">Manage Event</button>
+</div>
+</div>
+</div>
+
+      {/* Event Card 2 */}
+      <div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm flex flex-col">
+<div class="h-32 bg-cover bg-center relative p-space-md flex flex-col justify-end" data-alt="A festive birthday dinner table setup with warm fairy lights, flickering candles, a delicate cake with glowing candles, and crystal glassware on a rustic wooden surface." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAqr6A32CxIrC_ozu-zX_mnJxSWZAW3cvKrBsIgvo9g2hIUra_IEQVP17UyDjCaV-h_ADFxbIB9gS85Pd8FoKarlAeLVYPeiZWX76CnOAC7IObwSYj-t70p3gms3Xk7VEN8EIuNkjJes2biduiJQRoj7t7smrV3GkJyVgvg75_PtbfD8BIhxhMkjrsVjKmpla_9MR5kCzJd-W3QIHYvedRaIryhMReQ2AI5ykljzJHI')">
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 via-on-surface/20 to-transparent"></div>
+<div class="relative z-10 flex justify-between items-end">
+<div>
+<span class="bg-primary-container text-on-primary-container px-2 py-0.5 rounded-full font-label-sm">Completed</span>
+<h4 class="font-headline-sm text-inverse-on-surface mt-1">Mom's 60th Birthday Party</h4>
+</div>
+<div class="text-right">
+<span class="font-body-sm text-inverse-on-surface/80">Spent</span>
+<div class="font-headline-sm text-inverse-on-surface">$620</div>
+</div>
+</div>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm">
+<div class="flex justify-between text-body-md text-on-surface-variant">
+<span>Budget: $600</span>
+<span class="text-error font-semibold">$20 over</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 100%;"></div>
+</div>
+<div class="flex justify-between items-center pt-2">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-surface object-cover" data-alt="Warm smiling portrait of a young woman with gentle eyes and soft lighting, wearing casual sage green attire." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADcp1gJbZuyahx19m2y4OGGRfiP8PwNkytLBTWhQMdjNdU6RwFngvYTw4OBqO0AMliRGRfpC4r364qDYYFEXjjo9Oxdnae-Ng-0Bfh--J1b3r-IfXt84Co9yFSld4IkAcrulYR9iJ-hlWRw3fHtPClscpFU88TPsEHf1WrkbG6sRoOvwhGlkKnvNogirKl4lC1tbVhHhQGpazBgJhmfcfmOLZiz9FPw7jt9zxhQ5A_"/>
+<img class="w-8 h-8 rounded-full border-2 border-surface object-cover" data-alt="Portrait of a cheerful man with a friendly smile and warm natural lighting in a cozy home setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOG5X6nJsPMG8cZJMILnQfg-c4KxXn6ksdO4b0e6eK73hM42IUAdJPQolU3YnrY4MNWuTqKuSOqlZazDz5whnHVKbfeEDWCVPw2Vd7vGvvlHW-AGPvaDWVIkuD3vpPlmUKwv40qdgO0zQRvtMrwsIBd_UYBj6DBBeWl7OhiWs3nr_J7B5NpD1aXgfi0JT7w0Omy1j0av_Mc6jCXs6UGbhLNQ3-o1JMHtUxrO7pKj_U"/>
+</div>
+<button class="bg-surface-container text-on-surface px-space-md py-1.5 rounded-full font-label-md hover:bg-surface-container-highest transition-all">View Summary</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    function switchTab(tab) {
+      const btnMonthly = document.getElementById('tab-monthly');
+      const btnEvents = document.getElementById('tab-events');
+      const viewMonthly = document.getElementById('view-monthly');
+      const viewEvents = document.getElementById('view-events');
+
+      if (tab === 'monthly') {
+        btnMonthly.className = 'flex-1 py-2 text-center rounded-lg font-label-md transition-all bg-primary text-on-primary shadow-sm';
+        btnEvents.className = 'flex-1 py-2 text-center rounded-lg font-label-md transition-all text-on-surface-variant hover:text-on-surface';
+        viewMonthly.classList.remove('hidden');
+        viewMonthly.classList.add('flex');
+        viewEvents.classList.remove('flex');
+        viewEvents.classList.add('hidden');
+      } else {
+        btnEvents.className = 'flex-1 py-2 text-center rounded-lg font-label-md transition-all bg-primary text-on-primary shadow-sm';
+        btnMonthly.className = 'flex-1 py-2 text-center rounded-lg font-label-md transition-all text-on-surface-variant hover:text-on-surface';
+        viewEvents.classList.remove('hidden');
+        viewEvents.classList.add('flex');
+        viewMonthly.classList.remove('flex');
+        viewMonthly.classList.add('hidden');
+      }
+    }
+  </script>
+</div></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface/90 backdrop-blur-xl" data-active-classes="bg-primary-container text-on-primary-container font-semibold"><div class="flex justify-around items-center h-20 px-space-sm"><a class="flex flex-col items-center justify-center gap-space-xs w-16 h-16 text-on-surface-variant transition-all rounded-xl" data-path="home" href="#"><span class="material-symbols-outlined">home</span><span class="text-label-sm">Home</span></a><a class="flex flex-col items-center justify-center gap-space-xs w-16 h-16 text-on-surface-variant transition-all rounded-xl" data-path="calendar" href="#"><span class="material-symbols-outlined">calendar_month</span><span class="text-label-sm">Calendar</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-space-xs w-16 h-16 transition-all rounded-xl bg-primary-container text-on-primary-container font-semibold" data-path="expenses" href="#"><span class="material-symbols-outlined">payments</span><span class="text-label-sm">Expenses</span></a><a class="flex flex-col items-center justify-center gap-space-xs w-16 h-16 text-on-surface-variant transition-all rounded-xl" data-path="notes" href="#"><span class="material-symbols-outlined">description</span><span class="text-label-sm">Notes</span></a></div></nav></body></html>

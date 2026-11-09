@@ -1,0 +1,31 @@
+{
+  "name": "shareship-backend",
+  "version": "1.0.0",
+  "description": "Shareship real-time synchronization backend for couples and family partners",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "debug": "node --inspect --import tsx src/index.ts",
+    "debug:watch": "tsx watch --inspect src/index.ts"
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.1",
+    "@fastify/websocket": "^11.0.0",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.9",
+    "fastify": "^5.0.0",
+    "mongoose": "^9.11.4",
+    "ws": "^8.18.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^22.10.1",
+    "@types/ws": "^8.5.13",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

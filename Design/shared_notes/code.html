@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {"colors": {"on-primary-container": "#133126", "surface-container-highest": "#dbe5df", "secondary-container": "#fed65b", "tertiary": "#5f5e5b", "inverse-on-surface": "#e9f3ed", "surface-variant": "#dbe5df", "surface": "#f2fcf5", "on-error-container": "#93000a", "surface-container-high": "#e1eae4", "on-secondary-fixed": "#241a00", "surface-dim": "#d3dcd6", "outline-variant": "#c1c8c3", "on-tertiary-fixed": "#1c1c19", "inverse-surface": "#29322e", "surface-container-lowest": "#ffffff", "primary-fixed": "#c8ead9", "on-secondary-container": "#745c00", "surface-bright": "#f2fcf5", "inverse-primary": "#adcebe", "tertiary-container": "#94938f", "primary-container": "#7a9a8b", "on-primary-fixed": "#012016", "on-tertiary-container": "#2c2c29", "primary": "#466557", "outline": "#727974", "on-tertiary": "#ffffff", "on-error": "#ffffff", "surface-tint": "#466557", "on-primary-fixed-variant": "#2f4d40", "background": "#f2fcf5", "secondary": "#735c00", "on-tertiary-fixed-variant": "#474743", "surface-container": "#e6f0ea", "tertiary-fixed-dim": "#c8c6c2", "on-background": "#151d1a", "on-secondary": "#ffffff", "error": "#ba1a1a", "primary-fixed-dim": "#adcebe", "surface-container-low": "#ecf6f0", "tertiary-fixed": "#e5e2dd", "error-container": "#ffdad6", "secondary-fixed": "#ffe088", "on-primary": "#ffffff", "on-surface": "#151d1a", "on-surface-variant": "#414844", "on-secondary-fixed-variant": "#574500", "secondary-fixed-dim": "#e9c349"}, "borderRadius": {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"}, "spacing": {"space-lg": "1.5rem", "margin": "1.5rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-md": "1rem", "space-xl": "2.5rem", "gutter": "1rem"}}}};</script><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-['Plus_Jakarta_Sans'] flex flex-col text-on-surface"><header class="fixed top-0 inset-x-0 z-50 bg-surface/80 backdrop-blur-xl pt-safe"><div class="h-16 px-space-md flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="Shareship Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XfSOgr6-hPArG-kXbdf1KKeAdD-jeb7TrZxhV4Y_UMl0hxTHU3GfGUHEqmdJAvBlVNr0K6nKHEQM47OMrs8PPlqlCzB3bpw_BSEqsC_zfmKvVi3jBmQlMeiSM1xK7b2Ngw_sqZc4ARzyptrv1HGoOSHG8w8pO2hppwNhT7o9N7yxbSCl8m69Wj6eD1WX7TUM9Difxx4wNE-QBY8G0UVUgO-41m7VqMF3Tq6qvG-HhSwg"/><div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-1 rounded-full"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="text-label-sm text-on-surface-variant">Synced</span></div></div><div class="flex items-center gap-space-sm"><button class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined">notifications</span></button><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFILh_-MbTQxqajs_VZQrPdexwNf-9eBKVFBum-5zwlTamCxjRFMP9lSe4TODrJvSY_Sugd2v1fIIcI02xINfFwmy0I1If2BfgGMZShs75zadqKZbG4vVXGJo_sy9JDFIDmZl_vHzQ2hJ-4Ca-gNOd7ws9GGOfO0a05db3RQCnTE9_XCc0uSJdjKqtXfp2QjBC02BLAJ_4SVMjyqTNPB0D3iiUdp_3c6d4BVn9-3Mg"/></div></div></header><main class="flex flex-col relative w-full px-space-md pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full pb-16">
+<!-- Top Greeting & Quick Stats Section -->
+<div class="flex flex-col mb-space-lg">
+<div class="flex items-center justify-between mb-space-xs">
+<div>
+<h2 class="font-headline-lg-mobile text-on-surface">Shared Workspace</h2>
+<p class="font-body-md text-on-surface-variant">Live collaborative notes for home &amp; heart</p>
+</div>
+<button class="flex items-center justify-center w-11 h-11 rounded-full bg-primary-container text-on-primary-container shadow-sm hover:scale-105 transition-transform" onclick="openNewNoteModal()">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<!-- Collaborative Scratchpad Hero Card -->
+<div class="flex flex-col bg-primary text-on-primary rounded-xl p-space-lg shadow-md relative overflow-hidden mb-space-lg">
+<div class="absolute -right-10 -bottom-10 w-40 h-40 bg-secondary-container/20 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-md">
+<span class="material-symbols-outlined text-sm">edit_note</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-on-primary">Live Scratchpad</h3>
+<p class="font-body-sm text-primary-fixed-dim">Shared thoughts happening right now</p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs bg-on-primary-fixed-variant/40 px-3 py-1 rounded-full">
+<span class="w-2 h-2 rounded-full bg-secondary-container animate-ping"></span>
+<span class="font-label-sm text-secondary-fixed">Live Edit</span>
+</div>
+</div>
+<!-- Scratchpad Textarea Simulation -->
+<div class="bg-surface-container-low/10 rounded-lg p-space-md backdrop-blur-sm mb-space-md">
+<p class="font-body-lg text-surface mb-space-sm">✨ Remember to pick up extra rosemary for Sunday roast! Also, check flight prices to Porto for our anniversary trip.</p>
+<div class="flex items-center justify-between pt-2">
+<div class="flex items-center gap-space-xs">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Portrait of a smiling woman with warm brown hair and a cozy cream sweater, studio lighting, soft focus background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8fD11WJEaBEpQ5jZhpxNayIzioYPm-_j2RetHeIadvI96NkQeUjuyTjhrMtDPo2XB927OUkef8D5l1oOJ2Ow2VC8DRy4sp1pWuoklg5zNTMXVINl2Qc-O70wJFdKvoq3mllXLUrTauYGygk9MSaf5Jvou-x7HwSd2BA-G_I09PpvqkwOek1hZdd8djJqIV2PtrIoQMcyEIDBGwni-esz6zjhN_hd8S2dik-2erXUx"/>
+<span class="font-body-sm text-primary-fixed-dim">Elena edited 2m ago</span>
+</div>
+<span class="font-label-sm text-secondary-fixed bg-secondary/30 px-2 py-0.5 rounded">Saved</span>
+</div>
+</div>
+<!-- Active Collaborators Bar -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center -space-x-2">
+<img class="w-8 h-8 rounded-full object-cover ring-2 ring-primary" data-alt="Portrait of a smiling woman with warm brown hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_-6bSbjeAInmZJUJExNbcBfHqik6UNaWBLmxwCjGu8i1b2dtGvB-OpP6GlTwZT900e0P89hFyOsRrZ1x9X6u0dI3g848Ug9LLmGH7VxHGvV4ghvufkBL248Scjfm4Ge7now68v4gzWJ4NJRUEPdr_R-8_APM0ET1ir9eqDNFOCDLUN2PfPvWcRlfOjKmedOPpwUl6RRER44Vv6cin-lfKUOXywHaxiTea16a5LRzT"/>
+<img class="w-8 h-8 rounded-full object-cover ring-2 ring-primary" data-alt="Portrait of a cheerful man with short beard and friendly smile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVZ5KnkTdKe1zYnbzSDbvvshcWbV_NJlBfM7E5ox_dVNm6OWwHqsZxhTPPPgiPLes4JR2qGt8BM8euh6iMJKLEBXXF4oMJQQ_FFGWEtT7VmzV_0vhyJrgPC-kM-oKc1UUa2uXiICb0l5CUV7cuJbo8CDDlFN02EpUMZ527kxPX8Kl49LeOJijW4iXEUm09bzeMPhyCn1inK52iuEqmvpGSJGee2lwKDVKv3dqSm9HR"/>
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-label-sm ring-2 ring-primary">+1</div>
+</div>
+<button class="text-label-md text-secondary-fixed hover:underline flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-sm">history</span> History
+      </button>
+</div>
+</div>
+<!-- Filter Category Chips -->
+<div class="flex items-center gap-space-sm overflow-x-auto pb-space-sm mb-space-md no-scrollbar">
+<button class="px-space-md py-2 rounded-full bg-primary text-on-primary font-label-md shadow-sm whitespace-nowrap">All Notes (12)</button>
+<button class="px-space-md py-2 rounded-full bg-surface-container text-on-surface-variant font-label-md whitespace-nowrap hover:bg-surface-container-high transition-colors">🎁 Gift Ideas</button>
+<button class="px-space-md py-2 rounded-full bg-surface-container text-on-surface-variant font-label-md whitespace-nowrap hover:bg-surface-container-high transition-colors">👥 Guest Lists</button>
+<button class="px-space-md py-2 rounded-full bg-surface-container text-on-surface-variant font-label-md whitespace-nowrap hover:bg-surface-container-high transition-colors">✅ To-Dos</button>
+<button class="px-space-md py-2 rounded-full bg-surface-container text-on-surface-variant font-label-md whitespace-nowrap hover:bg-surface-container-high transition-colors">🍳 Recipes</button>
+</div>
+<!-- Notes Cards Grid -->
+<div class="flex flex-col gap-space-md">
+<!-- Gift Ideas Note Card -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-2 h-full bg-secondary-container"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="p-2 rounded-lg bg-secondary-container text-on-secondary-container material-symbols-outlined">redeem</span>
+<span class="font-label-sm text-secondary uppercase tracking-wider font-bold">Gift Ideas</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<h3 class="font-headline-sm text-on-surface mb-space-xs">Mom &amp; Dad's 40th Anniversary</h3>
+<p class="font-body-md text-on-surface-variant mb-space-md line-clamp-2">Custom photo album of the last 10 family vacations, or maybe booking that weekend wine tasting tour in Napa valley they've wanted.</p>
+<!-- Checklist Preview inside card -->
+<div class="flex flex-col gap-2 mb-space-md bg-surface p-space-sm rounded-lg">
+<label class="flex items-center gap-space-sm cursor-pointer">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary accent-[#466557]" type="checkbox"/>
+<span class="font-body-sm line-through text-on-surface-variant">Collect photos from siblings</span>
+</label>
+<label class="flex items-center gap-space-sm cursor-pointer">
+<input class="w-4 h-4 rounded text-primary focus:ring-primary accent-[#466557]" type="checkbox"/>
+<span class="font-body-sm text-on-surface">Research Napa winery packages</span>
+</label>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-variant/20">
+<div class="flex items-center gap-space-xs">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Portrait of a smiling woman with warm brown hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVvRvvYQhPlZ0AXHglXtzIfjm_Hz8qXOW-jGbesGaGpI0_QRyaIgvgKjw0Ep3ksb2ExqFvNj0eGmAn0yruW1PdR8K-oqITzV6NUwFH-qjNkSoYcWUJ5zmzA-cphH78hMlDCU_N6oNKSM4VEjGsgP_hHciY2ZJvV2tW3CnS8Nq2A7-LQgknmtTGJ3XH3SqlwsYWmHI3v9aZnxtd1qR6-SXknn0GIM3TAxrLGIlToajN"/>
+<span class="font-body-sm text-on-surface-variant">Created by Elena</span>
+</div>
+<span class="font-body-sm text-on-surface-variant">Yesterday</span>
+</div>
+</div>
+<!-- Guest Lists Note Card -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute top-0 right-0 w-2 h-full bg-primary-container"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="p-2 rounded-lg bg-primary-container text-on-primary-container material-symbols-outlined">group</span>
+<span class="font-label-sm text-primary uppercase tracking-wider font-bold">Guest Lists</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<h3 class="font-headline-sm text-on-surface mb-space-xs">Summer Garden BBQ Dinner</h3>
+<p class="font-body-md text-on-surface-variant mb-space-md">Head count for the patio setup next weekend. Target around 12-15 people total including kids.</p>
+<!-- Avatars Tag Group -->
+<div class="flex items-center gap-space-sm mb-space-md bg-surface p-space-sm rounded-lg">
+<span class="font-body-sm text-on-surface-variant">Confirmed (8):</span>
+<div class="flex items-center -space-x-2">
+<img class="w-7 h-7 rounded-full object-cover ring-2 ring-surface" data-alt="Close up portrait of smiling woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_mOLY_JPHW3kvEJC6MYcM9wPKfI74NR16GfDh2Z-Yqi5OTxbLSNE4ezt2kV4Q4tVV233nwPRG27YX4jl0xccpAnW60zakYmwHHdRqpuv9ZCUixdrFg_Gsv7GQhOo8Rc-sECf6fNGlRZoSxkB-DscVCKCtn58gWEh4wYHBsZQ29MmbYKmKIbo7SzUea3HE5kpTmTRXqF0TCTLxygvLwDHj4TO9HWKxoyWrQQUu1ZLT"/>
+<img class="w-7 h-7 rounded-full object-cover ring-2 ring-surface" data-alt="Close up portrait of smiling man with beard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATIUqeXTq9dSKXp9ZLmi_yvDHbIaX8MXVCNTWff9jhqbpmHYIipE15GZYm68ETJ7CAwQ0FfTvOyP7i4sUck5JDwJm3VwHVufIRpvl7pEJ8wIeq4rCZdfoXr-wxu_DJUlSsdFdPjgEm027sKVuzEzb4FLMQ7Zrx9hYFwAGPurXYdaZK82iUI5l5hVIbQtB-NO1TZMBfzsejyE-hiTh7NIZjHfzi6GxQ3bgW6NpT--Wv"/>
+<img class="w-7 h-7 rounded-full object-cover ring-2 ring-surface" data-alt="Portrait of elderly woman smiling warmly" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0PCNGy7filSpAlqgBOkgS3MBA_4iTAaBrb6XUkE75uZNX5sOdoFIEY21mufilC7Pyn09eWIGRoMCT14Iu6DaDGACXDC2c8y38JhF2toGX6Q-j0sWcIlyCNn5YMRF6U_9acjQhQGSLdQw6btCAfWgdgexw3i_B6AkMCX1Bp5N2PHrNbZ_2SbgX84KlzK07YG5Y8tGKMvJzaM3tZmk6VcS7RlDfKJzeyI1ttJ5yGYxm"/>
+<div class="w-7 h-7 rounded-full bg-surface-container-high text-on-surface-variant text-xs flex items-center justify-center font-bold ring-2 ring-surface">+5</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-variant/20">
+<div class="flex items-center gap-space-xs">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Portrait of a cheerful man with short beard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSuyR1sdaF-RrPJJcDmr61LkTx9jaUwun8KYmNJBiAFEvk2h5_OisdRpbQfKBuFhfLH4bbSHTGTosTBqALXe7qnYl77FZPAOzaUMcjB4afDUxSjewsg3sYRcONJIt6F5yu16eP980LI9UwjiNtroCZtGYKoCFNoRk79AIy-Il-Iif6JgLCoEd1-I2dNUIrTsJpDiH5eH36C-9kbKCHlWNSP4d2E4zvmzCWafbSows8"/>
+<span class="font-body-sm text-on-surface-variant">Updated by Marcus</span>
+</div>
+<span class="font-body-sm text-on-surface-variant">3h ago</span>
+</div>
+</div>
+<!-- To-Dos Note Card -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute top-0 right-0 w-2 h-full bg-secondary-fixed-dim"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="p-2 rounded-lg bg-secondary-fixed-dim/40 text-on-secondary-fixed material-symbols-outlined">checklist</span>
+<span class="font-label-sm text-secondary uppercase tracking-wider font-bold">To-Dos</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<h3 class="font-headline-sm text-on-surface mb-space-xs">Weekend Home Deep Clean</h3>
+<!-- Checklist items -->
+<div class="flex flex-col gap-2 mb-space-md bg-surface p-space-sm rounded-lg">
+<label class="flex items-center gap-space-sm cursor-pointer">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary accent-[#466557]" type="checkbox"/>
+<span class="font-body-sm line-through text-on-surface-variant">Clean living room windows</span>
+</label>
+<label class="flex items-center gap-space-sm cursor-pointer">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary accent-[#466557]" type="checkbox"/>
+<span class="font-body-sm line-through text-on-surface-variant">Wash guest bedroom linens</span>
+</label>
+<label class="flex items-center gap-space-sm cursor-pointer">
+<input class="w-4 h-4 rounded text-primary focus:ring-primary accent-[#466557]" type="checkbox"/>
+<span class="font-body-sm text-on-surface">Organize pantry shelves &amp; check expiration dates</span>
+</label>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-variant/20">
+<div class="flex items-center gap-space-xs">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Portrait of a smiling woman with warm brown hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXNc0ZLZHgoSlmSEZxLV0RVLN6AcIJhMRrmrbgP7Lcgz5H1s2j1eAFHZqaqEBj11E-3R5QPCQnW_dwc0-J1w-XqswQD2izgHBRyevL9Kl5ehBFMk03IAE-Bnnyv7vk-CZz16WeuJspH8lxpJjIueHYXh_jSqzVOtD2duI3iyVqKmSmHrg_51p_95vFkoUpBLcs-Gp4ST6yui-M_xAWCA3-DemsC1hkTLtQaEoIwYOi"/>
+<span class="font-body-sm text-on-surface-variant">Created by Elena</span>
+</div>
+<span class="font-body-sm text-on-surface-variant">Yesterday</span>
+</div>
+</div>
+</div>
+<!-- Floating Action Button for Quick Note -->
+<div class="fixed bottom-24 right-6 z-40">
+<button class="flex items-center gap-space-xs bg-primary text-on-primary px-space-md py-3 rounded-full shadow-lg hover:bg-primary-container hover:text-on-primary-container transition-all" onclick="openNewNoteModal()">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-md">New Note</span>
+</button>
+</div>
+</div></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface/90 backdrop-blur-xl" data-active-classes="bg-primary-container text-on-primary-container font-semibold"><div class="flex justify-around items-center h-20 px-space-sm"><a class="flex flex-col items-center justify-center gap-space-xs w-16 h-16 text-on-surface-variant transition-all rounded-xl" data-path="home" href="#"><span class="material-symbols-outlined">home</span><span class="text-label-sm">Home</span></a><a class="flex flex-col items-center justify-center gap-space-xs w-16 h-16 text-on-surface-variant transition-all rounded-xl" data-path="calendar" href="#"><span class="material-symbols-outlined">calendar_month</span><span class="text-label-sm">Calendar</span></a><a class="flex flex-col items-center justify-center gap-space-xs w-16 h-16 text-on-surface-variant transition-all rounded-xl" data-path="expenses" href="#"><span class="material-symbols-outlined">payments</span><span class="text-label-sm">Expenses</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-space-xs w-16 h-16 transition-all rounded-xl bg-primary-container text-on-primary-container font-semibold" data-path="notes" href="#"><span class="material-symbols-outlined">description</span><span class="text-label-sm">Notes</span></a></div></nav></body></html>
