@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Shareship</string>
+    <string name="title_activity_main">Shareship</string>
+    <string name="package_name">com.shareship.app</string>
+    <string name="custom_url_scheme">com.shareship.app</string>
+</resources>
