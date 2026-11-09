@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-live-scratchpad-hero',
   imports: [FormsModule],
   template: `
-    <div class="relative overflow-hidden bg-[#466557] text-[#ffffff] rounded-2xl p-4 sm:p-5 shadow-sm border border-[#2f4d40]/40 flex flex-col gap-3 select-none">
+    <div class="relative overflow-hidden bg-[#466557] text-[#ffffff] rounded-2xl p-4 shadow-sm border border-[#2f4d40]/40 flex flex-col gap-3 select-none">
       <!-- Ambient decorative glow -->
       <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-[#fed65b]/15 rounded-full blur-2xl pointer-events-none"></div>
 

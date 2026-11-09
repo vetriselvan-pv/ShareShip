@@ -10,7 +10,7 @@ export type { NewNotePayload };
   template: `
     @if (isOpen()) {
       <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs select-none fade-in">
-        <div class="bg-[#f2fcf5] w-full max-w-sm rounded-3xl p-5 shadow-2xl border border-[#adcebe] flex flex-col gap-4 text-left max-h-[90vh] overflow-y-auto">
+        <div class="bg-[#f2fcf5] w-full max-w-sm rounded-3xl p-4 shadow-2xl border border-[#adcebe] flex flex-col gap-4 text-left max-h-[90vh] overflow-y-auto">
           
           <!-- Header -->
           <div class="flex items-center justify-between">
@@ -51,7 +51,7 @@ export type { NewNotePayload };
                   class="py-1.5 px-2 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center justify-center gap-1"
                   [class]="category() === 'TO-DOS' ? 'bg-white text-[#133126] shadow-xs' : 'text-[#4e5b54] hover:text-[#133126]'"
                 >
-                  <span>✅</span>
+                  <img src="icons/todo.svg" class="w-3.5 h-3.5 object-contain" alt="To-Do" />
                   <span>To-Do</span>
                 </button>
                 <button
@@ -60,7 +60,7 @@ export type { NewNotePayload };
                   class="py-1.5 px-2 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center justify-center gap-1"
                   [class]="category() === 'IDEAS' ? 'bg-white text-[#133126] shadow-xs' : 'text-[#4e5b54] hover:text-[#133126]'"
                 >
-                  <span>💡</span>
+                  <img src="icons/idea.svg" class="w-3.5 h-3.5 object-contain" alt="Idea" />
                   <span>Idea</span>
                 </button>
                 <button
@@ -69,7 +69,7 @@ export type { NewNotePayload };
                   class="py-1.5 px-2 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center justify-center gap-1"
                   [class]="category() === 'NOTES' ? 'bg-white text-[#133126] shadow-xs' : 'text-[#4e5b54] hover:text-[#133126]'"
                 >
-                  <span>📝</span>
+                  <img src="icons/notes.svg" class="w-3.5 h-3.5 object-contain" alt="Notes" />
                   <span>Notes</span>
                 </button>
               </div>

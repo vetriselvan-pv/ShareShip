@@ -7,7 +7,7 @@ import { CalendarEvent } from '../../models/calendar.models';
   template: `
     @if (events().length === 0) {
       <!-- Empty State Card (Exact Same Aesthetic) -->
-      <div class="relative overflow-hidden rounded-2xl bg-[#466557] text-[#ffffff] p-5 shadow-md transition-all">
+      <div class="relative overflow-hidden rounded-2xl bg-[#466557] text-[#ffffff] p-4 shadow-md transition-all">
         <!-- Ambient decorative glow -->
         <div class="absolute -right-10 -bottom-10 w-36 h-36 bg-[#7a9a8b]/30 rounded-full blur-2xl pointer-events-none"></div>
 
@@ -54,7 +54,7 @@ import { CalendarEvent } from '../../models/calendar.models';
         >
           @for (event of events(); track event.id; let idx = $index) {
             <div class="w-full flex-shrink-0 snap-center">
-              <div class="relative overflow-hidden rounded-2xl bg-[#466557] text-[#ffffff] p-5 shadow-md transition-all">
+              <div class="relative overflow-hidden rounded-2xl bg-[#466557] text-[#ffffff] p-4 shadow-md transition-all">
                 <!-- Ambient decorative glow -->
                 <div class="absolute -right-10 -bottom-10 w-36 h-36 bg-[#7a9a8b]/30 rounded-full blur-2xl pointer-events-none"></div>
 

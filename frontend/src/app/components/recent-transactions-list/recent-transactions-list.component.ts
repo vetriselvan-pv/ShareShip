@@ -117,7 +117,7 @@ export type { RecentTransactionItem };
             </div>
           </div>
         } @empty {
-          <div class="bg-[#ecf6f0]/60 rounded-2xl p-6 text-center text-xs text-[#414844] italic border border-dashed border-[#dbe5df] flex flex-col items-center justify-center gap-1.5">
+          <div class="bg-[#ecf6f0]/60 rounded-2xl p-4 text-center text-xs text-[#414844] italic border border-dashed border-[#dbe5df] flex flex-col items-center justify-center gap-1.5">
             <span class="text-base">💳</span>
             <span>No expenses recorded yet. Click "+ Add Expense" to begin.</span>
           </div>

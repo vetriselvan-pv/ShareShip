@@ -111,7 +111,7 @@ import { AuthService } from '../../services/auth.service';
         aria-labelledby="profile-modal-title"
       >
         <div
-          class="w-full max-w-xs bg-[#f2fcf5] rounded-3xl border border-[#dbe5df] shadow-2xl p-5 flex flex-col gap-4 text-left"
+          class="w-full max-w-xs bg-[#f2fcf5] rounded-3xl border border-[#dbe5df] shadow-2xl p-4 flex flex-col gap-4 text-left"
         >
           <!-- Modal Header -->
           <div class="flex items-center justify-between pb-2 border-b border-[#dbe5df]">

@@ -10,7 +10,7 @@ export type { EventOption, ExpenseCategory, NewExpensePayload };
   template: `
     @if (isOpen()) {
       <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs select-none fade-in">
-        <div class="bg-[#f2fcf5] w-full max-w-sm rounded-3xl p-5 shadow-2xl border border-[#adcebe] flex flex-col gap-4 text-left max-h-[92vh] overflow-y-auto">
+        <div class="bg-[#f2fcf5] w-full max-w-sm rounded-3xl p-4 shadow-2xl border border-[#adcebe] flex flex-col gap-4 text-left max-h-[92vh] overflow-y-auto">
           
           <!-- Header -->
           <div class="flex items-center justify-between">

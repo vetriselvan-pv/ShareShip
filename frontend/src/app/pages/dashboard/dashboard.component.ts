@@ -39,7 +39,7 @@ import { CalendarEvent } from '../../models/calendar.models';
 
       <!-- Main Center Content Container -->
       <div
-        class="w-full max-w-[375px] sm:max-w-[400px] mx-auto px-0.5 pt-0.5 flex flex-col gap-3.5 flex-1 box-border"
+        class="w-full max-w-[390px] mx-auto px-4 pt-1 flex flex-col gap-3.5 flex-1 box-border"
       >
         <!-- 1. Upcoming Event Hero Card (Next 1 Month Events, Swipeable, Same Design) -->
         <section class="w-full mt-1">
@@ -74,7 +74,7 @@ import { CalendarEvent } from '../../models/calendar.models';
           class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs fade-in"
         >
           <div
-            class="w-full max-w-sm bg-[#f2fcf5] rounded-3xl border border-[#dbe5df] shadow-2xl p-5 flex flex-col gap-4"
+            class="w-full max-w-sm bg-[#f2fcf5] rounded-3xl border border-[#dbe5df] shadow-2xl p-4 flex flex-col gap-4"
           >
             <div class="flex items-center justify-between pb-2 border-b border-[#dbe5df]">
               <div class="max-w-[240px]">

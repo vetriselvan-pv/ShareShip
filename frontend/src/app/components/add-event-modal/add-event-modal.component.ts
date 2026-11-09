@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
         aria-labelledby="add-event-title"
       >
         <div
-          class="w-full max-w-sm bg-[#f2fcf5] rounded-3xl border border-[#dbe5df] shadow-2xl p-5 flex flex-col gap-4"
+          class="w-full max-w-sm bg-[#f2fcf5] rounded-3xl border border-[#dbe5df] shadow-2xl p-4 flex flex-col gap-4"
         >
           <!-- Modal Header -->
           <div class="flex items-center justify-between pb-2 border-b border-[#dbe5df]">

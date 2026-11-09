@@ -10,7 +10,7 @@ export type { UserSearchResult };
   selector: 'app-add-friend-card',
   imports: [FormsModule],
   template: `
-    <div class="relative overflow-hidden bg-[#e6f0ea] rounded-2xl p-4 sm:p-5 shadow-xs border border-[#dbe5df]/60 flex flex-col gap-3.5 select-none">
+    <div class="relative overflow-hidden bg-[#e6f0ea] rounded-2xl p-4 shadow-xs border border-[#dbe5df]/60 flex flex-col gap-3.5 select-none">
       <!-- Decorative background accent circle -->
       <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-[#466557]/10 rounded-full pointer-events-none"></div>
 

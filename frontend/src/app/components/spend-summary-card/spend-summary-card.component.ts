@@ -3,7 +3,7 @@ import { Component, input } from '@angular/core';
 @Component({
   selector: 'app-spend-summary-card',
   template: `
-    <div class="bg-[#e1eae4] rounded-2xl p-4 sm:p-5 flex flex-col gap-3.5 shadow-2xs border border-[#dbe5df]/60 relative overflow-hidden select-none">
+    <div class="bg-[#e1eae4] rounded-2xl p-4 flex flex-col gap-3.5 shadow-2xs border border-[#dbe5df]/60 relative overflow-hidden select-none">
       <!-- Translucent accent glow in background -->
       <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-[#466557]/10 rounded-full blur-2xl pointer-events-none"></div>
 

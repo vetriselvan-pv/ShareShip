@@ -20,28 +20,22 @@ export type { NoteCheckItem, NoteCardData, NoteAuthor, NoteConfirmedGuests };
           <div class="flex items-center justify-between mb-2.5">
             <div class="flex items-center gap-2">
               @if (isTodoCategory(note.category)) {
-                <span class="p-1.5 rounded-lg bg-[#7a9a8b] text-[#133126] flex items-center justify-center shadow-2xs">
-                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                  </svg>
+                <span class="p-1 rounded-lg bg-[#7a9a8b] flex items-center justify-center shadow-2xs">
+                  <img src="icons/todo.svg" class="w-4 h-4 object-contain" alt="To-Do" />
                 </span>
                 <span class="text-[11px] font-bold tracking-wider text-[#133126] uppercase">
                   To-Do List
                 </span>
               } @else if (isIdeaCategory(note.category)) {
-                <span class="p-1.5 rounded-lg bg-[#fed65b] text-[#745c00] flex items-center justify-center shadow-2xs">
-                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/>
-                  </svg>
+                <span class="p-1 rounded-lg bg-[#fed65b] flex items-center justify-center shadow-2xs">
+                  <img src="icons/idea.svg" class="w-4 h-4 object-contain" alt="Idea" />
                 </span>
                 <span class="text-[11px] font-bold tracking-wider text-[#735c00] uppercase">
                   Idea
                 </span>
               } @else {
-                <span class="p-1.5 rounded-lg bg-[#dbe5df] text-[#151d1a] flex items-center justify-center shadow-2xs">
-                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
-                  </svg>
+                <span class="p-1 rounded-lg bg-[#dbe5df] flex items-center justify-center shadow-2xs">
+                  <img src="icons/notes.svg" class="w-4 h-4 object-contain" alt="Notes" />
                 </span>
                 <span class="text-[11px] font-bold tracking-wider text-[#414844] uppercase">
                   Notes
@@ -144,7 +138,7 @@ export type { NoteCheckItem, NoteCardData, NoteAuthor, NoteConfirmedGuests };
 
         </div>
       } @empty {
-        <div class="bg-[#e6f0ea]/70 rounded-2xl p-6 text-center text-xs text-[#414844] italic border border-dashed border-[#dbe5df]">
+        <div class="bg-[#e6f0ea]/70 rounded-2xl p-4 text-center text-xs text-[#414844] italic border border-dashed border-[#dbe5df]">
           No notes in this category yet. Click '+ New Note' to create a To-Do list, Idea, or Note!
         </div>
       }

@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
   imports: [FormsModule, FormInputComponent],
   template: `
     <main
-      class="min-h-screen bg-[#f2fcf5] text-[#151d1a] flex flex-col items-center justify-center px-5 py-8 selection:bg-[#adcebe] selection:text-[#133126] font-sans"
+      class="min-h-screen bg-[#f2fcf5] text-[#151d1a] flex flex-col items-center justify-center px-4 py-6 selection:bg-[#adcebe] selection:text-[#133126] font-sans"
     >
       <!-- Main Center Content Container -->
       <div class="w-full max-w-[390px] mx-auto flex flex-col items-center">
@@ -217,16 +217,7 @@ import { AuthService } from '../../services/auth.service';
                       </span>
                       <span class="text-[9px] font-medium text-[#466557] mt-0.5">+ Photo</span>
                     } @else {
-                      <svg
-                        class="w-6 h-6 fill-none stroke-current"
-                        stroke-width="1.8"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
-                        />
-                        <circle cx="12" cy="13" r="4" />
-                      </svg>
+                      <img src="icons/camera.svg" class="w-6 h-6 object-contain" alt="Photo" />
                       <span class="text-[9.5px] font-semibold mt-0.5">+ Photo</span>
                     }
                   </div>
@@ -240,7 +231,7 @@ import { AuthService } from '../../services/auth.service';
                   (click)="cameraInput.click()"
                   class="px-2.5 py-1 font-medium text-[#133126] bg-[#e3efe8] hover:bg-[#d5e7dd] rounded-lg transition-colors cursor-pointer flex items-center gap-1 shadow-2xs"
                 >
-                  <span>📷</span>
+                  <img src="icons/camera.svg" class="w-3.5 h-3.5 object-contain" alt="Take Photo" />
                   <span>Take Photo</span>
                 </button>
                 <button
@@ -248,7 +239,7 @@ import { AuthService } from '../../services/auth.service';
                   (click)="fileInput.click()"
                   class="px-2.5 py-1 font-medium text-[#133126] bg-[#e3efe8] hover:bg-[#d5e7dd] rounded-lg transition-colors cursor-pointer flex items-center gap-1 shadow-2xs"
                 >
-                  <span>📁</span>
+                  <img src="icons/gallery.svg" class="w-3.5 h-3.5 object-contain" alt="Upload" />
                   <span>Upload</span>
                 </button>
                 @if (avatarPreview()) {

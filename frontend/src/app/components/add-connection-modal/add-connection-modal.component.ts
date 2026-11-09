@@ -15,7 +15,7 @@ import { SearchedUser } from '../../models/connection.models';
         aria-labelledby="add-connection-title"
       >
         <div
-          class="w-full max-w-sm bg-[#f2fcf5] rounded-3xl border border-[#dbe5df] shadow-2xl p-5 flex flex-col gap-4 text-left max-h-[90vh] overflow-hidden"
+          class="w-full max-w-sm bg-[#f2fcf5] rounded-3xl border border-[#dbe5df] shadow-2xl p-4 flex flex-col gap-4 text-left max-h-[90vh] overflow-hidden"
         >
           <!-- Modal Header -->
           <div class="flex items-center justify-between pb-2 border-b border-[#dbe5df]">

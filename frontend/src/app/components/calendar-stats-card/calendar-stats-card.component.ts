@@ -4,7 +4,7 @@ import { Component, input } from '@angular/core';
   selector: 'app-calendar-stats-card',
   template: `
     <div
-      class="bg-[#ecf6f0] border border-[#dbe5df]/80 p-3.5 rounded-2xl flex items-center justify-between shadow-2xs"
+      class="bg-[#ecf6f0] border border-[#dbe5df]/80 p-4 rounded-2xl flex items-center justify-between shadow-2xs"
     >
       <!-- Left side: Avatars & partner status -->
       <div class="flex items-center gap-3">

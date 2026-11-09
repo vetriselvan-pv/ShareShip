@@ -52,7 +52,7 @@ export type { ExpenseTabType };
       />
 
       <!-- Main Center Content Container -->
-      <div class="w-full max-w-[390px] mx-auto px-4 pt-1 flex flex-col gap-4 flex-1 box-border">
+      <div class="w-full max-w-[390px] mx-auto px-4 pt-1 flex flex-col gap-3.5 flex-1 box-border">
         <!-- 1. Header Section -->
         <section class="flex flex-col text-left mt-1">
           <h1 class="text-[20px] font-semibold text-[#151d1a] tracking-tight leading-tight">
@@ -167,11 +167,11 @@ export type { ExpenseTabType };
       </div>
 
       <!-- Floating Action Button ("Add Expense") -->
-      <div class="fixed bottom-24 right-5 sm:right-8 z-40">
+      <div class="fixed bottom-24 right-4 sm:right-8 z-40">
         <button
           type="button"
           (click)="openAddExpenseGeneral()"
-          class="flex items-center gap-2 bg-[#466557] hover:bg-[#395347] active:scale-95 text-white font-semibold text-xs py-3 px-4.5 rounded-full shadow-lg transition-all cursor-pointer"
+          class="flex items-center gap-2 bg-[#466557] hover:bg-[#395347] active:scale-95 text-white font-semibold text-xs py-3 px-4 rounded-full shadow-lg transition-all cursor-pointer"
         >
           <!-- Add Circle Icon -->
           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">

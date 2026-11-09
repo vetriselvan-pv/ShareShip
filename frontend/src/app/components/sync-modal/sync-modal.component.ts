@@ -9,7 +9,7 @@ import { SyncEvent, PartnerLink } from '../../models/sync.models';
     @if (isOpen()) {
       <div class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/40 backdrop-blur-xs fade-in">
         <div 
-          class="w-full max-w-lg bg-[#f2fcf5] rounded-t-[28px] sm:rounded-3xl border border-[#dbe5df] shadow-2xl p-6 flex flex-col gap-5 max-h-[88vh] overflow-hidden"
+          class="w-full max-w-lg bg-[#f2fcf5] rounded-t-[28px] sm:rounded-3xl border border-[#dbe5df] shadow-2xl p-4 flex flex-col gap-4 max-h-[88vh] overflow-hidden"
         >
           <!-- Modal Header -->
           <div class="flex items-center justify-between pb-3 border-b border-[#dbe5df]">

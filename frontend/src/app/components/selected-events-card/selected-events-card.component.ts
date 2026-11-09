@@ -59,17 +59,19 @@ import { CalendarEvent } from '../../models/calendar.models';
                         ? 'bg-[#fed65b] text-[#745c00]' 
                         : 'bg-[#7a9a8b] text-[#133126]'))"
                 >
-                  <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                    @if (event.category?.toLowerCase() === 'incident') {
-                      <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
-                    } @else if (event.category?.toLowerCase() === 'task') {
-                      <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    } @else if (event.category?.toLowerCase() === 'celebration' || event.category === 'wedding' || event.category === 'birthday') {
-                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                    } @else {
-                      <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/>
-                    }
-                  </svg>
+                  @if (event.category?.toLowerCase() === 'celebration' || event.category === 'wedding' || event.category === 'birthday') {
+                    <img src="icons/celebration.svg" class="w-5 h-5 object-contain" alt="Celebration" />
+                  } @else {
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                      @if (event.category?.toLowerCase() === 'incident') {
+                        <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                      } @else if (event.category?.toLowerCase() === 'task') {
+                        <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                      } @else {
+                        <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/>
+                      }
+                    </svg>
+                  }
                 </div>
 
                 <!-- Content -->
@@ -78,9 +80,7 @@ import { CalendarEvent } from '../../models/calendar.models';
                     <h5 class="text-[14px] font-semibold text-[#151d1a] leading-tight">{{ event.title }}</h5>
                     @if (event.gift) {
                       <span class="bg-[#fed65b] text-[#745c00] text-[10px] px-2 py-0.5 rounded-full font-semibold inline-flex items-center gap-1">
-                        <svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 24 24">
-                          <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.65-.5-.65C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.1 0 2-.89 2-2V8c0-1.1-.89-2-2-2z"/>
-                        </svg>
+                        <img src="icons/gift.svg" class="w-3 h-3 object-contain" alt="Gift" />
                         <span class="max-w-[120px] truncate">{{ event.gift }}</span>
                       </span>
                     }

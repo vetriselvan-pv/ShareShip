@@ -103,10 +103,12 @@ export type { RegistryEntry };
             </div>
           </div>
         } @empty {
-          <div class="bg-white/60 p-6 rounded-2xl border border-dashed border-[#dbe5df] text-center flex flex-col items-center justify-center gap-1.5 text-[#727974]">
-            <span class="text-2xl">🎁</span>
+          <div class="bg-white/60 p-4 rounded-2xl border border-dashed border-[#dbe5df] text-center flex flex-col items-center justify-center gap-2 text-[#727974]">
+            <div class="w-12 h-12 rounded-2xl bg-[#c8ead9] flex items-center justify-center shadow-2xs">
+              <img src="icons/gift.svg" class="w-7 h-7 object-contain" alt="Gift" />
+            </div>
             <p class="text-[13px] font-medium text-[#151d1a]">No registry items yet</p>
-            <p class="text-[11.5px]">Click "+ Add Gift" above to save your first shared wishlist item.</p>
+            <p class="text-[11.5px]">Click "+ Add Gift" below to save your first shared wishlist item.</p>
           </div>
         }
       </div>

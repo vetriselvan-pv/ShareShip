@@ -38,7 +38,7 @@ import { RegistryEntry } from '../../models/gifts.models';
 
       <!-- Main Center Content Container -->
       <div
-        class="w-full max-w-[375px] sm:max-w-[400px] mx-auto px-3.5 pt-0.5 flex flex-col gap-3.5 flex-1 box-border"
+        class="w-full max-w-[390px] mx-auto px-4 pt-1 flex flex-col gap-3.5 flex-1 box-border"
       >
         <!-- 1. Header Section -->
         <section class="flex flex-col text-left mt-1">
@@ -75,11 +75,11 @@ import { RegistryEntry } from '../../models/gifts.models';
       </div>
 
       <!-- Floating Action Button ("Add Gift") -->
-      <div class="fixed bottom-24 right-5 sm:right-8 z-40">
+      <div class="fixed bottom-24 right-4 sm:right-8 z-40">
         <button
           type="button"
           (click)="isAddGiftModalOpen.set(true)"
-          class="flex items-center gap-2 bg-[#466557] hover:bg-[#395347] active:scale-95 text-white font-semibold text-xs py-3 px-4.5 rounded-full shadow-lg transition-all cursor-pointer"
+          class="flex items-center gap-2 bg-[#466557] hover:bg-[#395347] active:scale-95 text-white font-semibold text-xs py-3 px-4 rounded-full shadow-lg transition-all cursor-pointer"
         >
           <!-- Add Circle Icon -->
           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -112,12 +112,17 @@ import { RegistryEntry } from '../../models/gifts.models';
           class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs fade-in"
         >
           <div
-            class="w-full max-w-sm bg-[#f2fcf5] rounded-3xl border border-[#dbe5df] shadow-2xl p-5 flex flex-col gap-4"
+            class="w-full max-w-sm bg-[#f2fcf5] rounded-3xl border border-[#dbe5df] shadow-2xl p-4 flex flex-col gap-4"
           >
             <div class="flex items-center justify-between pb-2 border-b border-[#dbe5df]">
-              <div>
-                <h3 class="text-lg font-semibold text-[#151d1a]">Add Registry Gift</h3>
-                <p class="text-xs text-[#414844]">Wishlist item or fund for celebrations</p>
+              <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-xl bg-[#c8ead9] flex items-center justify-center">
+                  <img src="icons/gift.svg" class="w-5 h-5 object-contain" alt="Gift" />
+                </div>
+                <div>
+                  <h3 class="text-[17px] font-semibold text-[#151d1a] leading-tight">Add Registry Gift</h3>
+                  <p class="text-xs text-[#414844]">Wishlist item or fund for celebrations</p>
+                </div>
               </div>
               <button
                 type="button"

@@ -24,7 +24,7 @@ export type { NoteFilterCategory };
         class="px-4 py-2 rounded-full font-semibold text-xs whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 shadow-2xs"
         [class]="activeCategory() === 'To-Dos' ? 'bg-[#466557] text-white shadow-xs' : 'bg-[#e6f0ea] text-[#414844] hover:bg-[#e1eae4] hover:text-[#151d1a]'"
       >
-        <span>✅</span>
+        <img src="icons/todo.svg" class="w-3.5 h-3.5 object-contain" alt="To-Do" />
         <span>To-Do List</span>
       </button>
 
@@ -35,7 +35,7 @@ export type { NoteFilterCategory };
         class="px-4 py-2 rounded-full font-semibold text-xs whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 shadow-2xs"
         [class]="activeCategory() === 'Ideas' ? 'bg-[#466557] text-white shadow-xs' : 'bg-[#e6f0ea] text-[#414844] hover:bg-[#e1eae4] hover:text-[#151d1a]'"
       >
-        <span>💡</span>
+        <img src="icons/idea.svg" class="w-3.5 h-3.5 object-contain" alt="Idea" />
         <span>Idea</span>
       </button>
 
@@ -46,7 +46,7 @@ export type { NoteFilterCategory };
         class="px-4 py-2 rounded-full font-semibold text-xs whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 shadow-2xs"
         [class]="activeCategory() === 'Notes' ? 'bg-[#466557] text-white shadow-xs' : 'bg-[#e6f0ea] text-[#414844] hover:bg-[#e1eae4] hover:text-[#151d1a]'"
       >
-        <span>📝</span>
+        <img src="icons/notes.svg" class="w-3.5 h-3.5 object-contain" alt="Notes" />
         <span>Notes</span>
       </button>
     </div>

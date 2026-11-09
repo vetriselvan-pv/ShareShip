@@ -35,7 +35,7 @@ import { NavTab } from '../../models/navigation.models';
       />
 
       <!-- Main Center Content Container (Constrained for Pixel-Perfect Mobile Viewport) -->
-      <div class="w-full max-w-[390px] mx-auto px-4 pt-1 flex flex-col gap-4 flex-1 box-border">
+      <div class="w-full max-w-[390px] mx-auto px-4 pt-1 flex flex-col gap-3.5 flex-1 box-border">
         <!-- 1. Header Section: Title & Subtitle -->
         <section class="flex flex-col text-left mt-1">
           <h1 class="text-[20px] font-semibold text-[#151d1a] tracking-tight leading-tight">
