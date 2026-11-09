@@ -1,9 +1,7 @@
 import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-partner-card',
-  imports: [CommonModule],
   template: `
     <div
       class="w-full bg-[#ecf6f0] border border-[#dbe5df]/80 rounded-[22px] px-4 py-3 flex items-center justify-between shadow-[0_2px_8px_rgba(70,101,87,0.04)] hover:border-[#adcebe] transition-all duration-200"

@@ -1,11 +1,10 @@
 import { Component, input, output, signal, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ConnectionService, SearchedUser } from '../../services/connection.service';
 
 @Component({
   selector: 'app-add-connection-modal',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   template: `
     @if (isOpen()) {
       <div
@@ -238,7 +237,7 @@ export class AddConnectionModalComponent {
   feedbackMessage = signal<string | null>(null);
   isSuccess = signal<boolean>(false);
 
-  private debounceTimer: any = null;
+  private debounceTimer: ReturnType<typeof setTimeout> | undefined = undefined;
 
   onSearchChange(query: string) {
     clearTimeout(this.debounceTimer);

@@ -1,5 +1,4 @@
 import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 export interface NoteCheckItem {
   id: string;
@@ -29,7 +28,6 @@ export interface NoteCardData {
 
 @Component({
   selector: 'app-notes-cards-feed',
-  imports: [CommonModule],
   template: `
     <div class="flex flex-col gap-3 select-none">
       @for (note of notes(); track note.id) {

@@ -1,11 +1,10 @@
 import { Component, input, output, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SyncEvent, PartnerLink } from '../../models/shareship.models';
 
 @Component({
   selector: 'app-sync-modal',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   template: `
     @if (isOpen()) {
       <div class="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/40 backdrop-blur-xs fade-in">

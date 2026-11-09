@@ -1,9 +1,7 @@
 import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-spend-summary-card',
-  imports: [CommonModule],
   template: `
     <div class="bg-[#e1eae4] rounded-2xl p-4 sm:p-5 flex flex-col gap-3.5 shadow-2xs border border-[#dbe5df]/60 relative overflow-hidden select-none">
       <!-- Translucent accent glow in background -->

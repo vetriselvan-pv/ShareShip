@@ -1,7 +1,7 @@
 import { Component, inject, signal, computed, effect, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 import { TopBarComponent } from '../../components/top-bar/top-bar.component';
 import { SpendSummaryCardComponent } from '../../components/spend-summary-card/spend-summary-card.component';
 import { CategoryCardsGridComponent, CategorySummaryItem } from '../../components/category-cards-grid/category-cards-grid.component';
@@ -30,7 +30,6 @@ export type ExpenseTabType = 'monthly' | 'events';
 @Component({
   selector: 'app-expenses',
   imports: [
-    CommonModule,
     TopBarComponent,
     SpendSummaryCardComponent,
     CategoryCardsGridComponent,
@@ -328,7 +327,37 @@ export class ExpensesComponent implements OnInit {
     }
 
     this.http
-      .get<any>(`http://localhost:3001/api/expenses?userId=${encodeURIComponent(uid)}`)
+      .get<{
+        currency?: { symbol: string; code: string };
+        summary?: {
+          totalMonth?: number;
+          you?: { amount: number; percentage: number };
+          partner?: { amount: number; percentage: number };
+          consolidatedEventAmount?: number;
+        };
+        categories?: Array<{
+          id?: string;
+          name: string;
+          amount?: number | string;
+          countLabel?: string;
+          transactionCount?: number;
+          icon?: string;
+          colorClass?: string;
+        }>;
+        recentTransactions?: Array<{
+          id: string;
+          title: string;
+          category: string;
+          paidBy: string;
+          amount: number;
+          splitLabel: string;
+          splitType?: string;
+          expenseType: string;
+          eventTitle?: string;
+          iconType?: string;
+        }>;
+        eventExpenses?: EventExpenseCardItem[];
+      }>(`${environment.apiUrl}/api/expenses?userId=${encodeURIComponent(uid)}`)
       .subscribe({
         next: (res) => {
           if (res?.currency?.symbol) {
@@ -351,7 +380,7 @@ export class ExpensesComponent implements OnInit {
               this.currencyService.format(partnerAmt, { showDecimals: false }),
             );
 
-            if (res.summary.consolidatedEventAmount > 0) {
+            if (res.summary.consolidatedEventAmount && res.summary.consolidatedEventAmount > 0) {
               this.consolidatedEventAmount.set(res.summary.consolidatedEventAmount);
               this.consolidatedEventAmountString.set(
                 this.currencyService.format(res.summary.consolidatedEventAmount),
@@ -362,7 +391,7 @@ export class ExpensesComponent implements OnInit {
             }
           }
           if (res?.categories?.length) {
-            this.categories.set(res.categories.map((cat: any) => ({
+            this.categories.set(res.categories.map((cat) => ({
               id: cat.id || `cat_${(cat.name || '').toLowerCase().replace(/\s+/g, '_')}`,
               name: cat.name,
               amount: this.currencyService.format(Number(cat.amount || 0)),
@@ -375,7 +404,7 @@ export class ExpensesComponent implements OnInit {
           }
           if (res?.recentTransactions) {
             this.transactions.set(
-              res.recentTransactions.map((tx: any) => ({
+              res.recentTransactions.map((tx) => ({
                 id: tx.id,
                 title: tx.title,
                 subtitle:
@@ -385,7 +414,7 @@ export class ExpensesComponent implements OnInit {
                 amount: this.currencyService.format(Number(tx.amount || 0)),
                 splitLabel: tx.splitLabel,
                 splitColor: tx.splitType === 'owes_half' ? 'secondary' : 'primary',
-                iconType: tx.iconType,
+                iconType: tx.iconType || 'coffee',
               })),
             );
           } else {
@@ -545,7 +574,11 @@ export class ExpensesComponent implements OnInit {
       eventTitle: payload.eventTitle,
     };
 
-    this.http.post<any>('http://localhost:3001/api/expenses', body).subscribe({
+    this.http.post<{
+      success: boolean;
+      currency?: { symbol: string; code: string };
+      eventExpenses?: EventExpenseCardItem[];
+    }>(`${environment.apiUrl}/api/expenses`, body).subscribe({
       next: (res) => {
         if (res?.currency?.symbol) {
           this.currencyService.setCurrency(res.currency.symbol, res.currency.code);

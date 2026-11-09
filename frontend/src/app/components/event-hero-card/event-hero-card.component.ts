@@ -1,10 +1,8 @@
 import { Component, ElementRef, ViewChild, computed, inject, input, output, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { CalendarEvent, CalendarService } from '../../services/calendar.service';
 
 @Component({
   selector: 'app-event-hero-card',
-  imports: [CommonModule],
   template: `
     @if (events().length === 0) {
       <!-- Empty State Card (Exact Same Aesthetic) -->

@@ -1,5 +1,4 @@
 import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 export interface TrackerGiftItem {
   id: string;
@@ -13,7 +12,6 @@ export interface TrackerGiftItem {
 
 @Component({
   selector: 'app-gift-tracker-widget',
-  imports: [CommonModule],
   template: `
     <div class="rounded-2xl bg-[#ecf6f0] border border-[#dbe5df]/80 p-4 shadow-xs">
       <!-- Widget Header -->

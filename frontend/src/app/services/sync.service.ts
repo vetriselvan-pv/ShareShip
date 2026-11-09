@@ -1,12 +1,13 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { PartnerLink, SyncEvent, UserRole } from '../models/shareship.models';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SyncService {
   private socket: WebSocket | null = null;
-  private backendWsUrl = 'ws://localhost:3001/ws/sync';
+  private backendWsUrl = `${environment.apiUrl.replace(/^http/, 'ws')}/ws/sync`;
 
   // Signals for reactive UI state
   readonly isConnected = signal<boolean>(true);

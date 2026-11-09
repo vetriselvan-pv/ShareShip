@@ -1,5 +1,4 @@
 import { Component, input, output, signal, effect } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NoteCardData, NoteCheckItem } from '../notes-cards-feed/notes-cards-feed.component';
 
@@ -12,7 +11,7 @@ export interface NewNotePayload {
 
 @Component({
   selector: 'app-new-note-modal',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   template: `
     @if (isOpen()) {
       <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs select-none fade-in">

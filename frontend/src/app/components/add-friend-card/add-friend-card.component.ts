@@ -1,7 +1,7 @@
 import { Component, output, signal, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 export interface UserSearchResult {
   userId: string;
@@ -12,7 +12,7 @@ export interface UserSearchResult {
 
 @Component({
   selector: 'app-add-friend-card',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   template: `
     <div class="relative overflow-hidden bg-[#e6f0ea] rounded-2xl p-4 sm:p-5 shadow-xs border border-[#dbe5df]/60 flex flex-col gap-3.5 select-none">
       <!-- Decorative background accent circle -->
@@ -182,7 +182,7 @@ export class AddFriendCardComponent {
   sentUserIds = signal<Set<string>>(new Set());
   isSubmitting = signal<boolean>(false);
 
-  private debounceTimer: any = null;
+  private debounceTimer: ReturnType<typeof setTimeout> | undefined = undefined;
 
   onSearchInput() {
     clearTimeout(this.debounceTimer);
@@ -204,7 +204,7 @@ export class AddFriendCardComponent {
     this.isSearching.set(true);
     this.lastSearchTerm.set(rawTerm);
 
-    this.http.get<{ success: boolean; users: UserSearchResult[] }>(`http://localhost:3001/api/users/search?userId=${encodeURIComponent(rawTerm)}`)
+    this.http.get<{ success: boolean; users: UserSearchResult[] }>(`${environment.apiUrl}/api/users/search?userId=${encodeURIComponent(rawTerm)}`)
       .subscribe({
         next: (res) => {
           this.searchResults.set(res?.users || []);

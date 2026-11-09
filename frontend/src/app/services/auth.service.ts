@@ -1,5 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { encryptPassword } from '../utils/crypto.utils';
+import { environment } from '../../environments/environment';
 
 export interface RegisterPayload {
   userId: string;
@@ -13,7 +14,7 @@ export interface RegisterPayload {
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3001/api/auth';
+  private apiUrl = `${environment.apiUrl}/api/auth`;
 
   readonly isAuthenticating = signal<boolean>(false);
   readonly authError = signal<string | null>(null);

@@ -1,10 +1,9 @@
 import { Component, input, output, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-live-scratchpad-hero',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   template: `
     <div class="relative overflow-hidden bg-[#466557] text-[#ffffff] rounded-2xl p-4 sm:p-5 shadow-sm border border-[#2f4d40]/40 flex flex-col gap-3 select-none">
       <!-- Ambient decorative glow -->

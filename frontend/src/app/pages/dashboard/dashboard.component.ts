@@ -1,5 +1,4 @@
 import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { TopBarComponent } from '../../components/top-bar/top-bar.component';
 import { EventHeroCardComponent } from '../../components/event-hero-card/event-hero-card.component';
@@ -15,7 +14,6 @@ import { CalendarService, CalendarEvent } from '../../services/calendar.service'
 @Component({
   selector: 'app-dashboard',
   imports: [
-    CommonModule,
     TopBarComponent,
     EventHeroCardComponent,
     BottomNavComponent,

@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sync-banner',
-  imports: [CommonModule],
   template: `
     <div class="bg-[#59786a] text-white p-3.5 rounded-2xl flex items-center justify-between shadow-xs">
       <div class="flex items-center gap-3">

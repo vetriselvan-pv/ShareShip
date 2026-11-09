@@ -1,11 +1,9 @@
 import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 export type NoteFilterCategory = 'All' | 'To-Dos' | 'Ideas' | 'Notes';
 
 @Component({
   selector: 'app-notes-filter-chips',
-  imports: [CommonModule],
   template: `
     <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar select-none">
       <!-- 1. All Notes -->

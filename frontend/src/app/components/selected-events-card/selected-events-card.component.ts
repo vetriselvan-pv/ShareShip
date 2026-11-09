@@ -1,10 +1,8 @@
 import { Component, inject, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { CalendarEvent, CalendarService } from '../../services/calendar.service';
 
 @Component({
   selector: 'app-selected-events-card',
-  imports: [CommonModule],
   template: `
     <div class="bg-white border border-[#dbe5df]/80 p-4 rounded-2xl shadow-xs">
       <!-- Section Header -->

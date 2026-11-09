@@ -1,6 +1,6 @@
 import { Component, computed, inject, OnInit, output, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 export interface RegistryEntry {
   id: string;
@@ -17,7 +17,6 @@ export interface RegistryEntry {
 
 @Component({
   selector: 'app-registry-section',
-  imports: [CommonModule],
   template: `
     <div class="flex flex-col gap-3">
       <!-- Section Title & Counter -->
@@ -151,7 +150,7 @@ export class RegistrySectionComponent implements OnInit {
   }
 
   fetchRegistry() {
-    this.http.get<{ success: boolean; registry: RegistryEntry[] }>('http://localhost:3001/api/calendar/registry')
+    this.http.get<{ success: boolean; registry: RegistryEntry[] }>(`${environment.apiUrl}/api/calendar/registry`)
       .subscribe({
         next: (res) => {
           if (res?.registry) {

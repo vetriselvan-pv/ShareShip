@@ -1,7 +1,7 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 import { TopBarComponent } from '../../components/top-bar/top-bar.component';
 import {
   PendingRequestsCardComponent,
@@ -19,7 +19,6 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-notifications',
   imports: [
-    CommonModule,
     TopBarComponent,
     PendingRequestsCardComponent,
     NotificationsFeedComponent,
@@ -128,7 +127,7 @@ export class NotificationsComponent implements OnInit {
     const currentUserId = this.getCurrentUserId();
     this.http
       .get<{ pendingRequests: PendingRequestItem[]; notifications: FeedNotificationItem[] }>(
-        `http://localhost:3001/api/notifications?userId=${encodeURIComponent(currentUserId)}`,
+        `${environment.apiUrl}/api/notifications?userId=${encodeURIComponent(currentUserId)}`,
       )
       .subscribe({
         next: (res) => {
@@ -153,7 +152,7 @@ export class NotificationsComponent implements OnInit {
         message: string;
         pendingRequest?: PendingRequestItem;
         notification?: FeedNotificationItem;
-      }>('http://localhost:3001/api/notifications/friend-request', {
+      }>(`${environment.apiUrl}/api/notifications/friend-request`, {
         userId: rawId,
         handle: formatted,
         requesterUserId: currentUserId,
@@ -190,7 +189,7 @@ export class NotificationsComponent implements OnInit {
     this.feedNotifications.update((prev) => [newActivity, ...prev]);
 
     this.http
-      .post(`http://localhost:3001/api/notifications/requests/${req.id}/accept`, {})
+      .post(`${environment.apiUrl}/api/notifications/requests/${req.id}/accept`, {})
       .subscribe({
         next: () => {
           this.syncService.sendSyncItem('note', `Accepted friend connection from ${req.name}`);
@@ -204,7 +203,7 @@ export class NotificationsComponent implements OnInit {
     this.showToast(`Dismissed connection request from ${req.name}`);
 
     this.http
-      .post(`http://localhost:3001/api/notifications/requests/${req.id}/decline`, {})
+      .post(`${environment.apiUrl}/api/notifications/requests/${req.id}/decline`, {})
       .subscribe({
         error: () => {},
       });
@@ -221,7 +220,7 @@ export class NotificationsComponent implements OnInit {
 
     this.http
       .post(
-        `http://localhost:3001/api/notifications/mark-all-read?userId=${encodeURIComponent(currentUserId)}`,
+        `${environment.apiUrl}/api/notifications/mark-all-read?userId=${encodeURIComponent(currentUserId)}`,
         {},
       )
       .subscribe({

@@ -1,12 +1,11 @@
 import { Component, input, output, signal, inject, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AddConnectionModalComponent } from '../add-connection-modal/add-connection-modal.component';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-top-bar',
-  imports: [CommonModule, AddConnectionModalComponent],
+  imports: [AddConnectionModalComponent],
   template: `
     <header
       class="w-full max-w-[390px] mx-auto flex items-center justify-between px-4 pt-2.5 pb-1 select-none safe-top box-border transition-all"

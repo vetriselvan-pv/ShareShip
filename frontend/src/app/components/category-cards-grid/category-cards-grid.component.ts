@@ -1,5 +1,4 @@
 import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 export interface CategorySummaryItem {
   id: string;
@@ -12,7 +11,6 @@ export interface CategorySummaryItem {
 
 @Component({
   selector: 'app-category-cards-grid',
-  imports: [CommonModule],
   template: `
     <div class="grid grid-cols-2 gap-3 select-none">
       @for (cat of categories(); track cat.id; let last = $last) {
@@ -24,7 +22,7 @@ export interface CategorySummaryItem {
           <div class="flex items-center justify-between">
             <div 
               class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform"
-              [ngClass]="cat.colorClass || getIconColor(cat.name)"
+              [class]="cat.colorClass || getIconColor(cat.name)"
             >
               @switch (getIconKey(cat)) {
                 @case ('gift') {

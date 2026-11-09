@@ -1,5 +1,4 @@
 import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 export interface PendingRequestItem {
   id: string;
@@ -11,7 +10,6 @@ export interface PendingRequestItem {
 
 @Component({
   selector: 'app-pending-requests-card',
-  imports: [CommonModule],
   template: `
     <div class="flex flex-col gap-3 select-none">
       <!-- Section Header: Title + Yellow Count Pill + View All Link -->

@@ -1,5 +1,4 @@
 import { Component, input, output, signal, effect } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 export interface EventOption {
@@ -22,7 +21,7 @@ export interface NewExpensePayload {
 
 @Component({
   selector: 'app-add-expense-modal',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   template: `
     @if (isOpen()) {
       <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs select-none fade-in">

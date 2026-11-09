@@ -1,9 +1,7 @@
 import { Component, computed, input, output, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-calendar-month-widget',
-  imports: [CommonModule],
   template: `
     <div class="bg-white border border-[#dbe5df]/80 p-4 rounded-2xl shadow-xs">
       <!-- Month Header -->

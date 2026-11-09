@@ -1,5 +1,4 @@
 import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 export interface RecentTransactionItem {
   id: string;
@@ -13,7 +12,6 @@ export interface RecentTransactionItem {
 
 @Component({
   selector: 'app-recent-transactions-list',
-  imports: [CommonModule],
   template: `
     <div class="flex flex-col gap-2.5 select-none">
       <!-- Header: Title + View All -->

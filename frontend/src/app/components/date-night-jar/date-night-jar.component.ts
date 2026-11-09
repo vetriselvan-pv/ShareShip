@@ -1,9 +1,7 @@
 import { Component, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-date-night-jar',
-  imports: [CommonModule],
   template: `
     <div class="rounded-xl bg-[#e6f0ea] border border-[#dbe5df]/70 px-4 py-3 flex items-center justify-between shadow-2xs">
       <!-- Left: Heart icon + Message -->

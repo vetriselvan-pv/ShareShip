@@ -1,5 +1,4 @@
 import { Component, input, output, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 export interface SharedExpenseTx {
   id: string;
@@ -12,7 +11,6 @@ export interface SharedExpenseTx {
 
 @Component({
   selector: 'app-shared-expenses-widget',
-  imports: [CommonModule],
   template: `
     <div class="rounded-2xl bg-[#ecf6f0] border border-[#dbe5df]/80 p-4 shadow-xs">
       <!-- Widget Header -->

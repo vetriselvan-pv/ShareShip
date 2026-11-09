@@ -1,5 +1,4 @@
 import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormInputComponent } from '../../components/form-input/form-input.component';
@@ -7,7 +6,7 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-screen',
-  imports: [CommonModule, FormsModule, FormInputComponent],
+  imports: [FormsModule, FormInputComponent],
   template: `
     <main
       class="min-h-screen bg-[#f2fcf5] text-[#151d1a] flex flex-col items-center justify-center px-5 py-8 selection:bg-[#adcebe] selection:text-[#133126] font-sans"

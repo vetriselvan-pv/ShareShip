@@ -1,6 +1,7 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { SyncService } from './sync.service';
 import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment';
 
 export interface SearchedUser {
   userId: string;
@@ -27,7 +28,7 @@ export interface PartnerConnection {
 export class ConnectionService {
   private syncService = inject(SyncService);
   private authService = inject(AuthService);
-  private apiUrl = 'http://localhost:3001/api/connections';
+  private apiUrl = `${environment.apiUrl}/api/connections`;
 
   readonly activePartner = signal<PartnerConnection | null>(null);
   readonly pendingPartner = signal<PartnerConnection | null>(null);

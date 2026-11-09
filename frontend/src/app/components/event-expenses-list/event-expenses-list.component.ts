@@ -1,5 +1,4 @@
 import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 export interface EventExpenseCardItem {
   id: string;
@@ -13,7 +12,6 @@ export interface EventExpenseCardItem {
 
 @Component({
   selector: 'app-event-expenses-list',
-  imports: [CommonModule],
   template: `
     <div class="flex flex-col gap-3.5 select-none">
       @for (evt of events(); track evt.id) {

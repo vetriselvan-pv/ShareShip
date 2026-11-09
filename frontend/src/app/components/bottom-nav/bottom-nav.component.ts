@@ -1,11 +1,9 @@
 import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 export type NavTab = 'home' | 'calendar' | 'expenses' | 'notes' | 'gifts' | 'alerts';
 
 @Component({
   selector: 'app-bottom-nav',
-  imports: [CommonModule],
   template: `
     <nav class="fixed bottom-0 left-0 right-0 bg-[#f2fcf5]/95 backdrop-blur-xl border-t border-[#dbe5df]/70 px-2 pt-1 pb-1.5 safe-bottom z-50 select-none shadow-[0_-2px_10px_rgba(70,101,87,0.05)] transition-all" style="view-transition-name: persistent-bottom-nav;">
       <div class="w-full max-w-[390px] mx-auto flex items-center justify-between box-border gap-1">

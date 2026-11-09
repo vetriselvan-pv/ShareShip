@@ -1,6 +1,7 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { AuthService } from './auth.service';
 import { SyncService } from './sync.service';
+import { environment } from '../../environments/environment';
 
 export interface CalendarEvent {
   id: string;
@@ -24,7 +25,7 @@ export interface CalendarEvent {
 export class CalendarService {
   private authService = inject(AuthService);
   private syncService = inject(SyncService);
-  private apiUrl = 'http://localhost:3001/api/calendar/events';
+  private apiUrl = `${environment.apiUrl}/api/calendar/events`;
 
   readonly events = signal<CalendarEvent[]>([]);
   readonly isLoading = signal<boolean>(false);

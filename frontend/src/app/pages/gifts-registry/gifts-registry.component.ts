@@ -1,8 +1,8 @@
 import { Component, computed, inject, signal, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 import { TopBarComponent } from '../../components/top-bar/top-bar.component';
 import { CalendarStatsCardComponent } from '../../components/calendar-stats-card/calendar-stats-card.component';
 import { RegistrySectionComponent } from '../../components/registry-section/registry-section.component';
@@ -15,7 +15,6 @@ import { ConnectionService } from '../../services/connection.service';
 @Component({
   selector: 'app-gifts-registry',
   imports: [
-    CommonModule,
     FormsModule,
     TopBarComponent,
     CalendarStatsCardComponent,
@@ -232,7 +231,7 @@ export class GiftsRegistryComponent {
     this.isAddGiftModalOpen.set(false);
     this.showToast(`✓ "${title}" added to shared registry!`);
 
-    this.http.post<any>('http://localhost:3001/api/calendar/registry', {
+    this.http.post<{ success: boolean; item?: any }>(`${environment.apiUrl}/api/calendar/registry`, {
       recipient,
       occasion: 'Wishlist Item',
       amount,

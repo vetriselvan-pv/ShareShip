@@ -1,5 +1,4 @@
 import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 export interface FeedNotificationItem {
   id: string;
@@ -13,7 +12,6 @@ export interface FeedNotificationItem {
 
 @Component({
   selector: 'app-notifications-feed',
-  imports: [CommonModule],
   template: `
     <div class="flex flex-col gap-3 select-none">
       <!-- Section Header: Title + "Mark all read" Link -->

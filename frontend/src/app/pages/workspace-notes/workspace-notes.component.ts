@@ -1,7 +1,7 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 import { TopBarComponent } from '../../components/top-bar/top-bar.component';
 import { NotesFilterChipsComponent, NoteFilterCategory } from '../../components/notes-filter-chips/notes-filter-chips.component';
 import { NotesCardsFeedComponent, NoteCardData } from '../../components/notes-cards-feed/notes-cards-feed.component';
@@ -14,7 +14,6 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-workspace-notes',
   imports: [
-    CommonModule,
     TopBarComponent,
     NotesFilterChipsComponent,
     NotesCardsFeedComponent,
@@ -164,7 +163,7 @@ export class WorkspaceNotesComponent implements OnInit {
   }
 
   fetchNotes() {
-    this.http.get<any>('http://localhost:3001/api/notes')
+    this.http.get<{ success: boolean; notes: NoteCardData[] }>(`${environment.apiUrl}/api/notes`)
       .subscribe({
         next: (res) => {
           if (res?.notes) {
@@ -200,7 +199,7 @@ export class WorkspaceNotesComponent implements OnInit {
 
   handleChecklistToggle(evt: { noteId: string; checkId: string }) {
     this.showToast('✓ Checklist updated');
-    this.http.post(`http://localhost:3001/api/notes/${evt.noteId}/checklist/${evt.checkId}`, {})
+    this.http.post(`${environment.apiUrl}/api/notes/${evt.noteId}/checklist/${evt.checkId}`, {})
       .subscribe({
         next: () => {
           this.syncService.sendSyncItem('note', `Updated checklist in note ${evt.noteId}`);
@@ -235,7 +234,7 @@ export class WorkspaceNotesComponent implements OnInit {
 
     this.notes.update(prev => [newNote, ...prev]);
 
-    this.http.post('http://localhost:3001/api/notes', {
+    this.http.post(`${environment.apiUrl}/api/notes`, {
       ...payload,
       bodyPreview: payload.description,
       checklists: payload.checklists || [],
@@ -270,7 +269,7 @@ export class WorkspaceNotesComponent implements OnInit {
 
     this.notes.update(prev => prev.map(n => n.id === updated.id ? refreshedNote : n));
 
-    this.http.put(`http://localhost:3001/api/notes/${updated.id}`, refreshedNote)
+    this.http.put(`${environment.apiUrl}/api/notes/${updated.id}`, refreshedNote)
       .subscribe({
         next: () => {
           this.syncService.sendSyncItem('note', `${currentUserName} updated note: "${updated.title}"`);
@@ -284,7 +283,7 @@ export class WorkspaceNotesComponent implements OnInit {
     this.notes.update(prev => prev.filter(n => n.id !== note.id));
     this.showToast(`✓ Deleted note: "${note.title}"`);
 
-    this.http.delete(`http://localhost:3001/api/notes/${note.id}`)
+    this.http.delete(`${environment.apiUrl}/api/notes/${note.id}`)
       .subscribe({
         next: () => {
           this.syncService.sendSyncItem('note', `${currentUserName} deleted note: "${note.title}"`);

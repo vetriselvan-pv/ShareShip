@@ -1,11 +1,9 @@
 import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 export type AuthMode = 'sign-in' | 'create-space';
 
 @Component({
   selector: 'app-auth-switcher',
-  imports: [CommonModule],
   template: `
     <div class="w-full bg-[#e6f0ea] p-1.5 rounded-2xl flex items-center select-none border border-[#dbe5df]/50">
       <!-- Sign In Tab -->
