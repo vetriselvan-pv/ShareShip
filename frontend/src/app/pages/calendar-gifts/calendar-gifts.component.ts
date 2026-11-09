@@ -4,11 +4,13 @@ import { TopBarComponent } from '../../components/top-bar/top-bar.component';
 import { CalendarMonthWidgetComponent } from '../../components/calendar-month-widget/calendar-month-widget.component';
 import { SelectedEventsCardComponent } from '../../components/selected-events-card/selected-events-card.component';
 import { SyncBannerComponent } from '../../components/sync-banner/sync-banner.component';
-import { BottomNavComponent, NavTab } from '../../components/bottom-nav/bottom-nav.component';
+import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav.component';
 import { AddEventModalComponent } from '../../components/add-event-modal/add-event-modal.component';
 import { SyncModalComponent } from '../../components/sync-modal/sync-modal.component';
 import { SyncService } from '../../services/sync.service';
-import { CalendarService, CalendarEvent } from '../../services/calendar.service';
+import { CalendarService } from '../../services/calendar.service';
+import { NavTab } from '../../models/navigation.models';
+import { CalendarEvent } from '../../models/calendar.models';
 
 @Component({
   selector: 'app-calendar-gifts',

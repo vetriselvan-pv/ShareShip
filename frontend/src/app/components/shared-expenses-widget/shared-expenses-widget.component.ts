@@ -1,13 +1,7 @@
 import { Component, input, output, signal } from '@angular/core';
+import { SharedExpenseTx } from '../../models/expenses.models';
 
-export interface SharedExpenseTx {
-  id: string;
-  title: string;
-  author: string;
-  authorInitial?: string;
-  authorRole?: string;
-  amount: number;
-}
+export type { SharedExpenseTx };
 
 @Component({
   selector: 'app-shared-expenses-widget',

@@ -1,23 +1,8 @@
 import { Component, input, output, signal, effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { EventOption, ExpenseCategory, NewExpensePayload } from '../../models/expenses.models';
 
-export interface EventOption {
-  id: string;
-  title: string;
-}
-
-export type ExpenseCategory = 'Gift' | 'Utilities' | 'Food' | 'Home Expenses' | 'Travel' | 'Cattle' | 'Lifestyle';
-
-export interface NewExpensePayload {
-  title: string;
-  category: ExpenseCategory | string;
-  amount: number;
-  paidBy: string;
-  splitLabel: string;
-  expenseType: 'monthly' | 'event';
-  eventId?: string;
-  eventTitle?: string;
-}
+export type { EventOption, ExpenseCategory, NewExpensePayload };
 
 @Component({
   selector: 'app-add-expense-modal',

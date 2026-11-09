@@ -1,6 +1,7 @@
 import { Component, input, output } from '@angular/core';
+import { AuthMode } from '../../models/auth.models';
 
-export type AuthMode = 'sign-in' | 'create-space';
+export type { AuthMode };
 
 @Component({
   selector: 'app-auth-switcher',

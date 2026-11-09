@@ -1,14 +1,7 @@
 import { Component, input, output } from '@angular/core';
+import { FeedNotificationItem } from '../../models/notifications.models';
 
-export interface FeedNotificationItem {
-  id: string;
-  type: 'gift_sync' | 'event_reminder' | 'expense_settled' | 'subscription_renewed';
-  title: string;
-  description: string;
-  timeAgo: string;
-  iconType: 'heart' | 'calendar' | 'payments' | 'subscription';
-  isRead?: boolean;
-}
+export type { FeedNotificationItem };
 
 @Component({
   selector: 'app-notifications-feed',

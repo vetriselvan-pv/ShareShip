@@ -1,13 +1,8 @@
 import { Component, input, output, signal, effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NoteCardData, NoteCheckItem } from '../notes-cards-feed/notes-cards-feed.component';
+import { NewNotePayload, NoteCardData, NoteCheckItem } from '../../models/notes.models';
 
-export interface NewNotePayload {
-  title: string;
-  category: 'TO-DOS' | 'IDEAS' | 'NOTES';
-  description: string;
-  checklists?: NoteCheckItem[];
-}
+export type { NewNotePayload };
 
 @Component({
   selector: 'app-new-note-modal',

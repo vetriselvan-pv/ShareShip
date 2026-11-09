@@ -1,6 +1,7 @@
 import { Component, input, output, signal, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ConnectionService, SearchedUser } from '../../services/connection.service';
+import { ConnectionService } from '../../services/connection.service';
+import { SearchedUser } from '../../models/connection.models';
 
 @Component({
   selector: 'app-add-connection-modal',

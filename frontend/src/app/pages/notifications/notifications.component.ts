@@ -3,18 +3,14 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { TopBarComponent } from '../../components/top-bar/top-bar.component';
-import {
-  PendingRequestsCardComponent,
-  PendingRequestItem,
-} from '../../components/pending-requests-card/pending-requests-card.component';
-import {
-  NotificationsFeedComponent,
-  FeedNotificationItem,
-} from '../../components/notifications-feed/notifications-feed.component';
-import { BottomNavComponent, NavTab } from '../../components/bottom-nav/bottom-nav.component';
+import { PendingRequestsCardComponent } from '../../components/pending-requests-card/pending-requests-card.component';
+import { NotificationsFeedComponent } from '../../components/notifications-feed/notifications-feed.component';
+import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav.component';
 import { SyncModalComponent } from '../../components/sync-modal/sync-modal.component';
 import { SyncService } from '../../services/sync.service';
 import { AuthService } from '../../services/auth.service';
+import { PendingRequestItem, FeedNotificationItem } from '../../models/notifications.models';
+import { NavTab } from '../../models/navigation.models';
 
 @Component({
   selector: 'app-notifications',

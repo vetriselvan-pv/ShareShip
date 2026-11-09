@@ -2,22 +2,9 @@ import { Injectable, signal, computed, inject } from '@angular/core';
 import { AuthService } from './auth.service';
 import { SyncService } from './sync.service';
 import { environment } from '../../environments/environment';
+import { CalendarEvent, CalendarEventCategory, NewEventPayload } from '../models/calendar.models';
 
-export interface CalendarEvent {
-  id: string;
-  userId?: string;
-  title: string;
-  date: string;
-  time?: string;
-  location?: string;
-  creator?: string;
-  creatorRole?: 'me' | 'partner';
-  gift?: string;
-  giftAmount?: number;
-  category?: 'Event' | 'celebration' | 'Incident' | 'Task' | string;
-  icon?: string;
-  createdAt?: string;
-}
+export type { CalendarEvent, CalendarEventCategory, NewEventPayload };
 
 @Injectable({
   providedIn: 'root'

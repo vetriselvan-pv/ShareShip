@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild, computed, inject, input, output, signal } from '@angular/core';
-import { CalendarEvent, CalendarService } from '../../services/calendar.service';
+import { CalendarService } from '../../services/calendar.service';
+import { CalendarEvent } from '../../models/calendar.models';
 
 @Component({
   selector: 'app-event-hero-card',

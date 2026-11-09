@@ -1,13 +1,7 @@
 import { Component, input, output } from '@angular/core';
+import { CategorySummaryItem } from '../../models/expenses.models';
 
-export interface CategorySummaryItem {
-  id: string;
-  name: string;
-  amount: string;
-  subtitle: string;
-  icon?: string;
-  colorClass?: string;
-}
+export type { CategorySummaryItem };
 
 @Component({
   selector: 'app-category-cards-grid',

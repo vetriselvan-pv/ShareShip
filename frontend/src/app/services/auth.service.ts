@@ -1,14 +1,9 @@
 import { Injectable, signal } from '@angular/core';
 import { encryptPassword } from '../utils/crypto.utils';
 import { environment } from '../../environments/environment';
+import { AuthUser, RegisterPayload } from '../models/auth.models';
 
-export interface RegisterPayload {
-  userId: string;
-  name: string;
-  email?: string;
-  password: string;
-  avatarUrl?: string;
-}
+export type { AuthUser, RegisterPayload };
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +15,7 @@ export class AuthService {
   readonly authError = signal<string | null>(null);
   readonly isAuthenticated = signal<boolean>(false);
 
-  readonly currentUser = signal<{ userId: string; name: string; avatarUrl?: string } | null>(null);
+  readonly currentUser = signal<AuthUser | null>(null);
 
   constructor() {
     try {
@@ -33,7 +28,7 @@ export class AuthService {
     } catch {}
   }
 
-  getCurrentUser(): { userId: string; name: string; avatarUrl?: string } | null {
+  getCurrentUser(): AuthUser | null {
     return this.currentUser();
   }
 

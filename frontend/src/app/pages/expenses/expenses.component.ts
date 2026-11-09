@@ -4,28 +4,27 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { TopBarComponent } from '../../components/top-bar/top-bar.component';
 import { SpendSummaryCardComponent } from '../../components/spend-summary-card/spend-summary-card.component';
-import { CategoryCardsGridComponent, CategorySummaryItem } from '../../components/category-cards-grid/category-cards-grid.component';
-import {
-  RecentTransactionsListComponent,
-  RecentTransactionItem,
-} from '../../components/recent-transactions-list/recent-transactions-list.component';
-import {
-  EventExpensesListComponent,
-  EventExpenseCardItem,
-} from '../../components/event-expenses-list/event-expenses-list.component';
-import {
-  AddExpenseModalComponent,
-  NewExpensePayload,
-} from '../../components/add-expense-modal/add-expense-modal.component';
-import { BottomNavComponent, NavTab } from '../../components/bottom-nav/bottom-nav.component';
+import { CategoryCardsGridComponent } from '../../components/category-cards-grid/category-cards-grid.component';
+import { RecentTransactionsListComponent } from '../../components/recent-transactions-list/recent-transactions-list.component';
+import { EventExpensesListComponent } from '../../components/event-expenses-list/event-expenses-list.component';
+import { AddExpenseModalComponent } from '../../components/add-expense-modal/add-expense-modal.component';
+import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav.component';
 import { SyncModalComponent } from '../../components/sync-modal/sync-modal.component';
 import { SyncService } from '../../services/sync.service';
 import { AuthService } from '../../services/auth.service';
 import { CalendarService } from '../../services/calendar.service';
 import { ConnectionService } from '../../services/connection.service';
 import { CurrencyService } from '../../services/currency.service';
+import {
+  ExpenseTabType,
+  CategorySummaryItem,
+  RecentTransactionItem,
+  EventExpenseCardItem,
+  NewExpensePayload,
+} from '../../models/expenses.models';
+import { NavTab } from '../../models/navigation.models';
 
-export type ExpenseTabType = 'monthly' | 'events';
+export type { ExpenseTabType };
 
 @Component({
   selector: 'app-expenses',

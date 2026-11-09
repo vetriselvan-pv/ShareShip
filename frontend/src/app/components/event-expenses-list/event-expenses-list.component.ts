@@ -1,14 +1,7 @@
 import { Component, input, output } from '@angular/core';
+import { EventExpenseCardItem } from '../../models/expenses.models';
 
-export interface EventExpenseCardItem {
-  id: string;
-  title: string;
-  status: 'Active Trip' | 'Completed';
-  spent: number;
-  budget: number;
-  bgImageUrl: string;
-  members: { name: string; avatarUrl: string }[];
-}
+export type { EventExpenseCardItem };
 
 @Component({
   selector: 'app-event-expenses-list',

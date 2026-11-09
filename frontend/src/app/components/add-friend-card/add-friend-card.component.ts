@@ -2,13 +2,9 @@ import { Component, output, signal, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { UserSearchResult } from '../../models/connection.models';
 
-export interface UserSearchResult {
-  userId: string;
-  name: string;
-  avatarUrl?: string;
-  bio?: string;
-}
+export type { UserSearchResult };
 
 @Component({
   selector: 'app-add-friend-card',

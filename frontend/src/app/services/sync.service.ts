@@ -1,5 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { PartnerLink, SyncEvent, UserRole } from '../models/shareship.models';
+import { PartnerLink, SyncEvent, UserRole } from '../models/sync.models';
 import { environment } from '../../environments/environment';
 
 @Injectable({

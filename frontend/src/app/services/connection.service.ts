@@ -2,25 +2,9 @@ import { Injectable, signal, inject } from '@angular/core';
 import { SyncService } from './sync.service';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
+import { SearchedUser, PartnerConnection, ConnectionStatus, UserSearchResult } from '../models/connection.models';
 
-export interface SearchedUser {
-  userId: string;
-  name: string;
-  avatarUrl?: string;
-  bio?: string;
-  status: 'none' | 'pending' | 'connected';
-  isRequester?: boolean;
-  connectionId?: string;
-}
-
-export interface PartnerConnection {
-  userId: string;
-  name: string;
-  avatarUrl?: string;
-  status: 'connected' | 'pending';
-  connectedAt?: string;
-  isRequester?: boolean;
-}
+export type { SearchedUser, PartnerConnection, ConnectionStatus, UserSearchResult };
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,7 @@
 import { Component, input, output } from '@angular/core';
+import { NoteFilterCategory } from '../../models/notes.models';
 
-export type NoteFilterCategory = 'All' | 'To-Dos' | 'Ideas' | 'Notes';
+export type { NoteFilterCategory };
 
 @Component({
   selector: 'app-notes-filter-chips',

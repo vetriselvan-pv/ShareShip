@@ -3,13 +3,15 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { TopBarComponent } from '../../components/top-bar/top-bar.component';
-import { NotesFilterChipsComponent, NoteFilterCategory } from '../../components/notes-filter-chips/notes-filter-chips.component';
-import { NotesCardsFeedComponent, NoteCardData } from '../../components/notes-cards-feed/notes-cards-feed.component';
-import { NewNoteModalComponent, NewNotePayload } from '../../components/new-note-modal/new-note-modal.component';
-import { BottomNavComponent, NavTab } from '../../components/bottom-nav/bottom-nav.component';
+import { NotesFilterChipsComponent } from '../../components/notes-filter-chips/notes-filter-chips.component';
+import { NotesCardsFeedComponent } from '../../components/notes-cards-feed/notes-cards-feed.component';
+import { NewNoteModalComponent } from '../../components/new-note-modal/new-note-modal.component';
+import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav.component';
 import { SyncModalComponent } from '../../components/sync-modal/sync-modal.component';
 import { SyncService } from '../../services/sync.service';
 import { AuthService } from '../../services/auth.service';
+import { NoteFilterCategory, NoteCardData, NewNotePayload } from '../../models/notes.models';
+import { NavTab } from '../../models/navigation.models';
 
 @Component({
   selector: 'app-workspace-notes',

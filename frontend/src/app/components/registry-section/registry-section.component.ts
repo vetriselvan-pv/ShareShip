@@ -1,19 +1,9 @@
 import { Component, computed, inject, OnInit, output, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { RegistryEntry } from '../../models/gifts.models';
 
-export interface RegistryEntry {
-  id: string;
-  recipient: string;
-  initials: string;
-  occasion: string;
-  date: string;
-  amount: number;
-  giftType: string;
-  creator: string;
-  avatarUrl?: string;
-  status: 'Fulfilled' | 'Pending Wrap' | 'Idea Saved';
-}
+export type { RegistryEntry };
 
 @Component({
   selector: 'app-registry-section',

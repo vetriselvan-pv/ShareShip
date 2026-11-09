@@ -1,30 +1,7 @@
 import { Component, input, output } from '@angular/core';
+import { NoteCheckItem, NoteCardData, NoteAuthor, NoteConfirmedGuests } from '../../models/notes.models';
 
-export interface NoteCheckItem {
-  id: string;
-  text: string;
-  completed: boolean;
-}
-
-export interface NoteCardData {
-  id: string;
-  category: 'TO-DOS' | 'IDEAS' | 'NOTES' | 'GIFT IDEAS' | 'GUEST LISTS' | 'RECIPES' | string;
-  title: string;
-  bodyPreview?: string;
-  checklists?: NoteCheckItem[];
-  confirmedGuests?: {
-    count: number;
-    avatars: string[];
-    overflowCount: number;
-  };
-  author: {
-    name: string;
-    avatarUrl: string;
-    action: 'Created by' | 'Updated by' | string;
-  };
-  timestamp: string;
-  accentColor: 'golden' | 'sage';
-}
+export type { NoteCheckItem, NoteCardData, NoteAuthor, NoteConfirmedGuests };
 
 @Component({
   selector: 'app-notes-cards-feed',

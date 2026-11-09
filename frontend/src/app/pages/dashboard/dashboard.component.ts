@@ -2,14 +2,16 @@ import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TopBarComponent } from '../../components/top-bar/top-bar.component';
 import { EventHeroCardComponent } from '../../components/event-hero-card/event-hero-card.component';
-import { BottomNavComponent, NavTab } from '../../components/bottom-nav/bottom-nav.component';
+import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav.component';
 import { SyncModalComponent } from '../../components/sync-modal/sync-modal.component';
 import { PartnerCardComponent } from '../../components/partner-card/partner-card.component';
 import { AddConnectionModalComponent } from '../../components/add-connection-modal/add-connection-modal.component';
 import { AddEventModalComponent } from '../../components/add-event-modal/add-event-modal.component';
 import { SyncService } from '../../services/sync.service';
 import { ConnectionService } from '../../services/connection.service';
-import { CalendarService, CalendarEvent } from '../../services/calendar.service';
+import { CalendarService } from '../../services/calendar.service';
+import { NavTab } from '../../models/navigation.models';
+import { CalendarEvent } from '../../models/calendar.models';
 
 @Component({
   selector: 'app-dashboard',

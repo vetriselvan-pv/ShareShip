@@ -1,14 +1,7 @@
 import { Component, input, output } from '@angular/core';
+import { RecentTransactionItem } from '../../models/expenses.models';
 
-export interface RecentTransactionItem {
-  id: string;
-  title: string;
-  subtitle: string;
-  amount: string;
-  splitLabel: string;
-  splitColor?: 'primary' | 'secondary' | 'neutral';
-  iconType: 'coffee' | 'bolt' | 'florist' | 'flight' | 'restaurant' | 'gift' | 'home' | 'cattle' | 'lifestyle' | string;
-}
+export type { RecentTransactionItem };
 
 @Component({
   selector: 'app-recent-transactions-list',

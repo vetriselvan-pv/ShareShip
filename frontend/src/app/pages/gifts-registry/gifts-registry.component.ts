@@ -6,11 +6,13 @@ import { environment } from '../../../environments/environment';
 import { TopBarComponent } from '../../components/top-bar/top-bar.component';
 import { CalendarStatsCardComponent } from '../../components/calendar-stats-card/calendar-stats-card.component';
 import { RegistrySectionComponent } from '../../components/registry-section/registry-section.component';
-import { BottomNavComponent, NavTab } from '../../components/bottom-nav/bottom-nav.component';
+import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav.component';
 import { SyncModalComponent } from '../../components/sync-modal/sync-modal.component';
 import { SyncService } from '../../services/sync.service';
 import { AuthService } from '../../services/auth.service';
 import { ConnectionService } from '../../services/connection.service';
+import { NavTab } from '../../models/navigation.models';
+import { RegistryEntry } from '../../models/gifts.models';
 
 @Component({
   selector: 'app-gifts-registry',

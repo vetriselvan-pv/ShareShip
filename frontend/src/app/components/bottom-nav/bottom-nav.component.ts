@@ -1,20 +1,19 @@
 import { Component, input, output } from '@angular/core';
-
-export type NavTab = 'home' | 'calendar' | 'expenses' | 'notes' | 'gifts' | 'alerts';
+import { NavTab } from '../../models/navigation.models';
 
 @Component({
   selector: 'app-bottom-nav',
   template: `
     <nav class="fixed bottom-0 left-0 right-0 bg-[#f2fcf5]/95 backdrop-blur-xl border-t border-[#dbe5df]/70 px-2 pt-1 pb-1.5 safe-bottom z-50 select-none shadow-[0_-2px_10px_rgba(70,101,87,0.05)] transition-all" style="view-transition-name: persistent-bottom-nav;">
       <div class="w-full max-w-[390px] mx-auto flex items-center justify-between box-border gap-1">
-        
+
         <!-- 1. Home Tab -->
         <button
           type="button"
           (click)="onSelectTab('home')"
           class="flex-1 max-w-[66px] h-[46px] rounded-2xl flex flex-col items-center justify-center transition-all duration-300 ease-out cursor-pointer active:scale-90"
-          [class]="activeTab() === 'home' 
-            ? 'bg-[#6b8979] text-[#13221b] shadow-[0_2px_8px_rgba(70,101,87,0.2)] font-semibold' 
+          [class]="activeTab() === 'home'
+            ? 'bg-[#6b8979] text-[#13221b] shadow-[0_2px_8px_rgba(70,101,87,0.2)] font-semibold'
             : 'text-[#414844] hover:text-[#151d1a] hover:bg-[#e6f0ea]/60 font-medium'"
           title="Home Dashboard"
         >
@@ -32,8 +31,8 @@ export type NavTab = 'home' | 'calendar' | 'expenses' | 'notes' | 'gifts' | 'ale
           type="button"
           (click)="onSelectTab('calendar')"
           class="flex-1 max-w-[66px] h-[46px] rounded-2xl flex flex-col items-center justify-center transition-all duration-300 ease-out cursor-pointer active:scale-90"
-          [class]="activeTab() === 'calendar' 
-            ? 'bg-[#6b8979] text-[#13221b] shadow-[0_2px_8px_rgba(70,101,87,0.2)] font-semibold' 
+          [class]="activeTab() === 'calendar'
+            ? 'bg-[#6b8979] text-[#13221b] shadow-[0_2px_8px_rgba(70,101,87,0.2)] font-semibold'
             : 'text-[#414844] hover:text-[#151d1a] hover:bg-[#e6f0ea]/60 font-medium'"
           title="Shared Calendar"
         >
@@ -53,8 +52,8 @@ export type NavTab = 'home' | 'calendar' | 'expenses' | 'notes' | 'gifts' | 'ale
           type="button"
           (click)="onSelectTab('expenses')"
           class="flex-1 max-w-[66px] h-[46px] rounded-2xl flex flex-col items-center justify-center transition-all duration-300 ease-out cursor-pointer active:scale-90"
-          [class]="activeTab() === 'expenses' 
-            ? 'bg-[#6b8979] text-[#13221b] shadow-[0_2px_8px_rgba(70,101,87,0.2)] font-semibold' 
+          [class]="activeTab() === 'expenses'
+            ? 'bg-[#6b8979] text-[#13221b] shadow-[0_2px_8px_rgba(70,101,87,0.2)] font-semibold'
             : 'text-[#414844] hover:text-[#151d1a] hover:bg-[#e6f0ea]/60 font-medium'"
           title="Shared Purse & Expenses"
         >
@@ -73,8 +72,8 @@ export type NavTab = 'home' | 'calendar' | 'expenses' | 'notes' | 'gifts' | 'ale
           type="button"
           (click)="onSelectTab('notes')"
           class="flex-1 max-w-[66px] h-[46px] rounded-2xl flex flex-col items-center justify-center transition-all duration-300 ease-out cursor-pointer active:scale-90"
-          [class]="activeTab() === 'notes' 
-            ? 'bg-[#6b8979] text-[#13221b] shadow-[0_2px_8px_rgba(70,101,87,0.2)] font-semibold' 
+          [class]="activeTab() === 'notes'
+            ? 'bg-[#6b8979] text-[#13221b] shadow-[0_2px_8px_rgba(70,101,87,0.2)] font-semibold'
             : 'text-[#414844] hover:text-[#151d1a] hover:bg-[#e6f0ea]/60 font-medium'"
           title="Shared Workspace & Notes"
         >
@@ -95,8 +94,8 @@ export type NavTab = 'home' | 'calendar' | 'expenses' | 'notes' | 'gifts' | 'ale
           type="button"
           (click)="onSelectTab('gifts')"
           class="flex-1 max-w-[66px] h-[46px] rounded-2xl flex flex-col items-center justify-center transition-all duration-300 ease-out cursor-pointer active:scale-90"
-          [class]="activeTab() === 'gifts' 
-            ? 'bg-[#6b8979] text-[#13221b] shadow-[0_2px_8px_rgba(70,101,87,0.2)] font-semibold' 
+          [class]="activeTab() === 'gifts'
+            ? 'bg-[#6b8979] text-[#13221b] shadow-[0_2px_8px_rgba(70,101,87,0.2)] font-semibold'
             : 'text-[#414844] hover:text-[#151d1a] hover:bg-[#e6f0ea]/60 font-medium'"
           title="Gifts & Registry"
         >

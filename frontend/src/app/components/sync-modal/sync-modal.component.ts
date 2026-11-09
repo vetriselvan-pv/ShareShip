@@ -1,6 +1,6 @@
 import { Component, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SyncEvent, PartnerLink } from '../../models/shareship.models';
+import { SyncEvent, PartnerLink } from '../../models/sync.models';
 
 @Component({
   selector: 'app-sync-modal',

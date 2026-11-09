@@ -1,12 +1,7 @@
 import { Component, input, output } from '@angular/core';
+import { PendingRequestItem } from '../../models/notifications.models';
 
-export interface PendingRequestItem {
-  id: string;
-  name: string;
-  handle: string;
-  avatarUrl: string;
-  status?: 'pending' | 'accepted' | 'declined';
-}
+export type { PendingRequestItem };
 
 @Component({
   selector: 'app-pending-requests-card',

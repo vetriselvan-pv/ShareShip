@@ -1,14 +1,7 @@
 import { Component, input } from '@angular/core';
+import { TrackerGiftItem } from '../../models/gifts.models';
 
-export interface TrackerGiftItem {
-  id: string;
-  title: string;
-  status: string;
-  context?: string;
-  claimedBy: string;
-  claimedInitial?: string;
-  imageUrl?: string;
-}
+export type { TrackerGiftItem };
 
 @Component({
   selector: 'app-gift-tracker-widget',
