@@ -1,4 +1,5 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { CurrencyService } from '../../services/currency.service';
 
 @Component({
   selector: 'app-calendar-stats-card',
@@ -65,7 +66,7 @@ import { Component, input } from '@angular/core';
       @if (totalBudget()) {
         <div class="text-right flex flex-col items-end">
           <span class="text-[17px] font-bold text-[#735c00] tracking-tight"
-            >\${{ totalBudget() }}</span
+            >{{ currencyService.currencySymbol() }}{{ totalBudget() }}</span
           >
           <p class="text-[11.5px] text-[#414844] font-normal">Total Gift Budget</p>
         </div>
@@ -74,6 +75,7 @@ import { Component, input } from '@angular/core';
   `,
 })
 export class CalendarStatsCardComponent {
+  readonly currencyService = inject(CurrencyService);
   readonly partnerNames = input<string>('');
   readonly eventsTrackedText = input<string>('');
   readonly totalBudget = input<string>('');

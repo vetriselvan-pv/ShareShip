@@ -7,3 +7,4 @@ export * from './gifts.models';
 export * from './connection.models';
 export * from './notifications.models';
 export * from './sync.models';
+export * from './loader.models';

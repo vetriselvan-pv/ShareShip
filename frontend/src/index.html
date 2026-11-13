@@ -24,6 +24,29 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
 </head>
 <body class="bg-[#f2fcf5] text-[#151d1a] antialiased select-none font-sans overflow-x-hidden">
-  <app-root></app-root>
+  <app-root>
+    <!-- Pre-bootstrap branded splash matching <app-splash-screen> for zero blank flash -->
+    <div
+      style="position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#f2fcf5;font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;padding:16px;"
+    >
+      <div
+        style="width:112px;height:112px;border-radius:32px;background:#ffffff;padding:10px;border:1px solid #dbe5df;box-shadow:0 14px 38px rgba(70,101,87,0.16);display:flex;align-items:center;justify-content:center;"
+      >
+        <img
+          src="logo.png"
+          width="96"
+          height="96"
+          alt="Shareship Logo"
+          style="width:100%;height:100%;object-fit:contain;border-radius:23px;"
+        />
+      </div>
+      <div style="margin-top:20px;font-size:26px;font-weight:700;letter-spacing:-0.02em;color:#151d1a;line-height:1.2;">
+        Shareship
+      </div>
+      <div style="margin-top:6px;font-size:13px;font-weight:500;color:#414844;">
+        Shared space for partners
+      </div>
+    </div>
+  </app-root>
 </body>
 </html>

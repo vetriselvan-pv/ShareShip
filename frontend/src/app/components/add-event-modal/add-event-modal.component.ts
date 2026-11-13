@@ -1,5 +1,6 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CurrencyService } from '../../services/currency.service';
 
 @Component({
   selector: 'app-add-event-modal',
@@ -90,7 +91,7 @@ import { FormsModule } from '@angular/forms';
                 type="text"
                 [(ngModel)]="gift"
                 name="gift"
-                placeholder="Enter amount or gift (e.g. $100, flowers, watch)"
+                [placeholder]="'Enter amount or gift (e.g. ' + currencyService.currencySymbol() + '100, flowers, watch)'"
                 class="w-full bg-[#ecf6f0] border border-[#dbe5df] rounded-xl px-3 py-2 text-[13px] text-[#151d1a] outline-none focus:border-[#466557]"
               />
             </div>
@@ -131,6 +132,7 @@ import { FormsModule } from '@angular/forms';
   `,
 })
 export class AddEventModalComponent {
+  readonly currencyService = inject(CurrencyService);
   readonly isOpen = input<boolean>(false);
   readonly close = output<void>();
   readonly eventCreated = output<{

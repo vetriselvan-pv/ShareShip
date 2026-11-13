@@ -1,11 +1,13 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, inject, signal, computed } from '@angular/core';
 import { PartnerLink, SyncEvent, UserRole } from '../models/sync.models';
 import { environment } from '../../environments/environment';
+import { CurrencyService } from './currency.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SyncService {
+  private currencyService = inject(CurrencyService);
   private socket: WebSocket | null = null;
   private backendWsUrl = `${environment.apiUrl.replace(/^http/, 'ws')}/ws/sync`;
 
@@ -135,7 +137,7 @@ export class SyncService {
     const partnerName = this.partnerName() || 'Partner';
     const texts = [
       `${partnerName} added "Weekend Cabin Getaway" to shared calendar 🌲`,
-      `${partnerName} marked "Farmer Market Groceries ($28.50)" as split 50/50 💳`,
+      `${partnerName} marked "Farmer Market Groceries (${this.currencyService.format(28.5)})" as split 50/50 💳`,
       `${partnerName} added a note: "Can you grab fresh basil on your way home? 🌿"`,
       `${partnerName} sent a quick warm hug ❤️`
     ];

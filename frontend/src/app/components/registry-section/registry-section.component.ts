@@ -2,6 +2,7 @@ import { Component, computed, inject, OnInit, output, signal } from '@angular/co
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { RegistryEntry } from '../../models/gifts.models';
+import { CurrencyService } from '../../services/currency.service';
 
 export type { RegistryEntry };
 
@@ -67,7 +68,7 @@ export type { RegistryEntry };
               </div>
 
               <div class="text-right">
-                <span class="text-[15px] font-bold text-[#735c00]">\${{ (item.amount || 0).toFixed(2) }}</span>
+                <span class="text-[15px] font-bold text-[#735c00]">{{ currencyService.format(item.amount || 0) }}</span>
                 <p class="text-[11.5px] text-[#414844]">{{ item.giftType }}</p>
               </div>
             </div>
@@ -117,6 +118,7 @@ export type { RegistryEntry };
 })
 export class RegistrySectionComponent implements OnInit {
   private http = inject(HttpClient);
+  readonly currencyService = inject(CurrencyService);
   onAddRegistryItem = output<void>();
 
   searchQuery = signal<string>('');

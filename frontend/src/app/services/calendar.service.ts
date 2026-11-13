@@ -1,6 +1,7 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { AuthService } from './auth.service';
 import { SyncService } from './sync.service';
+import { LoaderService } from './loader.service';
 import { environment } from '../../environments/environment';
 import { CalendarEvent, CalendarEventCategory, NewEventPayload } from '../models/calendar.models';
 
@@ -12,6 +13,7 @@ export type { CalendarEvent, CalendarEventCategory, NewEventPayload };
 export class CalendarService {
   private authService = inject(AuthService);
   private syncService = inject(SyncService);
+  private loaderService = inject(LoaderService);
   private apiUrl = `${environment.apiUrl}/api/calendar/events`;
 
   readonly events = signal<CalendarEvent[]>([]);
@@ -58,7 +60,9 @@ export class CalendarService {
     this.isLoading.set(true);
     const effectiveUserId = userId || this.authService.getCurrentUserId();
     try {
-      const res = await fetch(`${this.apiUrl}?userId=${encodeURIComponent(effectiveUserId)}`);
+      const res = await this.loaderService.track(
+        fetch(`${this.apiUrl}?userId=${encodeURIComponent(effectiveUserId)}`),
+      );
       const data = await res.json().catch(() => null);
       if (data?.success && Array.isArray(data.events)) {
         this.events.set(data.events);
@@ -120,11 +124,13 @@ export class CalendarService {
     };
 
     try {
-      const response = await fetch(this.apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+      const response = await this.loaderService.track(
+        fetch(this.apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }),
+      );
       const data = await response.json().catch(() => null);
 
       if (!response.ok || !data?.success) {

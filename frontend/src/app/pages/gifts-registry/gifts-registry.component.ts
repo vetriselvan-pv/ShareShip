@@ -11,6 +11,7 @@ import { SyncModalComponent } from '../../components/sync-modal/sync-modal.compo
 import { SyncService } from '../../services/sync.service';
 import { AuthService } from '../../services/auth.service';
 import { ConnectionService } from '../../services/connection.service';
+import { CurrencyService } from '../../services/currency.service';
 import { NavTab } from '../../models/navigation.models';
 import { RegistryEntry } from '../../models/gifts.models';
 
@@ -156,7 +157,7 @@ import { RegistryEntry } from '../../models/gifts.models';
                   type="text"
                   [(ngModel)]="newGiftTitle"
                   name="title"
-                  placeholder="e.g. Espresso Machine / $100 Fund"
+                  [placeholder]="'e.g. Espresso Machine / ' + currencyService.currencySymbol() + '100 Fund'"
                   class="w-full px-3.5 py-2.5 bg-white border border-[#dbe5df] rounded-xl text-sm focus:outline-none focus:border-[#466557]"
                   required
                 />
@@ -164,7 +165,7 @@ import { RegistryEntry } from '../../models/gifts.models';
 
               <div>
                 <label class="text-xs font-semibold text-[#414844] block mb-1"
-                  >Target Amount ($)</label
+                  >Target Amount ({{ currencyService.currencySymbol() }})</label
                 >
                 <input
                   type="number"
@@ -210,6 +211,7 @@ export class GiftsRegistryComponent {
   syncService = inject(SyncService);
   authService = inject(AuthService);
   connectionService = inject(ConnectionService);
+  currencyService = inject(CurrencyService);
   private http = inject(HttpClient);
   router = inject(Router);
 
@@ -257,7 +259,7 @@ export class GiftsRegistryComponent {
 
     this.syncService.sendSyncItem(
       'note',
-      `${authorName} added gift idea: ${title} for ${recipient} ($${amount})`,
+      `${authorName} added gift idea: ${title} for ${recipient} (${this.currencyService.format(amount)})`,
     );
     this.newGiftRecipient = '';
     this.newGiftTitle = '';

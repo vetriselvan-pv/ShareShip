@@ -1,5 +1,6 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { SharedExpenseTx } from '../../models/expenses.models';
+import { CurrencyService } from '../../services/currency.service';
 
 export type { SharedExpenseTx };
 
@@ -21,7 +22,7 @@ export type { SharedExpenseTx };
         </div>
 
         <span class="text-[18px] font-bold text-[#735c00] tracking-tight">
-          \${{ totalLedger().toFixed(2) }}
+          {{ currencyService.format(totalLedger()) }}
         </span>
       </div>
 
@@ -30,7 +31,7 @@ export type { SharedExpenseTx };
         <div class="flex flex-col">
           <span class="text-[11.5px] text-[#414844] font-normal">Your Balance</span>
           <span class="text-[15px] font-bold" [class]="isSettled() || balanceAmount() === 0 ? 'text-[#466557]' : 'text-[#ba1a1a]'">
-            {{ isSettled() || balanceAmount() === 0 ? 'All settled up ✓' : 'You owe $' + balanceAmount().toFixed(2) }}
+            {{ isSettled() || balanceAmount() === 0 ? 'All settled up ✓' : 'You owe ' + currencyService.format(balanceAmount()) }}
           </span>
         </div>
 
@@ -62,7 +63,7 @@ export type { SharedExpenseTx };
               </div>
             </div>
             <span class="text-[13.5px] font-semibold text-[#151d1a]">
-              \${{ tx.amount.toFixed(2) }}
+              {{ currencyService.format(tx.amount) }}
             </span>
           </div>
         } @empty {
@@ -75,6 +76,7 @@ export type { SharedExpenseTx };
   `
 })
 export class SharedExpensesWidgetComponent {
+  readonly currencyService = inject(CurrencyService);
   totalLedger = input<number>(0);
   balanceAmount = input<number>(0);
   transactions = input<SharedExpenseTx[]>([]);

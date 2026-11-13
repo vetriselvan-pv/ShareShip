@@ -1,6 +1,7 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { SyncService } from './sync.service';
 import { AuthService } from './auth.service';
+import { LoaderService } from './loader.service';
 import { environment } from '../../environments/environment';
 import { SearchedUser, PartnerConnection, ConnectionStatus, UserSearchResult } from '../models/connection.models';
 
@@ -12,6 +13,7 @@ export type { SearchedUser, PartnerConnection, ConnectionStatus, UserSearchResul
 export class ConnectionService {
   private syncService = inject(SyncService);
   private authService = inject(AuthService);
+  private loaderService = inject(LoaderService);
   private apiUrl = `${environment.apiUrl}/api/connections`;
 
   readonly activePartner = signal<PartnerConnection | null>(null);
@@ -35,8 +37,10 @@ export class ConnectionService {
     this.isSearching.set(true);
     try {
       const currentUserId = this.getCurrentUserId();
-      const res = await fetch(
-        `${this.apiUrl}/search?query=${encodeURIComponent(cleanQuery)}&currentUserId=${encodeURIComponent(currentUserId)}`
+      const res = await this.loaderService.track(
+        fetch(
+          `${this.apiUrl}/search?query=${encodeURIComponent(cleanQuery)}&currentUserId=${encodeURIComponent(currentUserId)}`
+        ),
       );
       const data = await res.json().catch(() => null);
       if (data?.success && Array.isArray(data.users)) {
@@ -55,7 +59,9 @@ export class ConnectionService {
     const effectiveUserId = userId || this.getCurrentUserId();
 
     try {
-      const response = await fetch(`${this.apiUrl}/partner?userId=${encodeURIComponent(effectiveUserId)}`);
+      const response = await this.loaderService.track(
+        fetch(`${this.apiUrl}/partner?userId=${encodeURIComponent(effectiveUserId)}`),
+      );
       const data = await response.json().catch(() => null);
 
       if (data?.success) {
@@ -100,14 +106,16 @@ export class ConnectionService {
     const requesterId = this.getCurrentUserId();
 
     try {
-      const response = await fetch(`${this.apiUrl}/request`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          targetUserId: cleanTarget,
-          requesterUserId: requesterId
-        })
-      });
+      const response = await this.loaderService.track(
+        fetch(`${this.apiUrl}/request`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            targetUserId: cleanTarget,
+            requesterUserId: requesterId
+          })
+        }),
+      );
 
       const data = await response.json().catch(() => null);
 

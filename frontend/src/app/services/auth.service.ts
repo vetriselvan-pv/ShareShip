@@ -1,7 +1,8 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { encryptPassword } from '../utils/crypto.utils';
 import { environment } from '../../environments/environment';
 import { AuthUser, RegisterPayload } from '../models/auth.models';
+import { LoaderService } from './loader.service';
 
 export type { AuthUser, RegisterPayload };
 
@@ -9,6 +10,7 @@ export type { AuthUser, RegisterPayload };
   providedIn: 'root',
 })
 export class AuthService {
+  private readonly loaderService = inject(LoaderService);
   private apiUrl = `${environment.apiUrl}/api/auth`;
 
   readonly isAuthenticating = signal<boolean>(false);
@@ -60,14 +62,16 @@ export class AuthService {
     try {
       const encryptedPassword = rawPassword ? await encryptPassword(rawPassword) : '';
 
-      const response = await fetch(`${this.apiUrl}/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: usernameOrEmail,
-          password: encryptedPassword,
+      const response = await this.loaderService.track(
+        fetch(`${this.apiUrl}/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: usernameOrEmail,
+            password: encryptedPassword,
+          }),
         }),
-      });
+      );
 
       const data = await response.json().catch(() => null);
 
@@ -110,17 +114,19 @@ export class AuthService {
     try {
       const encryptedPassword = await encryptPassword(payload.password);
 
-      const response = await fetch(`${this.apiUrl}/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userId: payload.userId,
-          name: payload.name,
-          email: payload.email,
-          password: encryptedPassword,
-          avatarUrl: payload.avatarUrl || '',
+      const response = await this.loaderService.track(
+        fetch(`${this.apiUrl}/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userId: payload.userId,
+            name: payload.name,
+            email: payload.email,
+            password: encryptedPassword,
+            avatarUrl: payload.avatarUrl || '',
+          }),
         }),
-      });
+      );
 
       const data = await response.json().catch(() => null);
 
@@ -162,14 +168,16 @@ export class AuthService {
     try {
       const encryptedPassword = await encryptPassword(newPassword);
 
-      const response = await fetch(`${this.apiUrl}/reset-password`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          identifier,
-          newPassword: encryptedPassword,
+      const response = await this.loaderService.track(
+        fetch(`${this.apiUrl}/reset-password`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            identifier,
+            newPassword: encryptedPassword,
+          }),
         }),
-      });
+      );
 
       const data = await response.json().catch(() => null);
 
@@ -196,11 +204,13 @@ export class AuthService {
     this.authError.set(null);
 
     try {
-      await fetch(`${this.apiUrl}/create-space`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ spaceName, partnerEmail }),
-      });
+      await this.loaderService.track(
+        fetch(`${this.apiUrl}/create-space`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ spaceName, partnerEmail }),
+        }),
+      );
       this.isAuthenticated.set(true);
       return true;
     } catch {
