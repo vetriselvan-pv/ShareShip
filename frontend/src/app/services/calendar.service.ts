@@ -1,4 +1,4 @@
-import { Injectable, signal, computed, inject } from '@angular/core';
+import { Injectable, signal, computed, inject, effect } from '@angular/core';
 import { AuthService } from './auth.service';
 import { SyncService } from './sync.service';
 import { LoaderService } from './loader.service';
@@ -53,10 +53,20 @@ export class CalendarService {
   });
 
   constructor() {
-    this.loadEvents();
+    effect(() => {
+      if (this.authService.isAuthenticated()) {
+        this.loadEvents();
+      } else {
+        this.events.set([]);
+      }
+    });
   }
 
   async loadEvents(userId?: string): Promise<CalendarEvent[]> {
+    if (!this.authService.isAuthenticated()) {
+      this.events.set([]);
+      return [];
+    }
     this.isLoading.set(true);
     const effectiveUserId = userId || this.authService.getCurrentUserId();
     try {

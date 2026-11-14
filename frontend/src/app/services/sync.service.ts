@@ -9,7 +9,17 @@ import { CurrencyService } from './currency.service';
 export class SyncService {
   private currencyService = inject(CurrencyService);
   private socket: WebSocket | null = null;
-  private backendWsUrl = `${environment.apiUrl.replace(/^http/, 'ws')}/ws/sync`;
+
+  private getBackendWsUrl(): string {
+    if (environment.apiUrl && environment.apiUrl.startsWith('http')) {
+      return `${environment.apiUrl.replace(/^http/, 'ws')}/ws/sync`;
+    }
+    if (typeof window !== 'undefined' && window.location) {
+      const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      return `${proto}//${window.location.host}/ws/sync`;
+    }
+    return 'ws://localhost:3001/ws/sync';
+  }
 
   // Signals for reactive UI state
   readonly isConnected = signal<boolean>(true);
@@ -51,9 +61,13 @@ export class SyncService {
 
   private initWebSocket() {
     try {
+      if (typeof window === 'undefined' || typeof WebSocket === 'undefined') {
+        this.isConnected.set(true);
+        return;
+      }
       const spaceId = this.partnerLink().spaceId || 'shareship-space';
       const myId = this.partnerLink().me.id || 'user_me';
-      this.socket = new WebSocket(`${this.backendWsUrl}?spaceId=${spaceId}&role=me&userId=${myId}`);
+      this.socket = new WebSocket(`${this.getBackendWsUrl()}?spaceId=${spaceId}&role=me&userId=${myId}`);
 
       this.socket.onopen = () => {
         this.isConnected.set(true);

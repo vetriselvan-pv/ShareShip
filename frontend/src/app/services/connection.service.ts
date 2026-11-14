@@ -1,4 +1,4 @@
-import { Injectable, signal, inject } from '@angular/core';
+import { Injectable, signal, inject, effect } from '@angular/core';
 import { SyncService } from './sync.service';
 import { AuthService } from './auth.service';
 import { LoaderService } from './loader.service';
@@ -23,7 +23,15 @@ export class ConnectionService {
   readonly isSearching = signal<boolean>(false);
 
   constructor() {
-    this.loadPartnerConnection();
+    effect(() => {
+      if (this.authService.isAuthenticated()) {
+        this.loadPartnerConnection();
+      } else {
+        this.activePartner.set(null);
+        this.pendingPartner.set(null);
+        this.isPartnerConnected.set(false);
+      }
+    });
   }
 
   getCurrentUserId(): string {
@@ -56,6 +64,9 @@ export class ConnectionService {
   }
 
   async loadPartnerConnection(userId?: string): Promise<{ connected: boolean; partner?: PartnerConnection | null }> {
+    if (!this.authService.isAuthenticated()) {
+      return { connected: false, partner: null };
+    }
     const effectiveUserId = userId || this.getCurrentUserId();
 
     try {

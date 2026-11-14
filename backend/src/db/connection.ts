@@ -67,6 +67,24 @@ mongoose.connection.on('error', (err) => {
 });
 
 export async function connectMongoDB(): Promise<boolean> {
+  if (mongoose.connection.readyState === 1) {
+    isMongoConnected = true;
+    return true;
+  }
+  if (mongoose.connection.readyState === 2) {
+    return new Promise((resolve) => {
+      mongoose.connection.once('connected', () => {
+        isMongoConnected = true;
+        resolve(true);
+      });
+      mongoose.connection.once('error', () => {
+        isMongoConnected = false;
+        resolve(false);
+      });
+      setTimeout(() => resolve(mongoose.connection.readyState === 1), 4000);
+    });
+  }
+
   const uri = process.env.MONGODB_URI || 'mongodb+srv://learnerkid_dev:<db_password>@learndev.zitnxvh.mongodb.net/Shareship?retryWrites=true&w=majority';
 
   if (uri.includes('<db_password>')) {

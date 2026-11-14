@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormInputComponent } from '../../components/form-input/form-input.component';
 import { AuthService } from '../../services/auth.service';
 
@@ -496,6 +496,7 @@ import { AuthService } from '../../services/auth.service';
 export class LoginScreenComponent {
   authService = inject(AuthService);
   router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   mode = signal<'login' | 'register' | 'forgot'>('login');
 
@@ -582,7 +583,7 @@ export class LoginScreenComponent {
       this.isSuccess.set(true);
       this.statusMessage.set('✓ Successfully authenticated! Welcome back.');
       setTimeout(() => {
-        this.router.navigate(['/dashboard']);
+        this.navigateAfterAuth();
       }, 500);
     } else {
       this.isSuccess.set(false);
@@ -632,7 +633,7 @@ export class LoginScreenComponent {
 
       setTimeout(async () => {
         await this.authService.login(cleanUserId, this.newPassword);
-        this.router.navigate(['/dashboard']);
+        this.navigateAfterAuth();
       }, 900);
     } else {
       this.isSuccess.set(false);
@@ -679,5 +680,17 @@ export class LoginScreenComponent {
       this.isSuccess.set(false);
       this.statusMessage.set(res.error || 'Password reset failed.');
     }
+  }
+
+  private navigateAfterAuth(): void {
+    const returnUrl = this.route.snapshot.queryParams['returnUrl'];
+    const target =
+      returnUrl &&
+      typeof returnUrl === 'string' &&
+      returnUrl.startsWith('/') &&
+      returnUrl !== '/login'
+        ? returnUrl
+        : '/dashboard';
+    this.router.navigateByUrl(target);
   }
 }
