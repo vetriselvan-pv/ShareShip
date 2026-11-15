@@ -5,6 +5,22 @@ export interface AuthUser {
   name: string;
   email?: string;
   avatarUrl?: string;
+  id?: string;
+  isOnline?: boolean;
+}
+
+export interface AuthPartner {
+  name: string;
+  avatarUrl?: string;
+  email?: string;
+  isOnline?: boolean;
+}
+
+export interface AuthSpace {
+  id: string;
+  name: string;
+  syncStatus?: string;
+  isLiveSyncActive?: boolean;
 }
 
 export interface RegisterPayload {
@@ -18,6 +34,9 @@ export interface RegisterPayload {
 export interface LoginResponse {
   success: boolean;
   user?: AuthUser;
+  partner?: AuthPartner | null;
+  space?: AuthSpace | null;
+  token?: string;
   error?: string;
   message?: string;
 }
