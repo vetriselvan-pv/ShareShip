@@ -1,4 +1,5 @@
 import { FastifyInstance } from 'fastify';
+import { env } from '../config/env.js';
 import { ExpenseTransactionModel, EventExpenseModel, ConnectionModel, UserModel } from '../models/index.js';
 import { isMongoConnected } from '../db/connection.js';
 import { validateBody, CreateExpenseSchema, CreateExpenseInput } from '../validation/index.js';
@@ -65,8 +66,8 @@ const eventExpensesList: EventExpense[] = [];
 
 export function getCurrencyConfig() {
   return {
-    code: process.env.CURRENCY_CODE || 'INR',
-    symbol: process.env.CURRENCY_SYMBOL || '₹'
+    code: env.CURRENCY_CODE,
+    symbol: env.CURRENCY_SYMBOL
   };
 }
 

@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { env } from '../config/env.js';
 
 export interface JwtUserPayload {
   userId: string;
@@ -9,13 +10,11 @@ export interface JwtUserPayload {
   exp?: number;
 }
 
-const DEFAULT_JWT_SECRET = 'shareship_jwt_secret_key_v1_2026_secured';
-
 // Set of revoked token hashes for instant in-memory checks
 const revokedTokenHashes = new Set<string>();
 
 export function getJwtSecret(): string {
-  return process.env.JWT_SECRET || DEFAULT_JWT_SECRET;
+  return env.JWT_SECRET;
 }
 
 /**

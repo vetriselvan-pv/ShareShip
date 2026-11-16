@@ -21,7 +21,7 @@ const encryptionPluginAsync: FastifyPluginAsync = async (fastify: FastifyInstanc
     const hasHeader = request.headers['x-payload-encryption'] === 'aes-256-gcm';
     const hasEnvelope = isEncryptedEnvelope(request.body);
 
-    if (hasHeader || hasEnvelope) {
+    if (hasEnvelope || (hasHeader && request.body !== undefined && request.body !== null)) {
       try {
         const payloadToDecrypt = hasEnvelope
           ? (request.body as any).payload
@@ -29,7 +29,7 @@ const encryptionPluginAsync: FastifyPluginAsync = async (fastify: FastifyInstanc
           ? request.body
           : (request.body as any)?.payload;
 
-        if (payloadToDecrypt) {
+        if (payloadToDecrypt && typeof payloadToDecrypt === 'string' && payloadToDecrypt.trim().length > 0) {
           const decrypted = decryptPayload(payloadToDecrypt);
           request.body = decrypted;
           request.wasEncrypted = true;

@@ -1,7 +1,7 @@
 import Fastify, { FastifyInstance } from 'fastify';
 import cors from '@fastify/cors';
 import websocket from '@fastify/websocket';
-import dotenv from 'dotenv';
+import './config/env.js';
 import { syncPlugin } from './plugins/sync.js';
 import { encryptionPlugin } from './plugins/encryption.js';
 import { authPlugin } from './plugins/auth.js';
@@ -15,8 +15,6 @@ import { connectionRoutes } from './routes/connections.js';
 import { relativesRoutes } from './routes/relatives.js';
 import { isMongoConnected } from './db/connection.js';
 
-dotenv.config();
-
 export async function buildApp(): Promise<FastifyInstance> {
   const fastify = Fastify({
     logger: true,
@@ -28,12 +26,15 @@ export async function buildApp(): Promise<FastifyInstance> {
   });
 
   // Strict Transport Security (HSTS) and Secure SSL Headers
-  fastify.addHook('onSend', async (request, reply) => {
-    reply.header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  fastify.addHook('onSend', async (request, reply, payload) => {
+    if (request.protocol === 'https' || request.headers['x-forwarded-proto'] === 'https') {
+      reply.header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+    }
     reply.header('X-Content-Type-Options', 'nosniff');
     reply.header('X-Frame-Options', 'DENY');
     reply.header('X-XSS-Protection', '1; mode=block');
     reply.header('Referrer-Policy', 'strict-origin-when-cross-origin');
+    return payload;
   });
 
   await fastify.register(encryptionPlugin);

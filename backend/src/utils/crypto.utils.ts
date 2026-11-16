@@ -1,12 +1,11 @@
 import crypto from 'crypto';
-
-const DEFAULT_SECRET = 'shareship_aes_secret_key_v1_2026_secured';
+import { env } from '../config/env.js';
 
 /**
  * Derives a consistent 256-bit (32 bytes) key from the configured secret.
  */
 function getDerivedKey(): Buffer {
-  const secret = process.env.APP_AES_SECRET || DEFAULT_SECRET;
+  const secret = env.APP_AES_SECRET;
   return crypto.createHash('sha256').update(secret).digest();
 }
 

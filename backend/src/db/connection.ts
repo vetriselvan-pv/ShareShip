@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import { env } from '../config/env.js';
 import {
   CalendarEventModel,
   RegistryItemModel,
@@ -10,8 +10,6 @@ import {
   PendingFriendRequestModel,
   ActivityNotificationModel
 } from '../models/index.js';
-
-dotenv.config();
 
 export let isMongoConnected = false;
 
@@ -55,7 +53,7 @@ mongoose.connection.on('connected', () => {
 mongoose.connection.on('disconnected', () => {
   isMongoConnected = false;
   console.warn('⚠️ [MongoDB] Disconnected from MongoDB Atlas. Operating with in-memory fallback.');
-  const uri = process.env.MONGODB_URI;
+  const uri = env.MONGODB_URI;
   if (uri && !uri.includes('<db_password>')) {
     scheduleReconnect(uri);
   }
@@ -85,7 +83,7 @@ export async function connectMongoDB(): Promise<boolean> {
     });
   }
 
-  const uri = process.env.MONGODB_URI || 'mongodb+srv://learnerkid_dev:<db_password>@learndev.zitnxvh.mongodb.net/Shareship?retryWrites=true&w=majority';
+  const uri = env.MONGODB_URI;
 
   if (uri.includes('<db_password>')) {
     console.warn('\n⚠️  [MongoDB] Connection string contains placeholder "<db_password>".');
