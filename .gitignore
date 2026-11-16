@@ -3,4 +3,4 @@ dist
 .env
 .env.local
 .DS_Store
-frontend/src/environments/environment.prod.ts
+frontend/src/environments/*
