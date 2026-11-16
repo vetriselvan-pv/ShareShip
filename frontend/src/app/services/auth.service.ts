@@ -1,5 +1,8 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { encryptPassword } from '../utils/crypto.utils';
+import { isTokenExpired } from '../utils/jwt.utils';
 import { environment } from '../../environments/environment';
 import { AuthUser, RegisterPayload, AuthPartner, AuthSpace } from '../models/auth.models';
 import { LoaderService } from './loader.service';
@@ -11,6 +14,7 @@ export type { AuthUser, RegisterPayload, AuthPartner, AuthSpace };
   providedIn: 'root',
 })
 export class AuthService {
+  private readonly http = inject(HttpClient);
   private readonly loaderService = inject(LoaderService);
   private readonly secureStorage = inject(SecureStorageService);
   private readonly sessionRestorePromise: Promise<boolean>;
@@ -60,6 +64,12 @@ export class AuthService {
       const savedSpace = await this.secureStorage.getObject<AuthSpace>('shareship_space');
 
       if (savedUser) {
+        if (savedToken && isTokenExpired(savedToken)) {
+          console.warn('[AuthService] Restored JWT session has expired. Clearing session.');
+          this.logout();
+          return false;
+        }
+
         this.currentUser.set(savedUser);
         this._inMemoryUserId = savedUser.userId;
         if (savedUser.name) {
@@ -98,6 +108,25 @@ export class AuthService {
     } else {
       this.secureStorage.removeItem('shareship_token');
     }
+  }
+
+  /**
+   * Returns authorization headers containing Bearer token if currently logged in with a valid JWT.
+   */
+  getAuthHeaders(): Record<string, string> {
+    const currentToken = this.token();
+    if (currentToken && !isTokenExpired(currentToken)) {
+      return { Authorization: `Bearer ${currentToken}` };
+    }
+    return {};
+  }
+
+  /**
+   * Ensures secure storage session is restored, then returns valid authorization headers.
+   */
+  async getValidAuthHeaders(): Promise<Record<string, string>> {
+    await this.sessionRestorePromise;
+    return this.getAuthHeaders();
   }
 
   getCurrentUser(): AuthUser | null {
@@ -184,9 +213,21 @@ export class AuthService {
   }
 
   /**
-   * Clears in-memory global variables and hardware-backed secure storage.
+   * Calls the backend to invalidate the JWT session, and clears in-memory global variables
+   * and hardware-backed secure storage.
    */
-  logout(): void {
+  async logout(skipServerCall: boolean = false): Promise<void> {
+    const token = this.token();
+    if (token && !skipServerCall) {
+      try {
+        await firstValueFrom(
+          this.http.post(`${this.apiUrl}/logout`, {})
+        );
+      } catch (err) {
+        console.warn('[AuthService] Backend logout exception:', err);
+      }
+    }
+
     // Reset in-memory global variables
     this.currentUser.set(null);
     this.token.set(null);
@@ -197,10 +238,10 @@ export class AuthService {
     this._inMemoryUserName = 'Vetri';
 
     // Clear secure storage asynchronously
-    this.secureStorage.removeItem('shareship_user');
-    this.secureStorage.removeItem('shareship_token');
-    this.secureStorage.removeItem('shareship_partner');
-    this.secureStorage.removeItem('shareship_space');
+    await this.secureStorage.removeItem('shareship_user');
+    await this.secureStorage.removeItem('shareship_token');
+    await this.secureStorage.removeItem('shareship_partner');
+    await this.secureStorage.removeItem('shareship_space');
 
     // Purge any legacy localStorage keys
     try {
@@ -221,22 +262,22 @@ export class AuthService {
     try {
       const encryptedPassword = rawPassword ? await encryptPassword(rawPassword) : '';
 
-      const response = await this.loaderService.track(
-        fetch(`${this.apiUrl}/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            username: usernameOrEmail,
-            password: encryptedPassword,
-          }),
-        }),
+      const data = await firstValueFrom(
+        this.http.post<{
+          success: boolean;
+          user?: AuthUser;
+          token?: string;
+          partner?: AuthPartner;
+          space?: AuthSpace;
+          error?: string;
+        }>(`${this.apiUrl}/login`, {
+          username: usernameOrEmail,
+          password: encryptedPassword,
+        })
       );
 
-      const data = await response.json().catch(() => null);
-
-      if (!response.ok || !data?.success) {
-        const errMsg =
-          data?.error || (data?.details && data?.details[0]?.message) || 'Invalid credentials';
+      if (!data?.success) {
+        const errMsg = data?.error || 'Invalid credentials';
         this.authError.set(errMsg);
         return { success: false, error: errMsg };
       }
@@ -268,11 +309,14 @@ export class AuthService {
 
       this.isAuthenticated.set(true);
       return { success: true };
-    } catch {
-      const netError =
+    } catch (err: any) {
+      const errMsg =
+        err?.error?.error ||
+        (err?.error?.details && err?.error?.details[0]?.message) ||
+        err?.message ||
         'Unable to connect to Shareship authentication service. Please ensure the backend server is running.';
-      this.authError.set(netError);
-      return { success: false, error: netError };
+      this.authError.set(errMsg);
+      return { success: false, error: errMsg };
     } finally {
       this.isAuthenticating.set(false);
     }
@@ -287,25 +331,24 @@ export class AuthService {
     try {
       const encryptedPassword = await encryptPassword(payload.password);
 
-      const response = await this.loaderService.track(
-        fetch(`${this.apiUrl}/register`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            userId: payload.userId,
-            name: payload.name,
-            email: payload.email,
-            password: encryptedPassword,
-            avatarUrl: payload.avatarUrl || '',
-          }),
-        }),
+      const data = await firstValueFrom(
+        this.http.post<{
+          success: boolean;
+          message?: string;
+          user?: AuthUser;
+          token?: string;
+          error?: string;
+        }>(`${this.apiUrl}/register`, {
+          userId: payload.userId,
+          name: payload.name,
+          email: payload.email,
+          password: encryptedPassword,
+          avatarUrl: payload.avatarUrl || '',
+        })
       );
 
-      const data = await response.json().catch(() => null);
-
-      if (!response.ok || !data?.success) {
-        const errMsg =
-          data?.error || (data?.details && data?.details[0]?.message) || 'Registration failed';
+      if (!data?.success) {
+        const errMsg = data?.error || 'Registration failed';
         this.authError.set(errMsg);
         return { success: false, error: errMsg };
       }
@@ -326,11 +369,14 @@ export class AuthService {
       }
 
       return { success: true, message: data.message };
-    } catch {
-      const netError =
+    } catch (err: any) {
+      const errMsg =
+        err?.error?.error ||
+        (err?.error?.details && err?.error?.details[0]?.message) ||
+        err?.message ||
         'Unable to reach backend service to register user. Please check server status.';
-      this.authError.set(netError);
-      return { success: false, error: netError };
+      this.authError.set(errMsg);
+      return { success: false, error: errMsg };
     } finally {
       this.isAuthenticating.set(false);
     }
@@ -346,32 +392,31 @@ export class AuthService {
     try {
       const encryptedPassword = await encryptPassword(newPassword);
 
-      const response = await this.loaderService.track(
-        fetch(`${this.apiUrl}/reset-password`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
+      const data = await firstValueFrom(
+        this.http.post<{ success: boolean; message?: string; error?: string }>(
+          `${this.apiUrl}/reset-password`,
+          {
             identifier,
             newPassword: encryptedPassword,
-          }),
-        }),
+          }
+        )
       );
 
-      const data = await response.json().catch(() => null);
-
-      if (!response.ok || !data?.success) {
-        const errMsg =
-          data?.error || (data?.details && data?.details[0]?.message) || 'Password reset failed.';
+      if (!data?.success) {
+        const errMsg = data?.error || 'Password reset failed.';
         this.authError.set(errMsg);
         return { success: false, error: errMsg };
       }
 
       return { success: true, message: data.message };
-    } catch {
-      const netError =
+    } catch (err: any) {
+      const errMsg =
+        err?.error?.error ||
+        (err?.error?.details && err?.error?.details[0]?.message) ||
+        err?.message ||
         'Unable to reach backend service to reset password. Please check server status.';
-      this.authError.set(netError);
-      return { success: false, error: netError };
+      this.authError.set(errMsg);
+      return { success: false, error: errMsg };
     } finally {
       this.isAuthenticating.set(false);
     }
@@ -382,12 +427,8 @@ export class AuthService {
     this.authError.set(null);
 
     try {
-      await this.loaderService.track(
-        fetch(`${this.apiUrl}/create-space`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ spaceName, partnerEmail }),
-        }),
+      await firstValueFrom(
+        this.http.post(`${this.apiUrl}/create-space`, { spaceName, partnerEmail })
       );
       this.isAuthenticated.set(true);
       return true;

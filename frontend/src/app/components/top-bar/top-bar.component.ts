@@ -221,9 +221,9 @@ export class TopBarComponent {
     this.onProfileClick.emit();
   }
 
-  handleLogout() {
+  async handleLogout() {
     this.isProfileMenuOpen.set(false);
-    this.authService.logout();
+    await this.authService.logout();
     this.router.navigate(['/login']);
   }
 }

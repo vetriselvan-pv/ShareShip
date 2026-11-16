@@ -8,7 +8,10 @@ export type { EventExpenseCardItem };
   template: `
     <div class="flex flex-col gap-3.5 select-none">
       @for (evt of events(); track evt.id) {
-        <div class="bg-[#ecf6f0] rounded-2xl overflow-hidden shadow-2xs border border-[#dbe5df]/60 flex flex-col transition-all hover:shadow-xs">
+        <div 
+          (click)="onEventSelect.emit(evt)"
+          class="bg-[#ecf6f0] rounded-2xl overflow-hidden shadow-2xs border border-[#dbe5df]/60 flex flex-col transition-all hover:shadow-md hover:border-[#466557]/40 cursor-pointer group"
+        >
           <!-- Hero Header Image with Gradient & Title -->
           <div 
             class="h-32 bg-cover bg-center relative p-3.5 sm:p-4 flex flex-col justify-end"
@@ -23,7 +26,7 @@ export type { EventExpenseCardItem };
                 >
                   {{ evt.status }}
                 </span>
-                <h4 class="text-[17px] font-bold text-[#ffffff] tracking-tight leading-tight mt-1.5 drop-shadow-xs">
+                <h4 class="text-[17px] font-bold text-[#ffffff] tracking-tight leading-tight mt-1.5 drop-shadow-xs group-hover:text-[#fed65b] transition-colors">
                   {{ evt.title }}
                 </h4>
               </div>
@@ -36,28 +39,9 @@ export type { EventExpenseCardItem };
             </div>
           </div>
 
-          <!-- Body Info: Budget & Progress -->
-          <div class="p-3.5 sm:p-4 flex flex-col gap-2.5">
-            <div class="flex justify-between text-[13px] text-[#414844] font-medium">
-              <span>Budget: {{ currencySymbol() }}{{ evt.budget.toLocaleString() }}</span>
-              @if (evt.spent <= evt.budget) {
-                <span class="text-[#466557] font-semibold">{{ currencySymbol() }}{{ (evt.budget - evt.spent).toLocaleString() }} left</span>
-              } @else {
-                <span class="text-[#ba1a1a] font-semibold">{{ currencySymbol() }}{{ (evt.spent - evt.budget).toLocaleString() }} over</span>
-              }
-            </div>
-
-            <!-- Progress Bar -->
-            <div class="h-2 w-full bg-[#dbe5df] rounded-full overflow-hidden shadow-inner">
-              <div 
-                class="h-full rounded-full transition-all duration-500"
-                [class]="evt.spent <= evt.budget ? 'bg-[#466557]' : 'bg-[#ba1a1a]'"
-                [style.width.%]="Math.min(100, Math.round((evt.spent / evt.budget) * 100))"
-              ></div>
-            </div>
-
-            <!-- Footer: Member Avatars & Action Button -->
-            <div class="flex justify-between items-center pt-1.5">
+          <!-- Body Info: Member Avatars, History Hint & Action Button (No Budget) -->
+          <div class="p-3.5 sm:p-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
               <div class="flex -space-x-2">
                 @for (m of evt.members; track m.name) {
                   @if (m.avatarUrl) {
@@ -74,14 +58,21 @@ export type { EventExpenseCardItem };
                 }
               </div>
 
-              <button
-                type="button"
-                (click)="onActionClick.emit(evt)"
-                class="bg-[#e6f0ea] hover:bg-[#dbe5df] text-[#151d1a] px-3.5 py-1.5 rounded-full text-xs font-semibold shadow-2xs transition-all cursor-pointer"
-              >
-                + Add Expense
-              </button>
+              <span class="text-[12px] text-[#466557] font-semibold flex items-center gap-1 group-hover:underline">
+                <span>View History</span>
+                <svg class="w-3.5 h-3.5 text-[#466557] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </span>
             </div>
+
+            <button
+              type="button"
+              (click)="$event.stopPropagation(); onActionClick.emit(evt)"
+              class="bg-[#e6f0ea] hover:bg-[#dbe5df] active:scale-95 text-[#151d1a] px-3.5 py-1.5 rounded-full text-xs font-semibold shadow-2xs transition-all cursor-pointer"
+            >
+              + Add Expense
+            </button>
           </div>
         </div>
       } @empty {
@@ -94,8 +85,8 @@ export type { EventExpenseCardItem };
   `
 })
 export class EventExpensesListComponent {
-  Math = Math;
   events = input<EventExpenseCardItem[]>([]);
   currencySymbol = input<string>('₹');
   onActionClick = output<EventExpenseCardItem>();
+  onEventSelect = output<EventExpenseCardItem>();
 }

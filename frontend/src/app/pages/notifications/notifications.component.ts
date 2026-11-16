@@ -120,10 +120,9 @@ export class NotificationsComponent implements OnInit {
   }
 
   fetchNotifications() {
-    const currentUserId = this.getCurrentUserId();
     this.http
       .get<{ pendingRequests: PendingRequestItem[]; notifications: FeedNotificationItem[] }>(
-        `${environment.apiUrl}/api/notifications?userId=${encodeURIComponent(currentUserId)}`,
+        `${environment.apiUrl}/api/notifications`,
       )
       .subscribe({
         next: (res) => {
@@ -212,11 +211,10 @@ export class NotificationsComponent implements OnInit {
   handleMarkAllRead() {
     this.feedNotifications.update((list) => list.map((item) => ({ ...item, isRead: true })));
     this.showToast('✓ All notifications marked as read');
-    const currentUserId = this.getCurrentUserId();
 
     this.http
       .post(
-        `${environment.apiUrl}/api/notifications/mark-all-read?userId=${encodeURIComponent(currentUserId)}`,
+        `${environment.apiUrl}/api/notifications/mark-all-read`,
         {},
       )
       .subscribe({

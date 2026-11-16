@@ -1,7 +1,8 @@
 import { Injectable, signal, computed, inject, effect } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { AuthService } from './auth.service';
 import { SyncService } from './sync.service';
-import { LoaderService } from './loader.service';
 import { environment } from '../../environments/environment';
 import { CalendarEvent, CalendarEventCategory, NewEventPayload } from '../models/calendar.models';
 
@@ -11,9 +12,9 @@ export type { CalendarEvent, CalendarEventCategory, NewEventPayload };
   providedIn: 'root'
 })
 export class CalendarService {
+  private http = inject(HttpClient);
   private authService = inject(AuthService);
   private syncService = inject(SyncService);
-  private loaderService = inject(LoaderService);
   private apiUrl = `${environment.apiUrl}/api/calendar/events`;
 
   readonly events = signal<CalendarEvent[]>([]);
@@ -68,15 +69,14 @@ export class CalendarService {
       return [];
     }
     this.isLoading.set(true);
-    const effectiveUserId = userId || this.authService.getCurrentUserId();
     try {
-      const res = await this.loaderService.track(
-        fetch(`${this.apiUrl}?userId=${encodeURIComponent(effectiveUserId)}`),
+      const url = userId ? `${this.apiUrl}?userId=${encodeURIComponent(userId)}` : this.apiUrl;
+      const res = await firstValueFrom(
+        this.http.get<{ success: boolean; events: CalendarEvent[] }>(url)
       );
-      const data = await res.json().catch(() => null);
-      if (data?.success && Array.isArray(data.events)) {
-        this.events.set(data.events);
-        return data.events;
+      if (res?.success && Array.isArray(res.events)) {
+        this.events.set(res.events);
+        return res.events;
       }
       this.events.set([]);
       return [];
@@ -134,21 +134,15 @@ export class CalendarService {
     };
 
     try {
-      const response = await this.loaderService.track(
-        fetch(this.apiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        }),
+      const res = await firstValueFrom(
+        this.http.post<{ success: boolean; event: CalendarEvent }>(this.apiUrl, payload)
       );
-      const data = await response.json().catch(() => null);
 
-      if (!response.ok || !data?.success) {
-        const errorMsg = data?.error || (data?.details && data?.details[0]?.message) || 'Failed to save event.';
-        return { success: false, error: errorMsg };
+      if (!res?.success || !res.event) {
+        return { success: false, error: 'Failed to save event.' };
       }
 
-      const created: CalendarEvent = data.event;
+      const created: CalendarEvent = res.event;
       // Prepend to current reactive list
       this.events.update(prev => [created, ...prev]);
 
@@ -156,8 +150,85 @@ export class CalendarService {
       this.syncService.sendSyncItem('calendar', `Added event: ${created.title}${created.gift ? ` (Gift: ${created.gift})` : ''}`);
 
       return { success: true, event: created };
-    } catch {
-      return { success: false, error: 'Network error: Unable to reach backend server.' };
+    } catch (err: any) {
+      const errorMsg = err?.error?.error || err?.error?.message || err?.message || 'Failed to save event.';
+      return { success: false, error: errorMsg };
+    }
+  }
+
+  async updateEvent(
+    id: string,
+    eventData: {
+      title?: string;
+      date?: string;
+      time?: string;
+      location?: string;
+      gift?: string;
+      giftAmount?: number;
+      category?: 'Event' | 'celebration' | 'Incident' | 'Task' | string;
+    }
+  ): Promise<{ success: boolean; event?: CalendarEvent; error?: string }> {
+    const category = eventData.category;
+    let icon: string | undefined;
+    if (category) {
+      const catLower = category.toLowerCase();
+      if (catLower === 'celebration' || catLower === 'wedding' || catLower === 'birthday' || catLower === 'anniversary') {
+        icon = 'celebration';
+      } else if (catLower === 'incident') {
+        icon = 'warning';
+      } else if (catLower === 'task') {
+        icon = 'task';
+      } else {
+        icon = 'event';
+      }
+    }
+
+    const payload: any = {
+      ...eventData,
+      ...(eventData.title !== undefined ? { title: eventData.title.trim() } : {}),
+      ...(eventData.location !== undefined ? { location: eventData.location.trim() } : {}),
+      ...(eventData.gift !== undefined ? { gift: eventData.gift.trim() } : {}),
+      ...(icon ? { icon } : {})
+    };
+
+    try {
+      const res = await firstValueFrom(
+        this.http.put<{ success: boolean; event: CalendarEvent }>(`${this.apiUrl}/${id}`, payload)
+      );
+
+      if (!res?.success || !res.event) {
+        return { success: false, error: 'Failed to update event.' };
+      }
+
+      const updated = res.event;
+      this.events.update(prev => prev.map(e => (e.id === id ? updated : e)));
+      this.syncService.sendSyncItem('calendar', `Updated event: ${updated.title}`);
+
+      return { success: true, event: updated };
+    } catch (err: any) {
+      const errorMsg = err?.error?.error || err?.error?.message || err?.message || 'Failed to update event.';
+      return { success: false, error: errorMsg };
+    }
+  }
+
+  async deleteEvent(id: string): Promise<{ success: boolean; error?: string }> {
+    const existing = this.events().find(e => e.id === id);
+    try {
+      const res = await firstValueFrom(
+        this.http.delete<{ success: boolean; message?: string }>(`${this.apiUrl}/${id}`)
+      );
+
+      if (!res?.success) {
+        return { success: false, error: 'Failed to delete event.' };
+      }
+
+      this.events.update(prev => prev.filter(e => e.id !== id));
+      this.syncService.sendSyncItem('calendar', `Deleted event: ${existing?.title || 'Event'}`);
+
+      return { success: true };
+    } catch (err: any) {
+      const errorMsg = err?.error?.error || err?.error?.message || err?.message || 'Failed to delete event.';
+      return { success: false, error: errorMsg };
     }
   }
 

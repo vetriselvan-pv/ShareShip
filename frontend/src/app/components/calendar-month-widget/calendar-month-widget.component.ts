@@ -1,4 +1,4 @@
-import { Component, computed, input, output, signal } from '@angular/core';
+import { Component, computed, input, output, signal, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-calendar-month-widget',
@@ -96,7 +96,7 @@ import { Component, computed, input, output, signal } from '@angular/core';
     </div>
   `
 })
-export class CalendarMonthWidgetComponent {
+export class CalendarMonthWidgetComponent implements OnInit {
   private readonly monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
@@ -135,6 +135,13 @@ export class CalendarMonthWidgetComponent {
   readonly eventDays = input<number[]>([]);
   readonly dateSelected = output<{ day: number; month: string; year: number }>();
   readonly monthChange = output<{ month: string; year: number }>();
+
+  ngOnInit() {
+    const today = new Date();
+    if (this.activeMonth() === today.getMonth() && this.activeYear() === today.getFullYear()) {
+      this.selectedDay.set(today.getDate());
+    }
+  }
 
   hasGoldDot(day: number): boolean {
     return this.eventDays().includes(day);

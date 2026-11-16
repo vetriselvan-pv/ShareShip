@@ -1,7 +1,8 @@
 import { Injectable, signal, inject, effect } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { SyncService } from './sync.service';
 import { AuthService } from './auth.service';
-import { LoaderService } from './loader.service';
 import { environment } from '../../environments/environment';
 import { SearchedUser, PartnerConnection, ConnectionStatus, UserSearchResult } from '../models/connection.models';
 
@@ -11,9 +12,9 @@ export type { SearchedUser, PartnerConnection, ConnectionStatus, UserSearchResul
   providedIn: 'root'
 })
 export class ConnectionService {
+  private http = inject(HttpClient);
   private syncService = inject(SyncService);
   private authService = inject(AuthService);
-  private loaderService = inject(LoaderService);
   private apiUrl = `${environment.apiUrl}/api/connections`;
 
   readonly activePartner = signal<PartnerConnection | null>(null);
@@ -44,15 +45,13 @@ export class ConnectionService {
 
     this.isSearching.set(true);
     try {
-      const currentUserId = this.getCurrentUserId();
-      const res = await this.loaderService.track(
-        fetch(
-          `${this.apiUrl}/search?query=${encodeURIComponent(cleanQuery)}&currentUserId=${encodeURIComponent(currentUserId)}`
-        ),
+      const res = await firstValueFrom(
+        this.http.get<{ success: boolean; users: SearchedUser[] }>(
+          `${this.apiUrl}/search?query=${encodeURIComponent(cleanQuery)}`
+        )
       );
-      const data = await res.json().catch(() => null);
-      if (data?.success && Array.isArray(data.users)) {
-        return data.users;
+      if (res?.success && Array.isArray(res.users)) {
+        return res.users;
       }
       return [];
     } catch (err) {
@@ -67,13 +66,17 @@ export class ConnectionService {
     if (!this.authService.isAuthenticated()) {
       return { connected: false, partner: null };
     }
-    const effectiveUserId = userId || this.getCurrentUserId();
 
     try {
-      const response = await this.loaderService.track(
-        fetch(`${this.apiUrl}/partner?userId=${encodeURIComponent(effectiveUserId)}`),
+      const url = userId ? `${this.apiUrl}/partner?userId=${encodeURIComponent(userId)}` : `${this.apiUrl}/partner`;
+      const data = await firstValueFrom(
+        this.http.get<{
+          success: boolean;
+          connected?: boolean;
+          partner?: PartnerConnection | null;
+          pendingPartner?: PartnerConnection | null;
+        }>(url)
       );
-      const data = await response.json().catch(() => null);
 
       if (data?.success) {
         if (data.connected && data.partner) {
@@ -84,11 +87,11 @@ export class ConnectionService {
           this.syncService.partnerLink.update(prev => ({
             ...prev,
             partner: {
-              id: data.partner.userId,
-              name: data.partner.name,
-              email: `${data.partner.userId}@shareship.app`,
-              avatarUrl: data.partner.avatarUrl,
-              initial: (data.partner.name || data.partner.userId).charAt(0).toUpperCase(),
+              id: data.partner!.userId,
+              name: data.partner!.name,
+              email: `${data.partner!.userId}@shareship.app`,
+              avatarUrl: data.partner!.avatarUrl,
+              initial: (data.partner!.name || data.partner!.userId).charAt(0).toUpperCase(),
               status: 'online'
             }
           }));
@@ -117,31 +120,20 @@ export class ConnectionService {
     const requesterId = this.getCurrentUserId();
 
     try {
-      const response = await this.loaderService.track(
-        fetch(`${this.apiUrl}/request`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            targetUserId: cleanTarget,
-            requesterUserId: requesterId
-          })
-        }),
+      const data = await firstValueFrom(
+        this.http.post<{ success: boolean; message?: string }>(`${this.apiUrl}/request`, {
+          targetUserId: cleanTarget,
+          requesterUserId: requesterId
+        })
       );
-
-      const data = await response.json().catch(() => null);
-
-      if (!response.ok || !data?.success) {
-        const errorMsg = data?.error || (data?.details && data?.details[0]?.message) || 'Failed to send connection request';
-        return { success: false, error: errorMsg };
-      }
 
       await this.loadPartnerConnection();
       return { success: true, message: data.message };
-    } catch {
-      return { success: false, error: 'Network error: Unable to send connection request. Please ensure the backend is running.' };
+    } catch (err: any) {
+      const errorMsg = err?.error?.error || err?.error?.message || err?.message || 'Failed to send connection request';
+      return { success: false, error: errorMsg };
     } finally {
       this.isSending.set(false);
     }
   }
 }
-

@@ -53,6 +53,13 @@ export interface RecentTransactionItem {
     | 'cattle'
     | 'lifestyle'
     | string;
+  rawAmount?: number;
+  category?: string;
+  paidBy?: string;
+  timestamp?: string;
+  expenseType?: 'monthly' | 'event';
+  eventId?: string;
+  eventTitle?: string;
 }
 
 export interface EventExpenseMember {
@@ -65,7 +72,7 @@ export interface EventExpenseCardItem {
   title: string;
   status: 'Active Trip' | 'Completed';
   spent: number;
-  budget: number;
+  budget?: number;
   bgImageUrl: string;
   members: EventExpenseMember[];
 }

@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed, effect, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -8,6 +8,7 @@ import { CategoryCardsGridComponent } from '../../components/category-cards-grid
 import { RecentTransactionsListComponent } from '../../components/recent-transactions-list/recent-transactions-list.component';
 import { EventExpensesListComponent } from '../../components/event-expenses-list/event-expenses-list.component';
 import { AddExpenseModalComponent } from '../../components/add-expense-modal/add-expense-modal.component';
+import { EventHistoryModalComponent } from '../../components/event-history-modal/event-history-modal.component';
 import { BottomNavComponent } from '../../components/bottom-nav/bottom-nav.component';
 import { SyncModalComponent } from '../../components/sync-modal/sync-modal.component';
 import { SyncService } from '../../services/sync.service';
@@ -35,6 +36,7 @@ export type { ExpenseTabType };
     RecentTransactionsListComponent,
     EventExpensesListComponent,
     AddExpenseModalComponent,
+    EventHistoryModalComponent,
     BottomNavComponent,
     SyncModalComponent,
   ],
@@ -161,6 +163,7 @@ export type { ExpenseTabType };
               [events]="eventExpenses()"
               [currencySymbol]="currencyService.currencySymbol()"
               (onActionClick)="handleEventAction($event)"
+              (onEventSelect)="handleSelectEventForHistory($event)"
             />
           </section>
         }
@@ -195,6 +198,17 @@ export type { ExpenseTabType };
         [currencySymbol]="currencyService.currencySymbol()"
         (close)="isAddExpenseModalOpen.set(false)"
         (expenseCreated)="handleCreateExpense($event)"
+      />
+
+      <!-- Event History Breakdown Modal -->
+      <app-event-history-modal
+        [isOpen]="isEventHistoryModalOpen()"
+        [event]="selectedEventForHistory()"
+        [transactions]="selectedEventTransactions()"
+        [currencySymbol]="currencyService.currencySymbol()"
+        (close)="isEventHistoryModalOpen.set(false)"
+        (addExpense)="handleAddExpenseFromHistory($event)"
+        (selectTransaction)="handleSelectTransaction($event)"
       />
 
       <!-- Real-Time Sync Modal -->
@@ -275,6 +289,23 @@ export class ExpensesComponent implements OnInit {
   transactions = signal<RecentTransactionItem[]>([]);
   eventExpenses = signal<EventExpenseCardItem[]>([]);
 
+  selectedEventForHistory = signal<EventExpenseCardItem | null>(null);
+  isEventHistoryModalOpen = signal<boolean>(false);
+
+  readonly selectedEventTransactions = computed(() => {
+    const selected = this.selectedEventForHistory();
+    if (!selected) return [];
+    const selTitle = (selected.title || '').trim().toLowerCase();
+    const selId = selected.id;
+
+    return this.transactions().filter((t) => {
+      if (t.eventId && t.eventId === selId) return true;
+      if (t.eventTitle && t.eventTitle.trim().toLowerCase() === selTitle) return true;
+      if (t.subtitle && t.subtitle.toLowerCase().includes(selTitle)) return true;
+      return false;
+    });
+  });
+
   availableEventOptions = computed(() => {
     const list: { id: string; title: string }[] = [];
     for (const evt of this.eventExpenses()) {
@@ -290,13 +321,7 @@ export class ExpensesComponent implements OnInit {
     return list;
   });
 
-  constructor() {
-    effect(() => {
-      // Whenever currentUser changes or logs in, reload expenses for that user
-      const user = this.authService.currentUser();
-      this.fetchExpenses();
-    });
-  }
+  private isFetchingExpenses = false;
 
   ngOnInit() {
     this.fetchExpenses();
@@ -316,6 +341,8 @@ export class ExpensesComponent implements OnInit {
     this.categories.set(this.getDefaultCategories());
     this.transactions.set([]);
     this.eventExpenses.set([]);
+    this.selectedEventForHistory.set(null);
+    this.isEventHistoryModalOpen.set(false);
   }
 
   fetchExpenses() {
@@ -324,6 +351,11 @@ export class ExpensesComponent implements OnInit {
       this.resetSignals();
       return;
     }
+
+    if (this.isFetchingExpenses) {
+      return;
+    }
+    this.isFetchingExpenses = true;
 
     this.http
       .get<{
@@ -356,7 +388,7 @@ export class ExpensesComponent implements OnInit {
           iconType?: string;
         }>;
         eventExpenses?: EventExpenseCardItem[];
-      }>(`${environment.apiUrl}/api/expenses?userId=${encodeURIComponent(uid)}`)
+      }>(`${environment.apiUrl}/api/expenses`)
       .subscribe({
         next: (res) => {
           if (res?.currency?.symbol) {
@@ -403,7 +435,7 @@ export class ExpensesComponent implements OnInit {
           }
           if (res?.recentTransactions) {
             this.transactions.set(
-              res.recentTransactions.map((tx) => ({
+              res.recentTransactions.map((tx: any) => ({
                 id: tx.id,
                 title: tx.title,
                 subtitle:
@@ -411,9 +443,16 @@ export class ExpensesComponent implements OnInit {
                     ? `Paid by ${tx.paidBy} • ${tx.category} • ${tx.eventTitle}`
                     : `Paid by ${tx.paidBy} • ${tx.category}`,
                 amount: this.currencyService.format(Number(tx.amount || 0)),
+                rawAmount: Number(tx.amount || 0),
                 splitLabel: tx.splitLabel,
                 splitColor: tx.splitType === 'owes_half' ? 'secondary' : 'primary',
                 iconType: tx.iconType || 'coffee',
+                category: tx.category,
+                paidBy: tx.paidBy,
+                timestamp: tx.timestamp,
+                expenseType: tx.expenseType || 'monthly',
+                eventId: tx.eventId,
+                eventTitle: tx.eventTitle,
               })),
             );
           } else {
@@ -424,8 +463,10 @@ export class ExpensesComponent implements OnInit {
           } else {
             this.eventExpenses.set([]);
           }
+          this.isFetchingExpenses = false;
         },
         error: () => {
+          this.isFetchingExpenses = false;
           this.resetSignals();
         },
       });
@@ -459,10 +500,14 @@ export class ExpensesComponent implements OnInit {
       if (existingIndex !== -1) {
         this.eventExpenses.update((evts) => {
           const updated = [...evts];
+          const newSpent = updated[existingIndex].spent + amt;
           updated[existingIndex] = {
             ...updated[existingIndex],
-            spent: updated[existingIndex].spent + amt,
+            spent: newSpent,
           };
+          if (this.selectedEventForHistory()?.id === updated[existingIndex].id) {
+            this.selectedEventForHistory.set(updated[existingIndex]);
+          }
           return updated;
         });
       } else {
@@ -471,7 +516,6 @@ export class ExpensesComponent implements OnInit {
           title: payload.eventTitle || payload.title,
           status: 'Active Trip',
           spent: amt,
-          budget: Math.max(500, Math.round(amt * 1.5)),
           bgImageUrl:
             'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
           members: [
@@ -508,9 +552,16 @@ export class ExpensesComponent implements OnInit {
           ? `Paid by You • ${payload.category} • ${payload.eventTitle}`
           : `Paid by You • ${payload.category}`,
       amount: this.currencyService.format(amt),
+      rawAmount: amt,
       splitLabel: payload.splitLabel,
       splitColor: payload.splitLabel.includes('owes') ? 'secondary' : 'primary',
-      iconType: txIcon
+      iconType: txIcon,
+      category: payload.category,
+      paidBy: this.currentUserName() || 'You',
+      timestamp: new Date().toISOString(),
+      expenseType: payload.expenseType,
+      eventId: payload.eventId,
+      eventTitle: payload.eventTitle,
     };
     this.transactions.update((prev) => [newTx, ...prev]);
 
@@ -613,6 +664,16 @@ export class ExpensesComponent implements OnInit {
     this.preselectedEventId.set(evt.id);
     this.isAddExpenseModalOpen.set(true);
     this.showToast(`Adding expense to ${evt.title}`);
+  }
+
+  handleSelectEventForHistory(evt: EventExpenseCardItem) {
+    this.selectedEventForHistory.set(evt);
+    this.isEventHistoryModalOpen.set(true);
+  }
+
+  handleAddExpenseFromHistory(evt: EventExpenseCardItem) {
+    this.isEventHistoryModalOpen.set(false);
+    this.handleEventAction(evt);
   }
 
   handleTabSwitch(tab: NavTab) {
