@@ -2,6 +2,8 @@ import { FastifyInstance } from "fastify";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import { syncManager } from "../plugins/sync.js";
+import { decryptPayload } from "../utils/crypto.utils.js";
+import { signJwt, revokeToken } from "../utils/jwt.utils.js";
 import { UserModel, IUser } from "../models/index.js";
 import { isMongoConnected } from "../db/connection.js";
 import {
@@ -28,9 +30,17 @@ const DERIVED_KEY = crypto.createHash("sha256").update(SHARESHIP_SALT).digest();
  * Decrypts the encoded password received from the frontend (AES-GCM or Base64)
  */
 export function decryptPassword(payload: string): string {
-  if (!payload) return ""; 
+  if (!payload) return "";
 
-  // 1. Attempt AES-GCM decryption
+  // 1. Attempt standard AES-256-GCM payload decryption
+  try {
+    const decrypted = decryptPayload<string>(payload);
+    if (decrypted && typeof decrypted === 'string') return decrypted;
+  } catch {
+    // Proceed to legacy salt check
+  }
+
+  // 2. Attempt legacy AES-GCM decryption with SHARED_SALT
   try {
     const buf = Buffer.from(payload, "base64");
     if (buf.length > 28) {
@@ -125,9 +135,17 @@ export async function authRoutes(fastify: FastifyInstance) {
 
       inMemoryUsers.set(cleanUserId, newUser);
 
+      const token = signJwt({
+        userId: newUser.userId,
+        name: newUser.name,
+        email: newUser.email,
+        avatarUrl: newUser.avatarUrl || '',
+      });
+
       return reply.code(201).send({
         success: true,
         message: `User '@${cleanUserId}' created successfully!`,
+        token,
         user: {
           userId: newUser.userId,
           name: newUser.name,
@@ -334,11 +352,12 @@ export async function authRoutes(fastify: FastifyInstance) {
           syncStatus: "in_sync",
           isLiveSyncActive: true,
         },
-        token:
-          "shareship_jwt_" +
-          Buffer.from(matchedUser.userId).toString("base64") +
-          "_" +
-          Date.now(),
+        token: signJwt({
+          userId: matchedUser.userId,
+          name: matchedUser.name,
+          email: matchedUser.email,
+          avatarUrl: matchedUser.avatarUrl || '',
+        }),
       });
     },
   );
@@ -508,4 +527,17 @@ export async function authRoutes(fastify: FastifyInstance) {
       };
     },
   );
+
+  // LOGOUT: INVALIDATE JWT SESSION ON BACKEND
+  fastify.post("/api/auth/logout", async (request, reply) => {
+    const authHeader = request.headers.authorization;
+    if (authHeader && authHeader.trim().toLowerCase().startsWith("bearer ")) {
+      const token = authHeader.trim().split(/\s+/)[1];
+      revokeToken(token);
+    }
+    return {
+      success: true,
+      message: "Session successfully invalidated. User logged out.",
+    };
+  });
 }

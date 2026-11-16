@@ -19,7 +19,7 @@ export async function connectionRoutes(fastify: FastifyInstance) {
   fastify.get('/api/connections/search', async (request) => {
     const query = request.query as { query?: string; currentUserId?: string };
     const term = (query.query || '').trim().toLowerCase().replace(/^@+/, '');
-    const currentUserId = (query.currentUserId || 'vetriselvan_11').trim().toLowerCase().replace(/^@+/, '');
+    const currentUserId = (request.user?.userId || query.currentUserId || '').trim().toLowerCase().replace(/^@+/, '');
 
     if (!term) {
       return { success: true, users: [] };
@@ -125,7 +125,7 @@ export async function connectionRoutes(fastify: FastifyInstance) {
   fastify.post('/api/connections/request', { preHandler: validateBody(ConnectionRequestSchema) }, async (request, reply) => {
     const body = request.body as ConnectionRequestInput;
     const cleanTargetId = body.targetUserId.trim().toLowerCase().replace(/^@+/, '');
-    const cleanRequesterId = (body.requesterUserId || 'vetriselvan_11').trim().toLowerCase().replace(/^@+/, '');
+    const cleanRequesterId = (request.user?.userId || body.requesterUserId || 'vetriselvan_11').trim().toLowerCase().replace(/^@+/, '');
 
     // Prevent connecting with oneself
     if (cleanTargetId === cleanRequesterId) {
@@ -279,8 +279,8 @@ export async function connectionRoutes(fastify: FastifyInstance) {
 
   // GET CURRENT PARTNER CONNECTION STATUS
   fastify.get('/api/connections/partner', async (request, reply) => {
-    const query = request.query as { userId?: string };
-    const currentUserId = (query.userId || 'vetriselvan_11').trim().toLowerCase().replace(/^@+/, '');
+    const query = (request.query || {}) as { userId?: string };
+    const currentUserId = (request.user?.userId || query.userId || '').trim().toLowerCase().replace(/^@+/, '');
 
     let connected: IConnection | null = null;
     let pending: IConnection | null = null;
@@ -353,8 +353,8 @@ export async function connectionRoutes(fastify: FastifyInstance) {
 
   // GET ALL CONNECTIONS FOR CURRENT USER
   fastify.get('/api/connections', async (request) => {
-    const query = request.query as { userId?: string };
-    const currentUserId = (query.userId || 'vetriselvan_11').trim().toLowerCase().replace(/^@+/, '');
+    const query = (request.query || {}) as { userId?: string };
+    const currentUserId = (request.user?.userId || query.userId || '').trim().toLowerCase().replace(/^@+/, '');
 
     let list = inMemoryConnections;
     if (isMongoConnected) {

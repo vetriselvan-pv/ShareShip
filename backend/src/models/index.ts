@@ -7,3 +7,5 @@ export * from './live-scratchpad.model.js';
 export * from './notification.model.js';
 export * from './user.model.js';
 export * from './connection.model.js';
+export * from './relative.model.js';
+export * from './revoked-token.model.js';

@@ -36,8 +36,8 @@ let activityNotifications: ActivityNotification[] = [];
 export async function notificationRoutes(fastify: FastifyInstance) {
   // GET all notifications and pending friend requests for the specific userId
   fastify.get('/api/notifications', async (request) => {
-    const query = request.query as { userId?: string };
-    const currentUserId = (query.userId || '').trim().toLowerCase().replace(/^@+/, '');
+    const query = (request.query || {}) as { userId?: string };
+    const currentUserId = (request.user?.userId || query.userId || '').trim().toLowerCase().replace(/^@+/, '');
 
     let requests: PendingFriendRequest[] = [];
     let notifs: ActivityNotification[] = [];
@@ -353,8 +353,8 @@ export async function notificationRoutes(fastify: FastifyInstance) {
 
   // POST mark all notifications as read for current user
   fastify.post('/api/notifications/mark-all-read', async (request) => {
-    const query = request.query as { userId?: string };
-    const currentUserId = (query.userId || '').trim().toLowerCase().replace(/^@+/, '');
+    const query = (request.query || {}) as { userId?: string };
+    const currentUserId = (request.user?.userId || query.userId || '').trim().toLowerCase().replace(/^@+/, '');
 
     if (isMongoConnected) {
       try {

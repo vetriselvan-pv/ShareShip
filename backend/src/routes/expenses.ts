@@ -81,8 +81,8 @@ export async function expenseRoutes(fastify: FastifyInstance) {
 
   // GET all expenses data filtered by logged-in user (and partner if connected)
   fastify.get('/api/expenses', async (request) => {
-    const query = request.query as { userId?: string };
-    const currentUserId = (query.userId || 'vetriselvan_11').trim().toLowerCase().replace(/^@+/, '');
+    const query = (request.query || {}) as { userId?: string };
+    const currentUserId = (request.user?.userId || query.userId || '').trim().toLowerCase().replace(/^@+/, '');
 
     const allowedUserIds = new Set<string>();
     if (currentUserId) {
@@ -277,7 +277,7 @@ export async function expenseRoutes(fastify: FastifyInstance) {
   // POST add new expense
   fastify.post('/api/expenses', { preHandler: validateBody(CreateExpenseSchema) }, async (request, reply) => {
     const body = request.body as CreateExpenseInput;
-    const authorUserId = (body.userId || (request.query as any)?.userId || 'vetriselvan_11').trim().toLowerCase().replace(/^@+/, '');
+    const authorUserId = (request.user?.userId || body.userId || '').trim().toLowerCase().replace(/^@+/, '');
 
     let paidBy = body.paidBy || 'You';
     if (isMongoConnected && authorUserId) {
