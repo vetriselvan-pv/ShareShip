@@ -29,6 +29,18 @@ export const encryptionInterceptor: HttpInterceptorFn = (req, next) => {
             body: envelope,
             setHeaders: {
               'X-Payload-Encryption': 'aes-256-gcm',
+              'X-Accept-Encryption': 'aes-256-gcm',
+            },
+          })
+        )
+      )
+    : isAlreadyEncrypted
+    ? from(
+        Promise.resolve(
+          req.clone({
+            setHeaders: {
+              'X-Payload-Encryption': 'aes-256-gcm',
+              'X-Accept-Encryption': 'aes-256-gcm',
             },
           })
         )
@@ -37,7 +49,7 @@ export const encryptionInterceptor: HttpInterceptorFn = (req, next) => {
         Promise.resolve(
           req.clone({
             setHeaders: {
-              'X-Payload-Encryption': 'aes-256-gcm',
+              'X-Accept-Encryption': 'aes-256-gcm',
             },
           })
         )

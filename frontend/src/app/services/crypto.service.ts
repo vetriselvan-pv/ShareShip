@@ -12,7 +12,7 @@ export interface EncryptedEnvelope {
 })
 export class CryptoService {
   private cachedKey: CryptoKey | null = null;
-  private readonly secret: string = environment.aesSecret || 'shareship_aes_secret_key_v1_2026_secured';
+  private readonly secret: string = environment.aesSecret;
 
   private async getKey(): Promise<CryptoKey> {
     if (this.cachedKey) {

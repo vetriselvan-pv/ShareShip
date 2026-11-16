@@ -1,0 +1,23 @@
+{
+  "java.project.importExclusions": [
+    "**/node_modules/**",
+    "**/.metadata/**",
+    "**/archetype/**"
+  ],
+  "java.import.exclusions": [
+    "**/node_modules/**",
+    "**/.metadata/**",
+    "**/archetype/**"
+  ],
+  "gradle.autoDetect": "off",
+  "gradle.nestedProjects": [
+    "frontend/android"
+  ],
+  "java.gradle.buildServer.enabled": "off",
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/dist/**": true
+  }
+}
