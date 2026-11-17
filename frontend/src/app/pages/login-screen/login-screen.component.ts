@@ -179,7 +179,8 @@ import { AuthService } from '../../services/auth.service';
 
         <!-- 2. CREATE USER FORM -->
         @if (mode() === 'register') {
-          <form (ngSubmit)="handleRegisterSubmit()" class="w-full flex flex-col gap-3">
+          <!-- (ngSubmit)="handleRegisterSubmit()" -->
+          <form  class="w-full flex flex-col gap-3">
             <!-- Profile Photo Upload / Capture Provision (Optional) -->
             <div class="flex flex-col items-center gap-2 py-1">
               <div
@@ -340,7 +341,7 @@ import { AuthService } from '../../services/auth.service';
             }
 
             <!-- Primary Action Button: Create User -->
-            <button
+            <!-- <button
               type="submit"
               id="btn-create-user-submit"
               [disabled]="authService.isAuthenticating()"
@@ -367,7 +368,7 @@ import { AuthService } from '../../services/auth.service';
                 <span>Create User</span>
                 <span class="text-base font-semibold">✓</span>
               }
-            </button>
+            </button> -->
 
             <!-- Switch to Sign In Link -->
             <!-- <div class="text-center mt-2">
@@ -616,29 +617,29 @@ export class LoginScreenComponent {
     // Provision image: pass avatar preview if selected, otherwise pass empty string ''
     const avatarUrl = this.avatarPreview().trim() || '';
 
-    const res = await this.authService.register({
-      userId: cleanUserId,
-      name: this.newName.trim(),
-      email: this.newEmail.trim() || undefined,
-      password: this.newPassword,
-      avatarUrl,
-    });
+    // const res = await this.authService.register({
+    //   userId: cleanUserId,
+    //   name: this.newName.trim(),
+    //   email: this.newEmail.trim() || undefined,
+    //   password: this.newPassword,
+    //   avatarUrl,
+    // });
 
-    if (res.success) {
-      this.isSuccess.set(true);
-      this.statusMessage.set(`✓ User '@${cleanUserId}' created! Signing you in...`);
-      // Update login field with newly registered userId
-      this.username = cleanUserId;
-      this.password = this.newPassword;
+    // if (res.success) {
+    //   this.isSuccess.set(true);
+    //   this.statusMessage.set(`✓ User '@${cleanUserId}' created! Signing you in...`);
+    //   // Update login field with newly registered userId
+    //   this.username = cleanUserId;
+    //   this.password = this.newPassword;
 
-      setTimeout(async () => {
-        await this.authService.login(cleanUserId, this.newPassword);
-        this.navigateAfterAuth();
-      }, 900);
-    } else {
-      this.isSuccess.set(false);
-      this.statusMessage.set(res.error || 'User creation failed.');
-    }
+    //   setTimeout(async () => {
+    //     await this.authService.login(cleanUserId, this.newPassword);
+    //     this.navigateAfterAuth();
+    //   }, 900);
+    // } else {
+    //   this.isSuccess.set(false);
+    //   this.statusMessage.set(res.error || 'User creation failed.');
+    // }
   }
 
   async handleResetPasswordSubmit() {
